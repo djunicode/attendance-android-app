@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Attendance App</string>
+    <string name="title_activity_picker">PickerActivity</string>
 </resources>
