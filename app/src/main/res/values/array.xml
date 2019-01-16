@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="spinnerArrayDebug" >
+        <item>SE A</item>
+        <item>SE B</item>
+        <item>TE A</item>
+        <item>TE B</item>
+        <item>BE A</item>
+        <item>BE B</item>
+    </array>
+</resources>
