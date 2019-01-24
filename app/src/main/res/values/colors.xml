@@ -10,4 +10,7 @@
     <color name="secondaryTextColor">#ffffff</color>
     <color name="errorWidgetColor">#d32f2f</color>
     <color name="colorOnErrorWidget">#ffffff</color>
+    <color name="Grey">#7D8183</color>
+    <color name="DarkGrey">#383838</color>
+    <color name="White">#FFFFFF</color>
 </resources>
