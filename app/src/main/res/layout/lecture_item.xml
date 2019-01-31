@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingTop="16dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/txt_subName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txt_timing"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="23dp"
+        android:layout_marginStart="12dp"
+        android:text="AOA"
+        android:textAlignment="center"
+        android:textColor="@color/Grey"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/txt_classRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/txt_subName"
+        android:layout_marginTop="35dp"
+        android:text="Class 1A"
+        android:textAlignment="center"
+        android:textColor="@color/Grey"
+        android:textSize="12sp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/txt_class"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/txt_subName"
+        android:layout_marginEnd="23dp"
+        android:paddingTop="4dp"
+        android:text="S.E. A"
+        android:textAlignment="center"
+        android:textColor="@color/primaryColor"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/txt_timing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txt_classRoom"
+        android:layout_marginStart="-122dp"
+        android:layout_toEndOf="@+id/btn_cancel"
+        android:text="8:00"
+        android:textAlignment="center"
+        android:textColor="@color/DarkGrey"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="56dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="122dp"
+        android:layout_marginTop="68dp"
+        android:background="@drawable/btn_background_corners"
+        android:backgroundTint="@color/errorWidgetColor"
+        android:text="Cancel"
+        android:textColor="@color/White"
+        android:textSize="9sp" />
+
+    <Button
+        android:id="@+id/btn_takeAttendance"
+        android:layout_width="96dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/btn_cancel"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/btn_background_corners"
+        android:backgroundTint="@color/primaryColor"
+        android:text="Take Attendance"
+        android:textColor="@color/White"
+        android:textSize="9sp" />
+
+</RelativeLayout>

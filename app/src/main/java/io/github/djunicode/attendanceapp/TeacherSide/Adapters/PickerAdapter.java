@@ -1,4 +1,4 @@
-package io.github.djunicode.attendanceapp;
+package io.github.djunicode.attendanceapp.TeacherSide.Adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import io.github.djunicode.attendanceapp.R;
+import io.github.djunicode.attendanceapp.TeacherSide.Models.Student;
 
 
 public class PickerAdapter extends RecyclerView.Adapter<PickerAdapter.PickerViewHolder>{

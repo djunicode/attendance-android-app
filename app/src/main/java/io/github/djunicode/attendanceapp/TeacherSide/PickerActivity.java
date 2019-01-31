@@ -1,4 +1,4 @@
-package io.github.djunicode.attendanceapp;
+package io.github.djunicode.attendanceapp.TeacherSide;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,12 @@ import android.widget.SearchView;
 import android.widget.Switch;
 
 import java.util.ArrayList;
+
+import io.github.djunicode.attendanceapp.Constants;
+import io.github.djunicode.attendanceapp.R;
+import io.github.djunicode.attendanceapp.TeacherSide.Adapters.PickerAdapter;
+import io.github.djunicode.attendanceapp.TeacherSide.Models.Lecture;
+import io.github.djunicode.attendanceapp.TeacherSide.Models.Student;
 
 public class PickerActivity extends AppCompatActivity implements PickerAdapter.PickerViewHolder.OnMarkedPresent {
 
@@ -37,8 +43,9 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
         setSupportActionBar(toolbar);
         presentPercent = findViewById(R.id.presentPercent);
         if (intent != null) {
-            String subject = intent.getStringExtra(Constants.PICKER_ACTIVITY_SUBJECT);
-            String division = intent.getStringExtra(Constants.PICKER_ACTIVITY_DIVISION);
+            Lecture lecture = (Lecture) intent.getSerializableExtra("LectureData");
+            String subject = lecture.getSubjectName();
+            String division = lecture.getDivision();
             setTitle(subject + ": " + division);
         }
         studentList = getDummyList();

@@ -1,4 +1,4 @@
-package io.github.djunicode.attendanceapp;
+package io.github.djunicode.attendanceapp.TeacherSide.Models;
 
 import java.io.Serializable;
 

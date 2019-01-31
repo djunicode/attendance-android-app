@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PickerActivity"
+            android:name=".TeacherSide.PickerActivity"
             android:label="@string/title_activity_picker"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
