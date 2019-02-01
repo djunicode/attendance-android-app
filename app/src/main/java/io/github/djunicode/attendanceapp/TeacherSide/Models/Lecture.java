@@ -2,7 +2,7 @@ package io.github.djunicode.attendanceapp.TeacherSide.Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+//use LectureModel
 public class Lecture implements Serializable{
 
     private String subjectName;
