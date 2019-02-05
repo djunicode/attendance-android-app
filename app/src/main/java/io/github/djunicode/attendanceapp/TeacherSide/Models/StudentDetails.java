@@ -1,5 +1,5 @@
 package io.github.djunicode.attendanceapp.TeacherSide.Models;
-
+//use StudentDetailsModel in CommonModels
 public class StudentDetails {
     String name;
     long sapId;
@@ -16,3 +16,5 @@ public class StudentDetails {
         return sapId;
     }
 }
+
+
