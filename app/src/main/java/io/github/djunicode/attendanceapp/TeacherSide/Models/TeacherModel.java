@@ -2,7 +2,7 @@ package io.github.djunicode.attendanceapp.TeacherSide.Models;
 
 import java.util.List;
 
-class TeacherModel {
+public class TeacherModel {
     private TeacherDetailsModel teacherDetailsModel;
     private List<TeacherTimeTableModel> teacherTimeTableModel;
 

@@ -1,6 +1,6 @@
 package io.github.djunicode.attendanceapp.StudentSide.Models;
 
-class SubjectAttendanceModel {
+public class SubjectAttendanceModel {
     private Integer attended,conducted,subjectCode;
     private String name;
 
