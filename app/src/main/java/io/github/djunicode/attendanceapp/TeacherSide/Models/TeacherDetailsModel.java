@@ -1,6 +1,6 @@
 package io.github.djunicode.attendanceapp.TeacherSide.Models;
 
-class TeacherDetailsModel {
+public class TeacherDetailsModel {
     private String id,name,specialization;
 
 }

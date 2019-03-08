@@ -1,6 +1,6 @@
 package io.github.djunicode.attendanceapp.TeacherSide.Models;
 
-class TeacherTimeTableModel {
+public class TeacherTimeTableModel {
     private String date,day;
     private LectureModel lectureModel;
 

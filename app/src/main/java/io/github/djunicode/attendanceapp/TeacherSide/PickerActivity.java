@@ -15,11 +15,16 @@ import android.widget.Switch;
 
 import java.util.ArrayList;
 
+import io.github.djunicode.attendanceapp.CommonModels.StudentDetailsModel;
 import io.github.djunicode.attendanceapp.Constants;
+import io.github.djunicode.attendanceapp.MainActivity;
 import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.TeacherSide.Adapters.PickerAdapter;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.Lecture;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.Student;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PickerActivity extends AppCompatActivity implements PickerAdapter.PickerViewHolder.OnMarkedPresent {
 
@@ -32,6 +37,7 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
     private ArrayList<Student> studentList;
     private PickerAdapter pickerAdapter;
     private int present = 0;
+    String sem,subject,division;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,20 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
         }
         studentList = getDummyList();
         toolbar.setSubtitle("0 out of " + studentList.size() + " present");
+        //TODO:GET sem , subject and division values from intent
+        Call<ArrayList<StudentDetailsModel>> studentDetailsModelCall=MainActivity.retrofitInterface.studentList(sem,subject,division);
+        studentDetailsModelCall.enqueue(new Callback<ArrayList<StudentDetailsModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<StudentDetailsModel>> call, Response<ArrayList<StudentDetailsModel>> response) {
+                ArrayList<StudentDetailsModel>studentDetailsModelArrayList=response.body();
+                //TODO:FRONTEND USE THIS LIST OF STUDENTS
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<StudentDetailsModel>> call, Throwable t) {
+
+            }
+        });
         pickerAdapter = new PickerAdapter(this, studentList);
         list = findViewById(R.id.studentList);
         list.setLayoutManager(new GridLayoutManager(this,2));

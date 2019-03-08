@@ -1,6 +1,6 @@
 package io.github.djunicode.attendanceapp.TeacherSide.Models;
 
-class LectureModel {
+public class LectureModel {
     private String startTime;
     private String endTime;
     private String division;
