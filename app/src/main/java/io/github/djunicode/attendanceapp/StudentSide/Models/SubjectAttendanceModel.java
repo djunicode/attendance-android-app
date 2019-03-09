@@ -1,25 +1,25 @@
 package io.github.djunicode.attendanceapp.StudentSide.Models;
 
 public class SubjectAttendanceModel {
-    private int attended,conducted,subjectCode;
+    private Integer attended,conducted,subjectCode;
     private String name;
 
-    public SubjectAttendanceModel(int attended, int conducted, int subjectCode, String name) {
+    public SubjectAttendanceModel(Integer attended, Integer conducted, Integer subjectCode, String name) {
         this.attended = attended;
         this.conducted = conducted;
         this.subjectCode = subjectCode;
         this.name = name;
     }
 
-    public int getAttended() {
+    public Integer getAttended() {
         return attended;
     }
 
-    public int getConducted() {
+    public Integer getConducted() {
         return conducted;
     }
 
-    public int getSubjectCode() {
+    public Integer getSubjectCode() {
         return subjectCode;
     }
 

@@ -16,7 +16,6 @@ import android.widget.Switch;
 import java.util.ArrayList;
 
 import io.github.djunicode.attendanceapp.CommonModels.StudentDetailsModel;
-import io.github.djunicode.attendanceapp.Constants;
 import io.github.djunicode.attendanceapp.MainActivity;
 import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.TeacherSide.Adapters.PickerAdapter;
@@ -37,7 +36,7 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
     private ArrayList<Student> studentList;
     private PickerAdapter pickerAdapter;
     private int present = 0;
-    String sem,subject,division;
+    String sem, subject, division;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +56,11 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
         studentList = getDummyList();
         toolbar.setSubtitle("0 out of " + studentList.size() + " present");
         //TODO:GET sem , subject and division values from intent
-       Call<ArrayList<StudentDetailsModel>> studentDetailsModelCall=MainActivity.retrofitInterface.studentList(sem,subject,division);
+        Call<ArrayList<StudentDetailsModel>> studentDetailsModelCall = MainActivity.retrofitInterface.studentList(sem, subject, division);
         studentDetailsModelCall.enqueue(new Callback<ArrayList<StudentDetailsModel>>() {
             @Override
             public void onResponse(Call<ArrayList<StudentDetailsModel>> call, Response<ArrayList<StudentDetailsModel>> response) {
-                ArrayList<StudentDetailsModel>studentDetailsModelArrayList=response.body();
+                ArrayList<StudentDetailsModel> studentDetailsModelArrayList = response.body();
                 //TODO:FRONTEND USE THIS LIST OF STUDENTS
             }
 
@@ -72,7 +71,7 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
         });
         pickerAdapter = new PickerAdapter(this, studentList);
         list = findViewById(R.id.studentList);
-        list.setLayoutManager(new GridLayoutManager(this,2));
+        list.setLayoutManager(new GridLayoutManager(this, 2));
         list.setAdapter(pickerAdapter);
         toggleSwitch = findViewById(R.id.toggleSwitch);
         toggleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -82,12 +81,11 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
                 if (isChecked) {
                     present = studentList.size();
                     toggleSwitch.setText("Deselect All");
-                }
-                else {
+                } else {
                     present = 0;
                     toggleSwitch.setText("Select All");
                 }
-                presentPercent.setProgress(present * 100 /studentList.size());
+                presentPercent.setProgress(present * 100 / studentList.size());
                 toolbar.setSubtitle(present + " out of " + studentList.size() + " present");
             }
         });
@@ -118,54 +116,54 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
 
     public ArrayList<Student> getDummyList() {
         ArrayList<Student> students = new ArrayList<>();
-        students.add(new Student("60004170001","William\tHodges",false));
-        students.add(new Student("60004170002","Phil\tPaige",false));
-        students.add(new Student("60004170003","Sophie\tRees",false));
-        students.add(new Student("60004170004","Liam\tDyer",false));
-        students.add(new Student("60004170005","Joshua\tRussell",false));
-        students.add(new Student("60004170006","Rachel\tJohnston",false));
-        students.add(new Student("60004170007","Ella\tDickens",false));
-        students.add(new Student("60004170008","Rachel\tHardacre",false));
-        students.add(new Student("60004170009","Isaac\tMackenzie",false));
-        students.add(new Student("60004170010","Carl\tSimpson",false));
-        students.add(new Student("60004170011","Boris\tShort",false));
-        students.add(new Student("60004170012","Madeleine\tManning",false));
-        students.add(new Student("60004170013","Lauren\tRees",false));
-        students.add(new Student("60004170014","Stephanie\tBrown",false));
-        students.add(new Student("60004170015","James\tHamilton",false));
-        students.add(new Student("60004170016","John\tHodges",false));
-        students.add(new Student("60004170017","Bernadette\tBell",false));
-        students.add(new Student("60004170018","Steven\tPaterson",false));
-        students.add(new Student("60004170019","Megan\tWatson",false));
-        students.add(new Student("60004170020","Kimberly\tKing",false));
-        students.add(new Student("60004170021","Caroline\tNorth",false));
-        students.add(new Student("60004170022","Max\tWalker",false));
-        students.add(new Student("60004170023","Michelle\tChapman",false));
-        students.add(new Student("60004170024","Amanda\tNolan",false));
-        students.add(new Student("60004170025","Joe\tButler",false));
-        students.add(new Student("60004170026","Eric\tWalker",false));
-        students.add(new Student("60004170027","Megan\tFisher",false));
-        students.add(new Student("60004170028","Alexandra\tMitchell",false));
-        students.add(new Student("60004170029","Alexandra\tInce",false));
-        students.add(new Student("60004170030","Jason\tNolan",false));
-        students.add(new Student("60004170031","Phil\tMiller",false));
-        students.add(new Student("60004170032","Wanda\tLambert",false));
-        students.add(new Student("60004170033","Eric\tStewart",false));
-        students.add(new Student("60004170034","Angela\tDickens",false));
-        students.add(new Student("60004170035","Jack\tReid",false));
-        students.add(new Student("60004170036","Vanessa\tSpringer",false));
-        students.add(new Student("60004170037","Christopher\tSanderson",false));
-        students.add(new Student("60004170038","Massive Dummy List",false));
-        students.add(new Student("60004170039","I'm getting tired",false));
-        students.add(new Student("60004170040","That's enough",false));
+        students.add(new Student("60004170001", "William\tHodges", false));
+        students.add(new Student("60004170002", "Phil\tPaige", false));
+        students.add(new Student("60004170003", "Sophie\tRees", false));
+        students.add(new Student("60004170004", "Liam\tDyer", false));
+        students.add(new Student("60004170005", "Joshua\tRussell", false));
+        students.add(new Student("60004170006", "Rachel\tJohnston", false));
+        students.add(new Student("60004170007", "Ella\tDickens", false));
+        students.add(new Student("60004170008", "Rachel\tHardacre", false));
+        students.add(new Student("60004170009", "Isaac\tMackenzie", false));
+        students.add(new Student("60004170010", "Carl\tSimpson", false));
+        students.add(new Student("60004170011", "Boris\tShort", false));
+        students.add(new Student("60004170012", "Madeleine\tManning", false));
+        students.add(new Student("60004170013", "Lauren\tRees", false));
+        students.add(new Student("60004170014", "Stephanie\tBrown", false));
+        students.add(new Student("60004170015", "James\tHamilton", false));
+        students.add(new Student("60004170016", "John\tHodges", false));
+        students.add(new Student("60004170017", "Bernadette\tBell", false));
+        students.add(new Student("60004170018", "Steven\tPaterson", false));
+        students.add(new Student("60004170019", "Megan\tWatson", false));
+        students.add(new Student("60004170020", "Kimberly\tKing", false));
+        students.add(new Student("60004170021", "Caroline\tNorth", false));
+        students.add(new Student("60004170022", "Max\tWalker", false));
+        students.add(new Student("60004170023", "Michelle\tChapman", false));
+        students.add(new Student("60004170024", "Amanda\tNolan", false));
+        students.add(new Student("60004170025", "Joe\tButler", false));
+        students.add(new Student("60004170026", "Eric\tWalker", false));
+        students.add(new Student("60004170027", "Megan\tFisher", false));
+        students.add(new Student("60004170028", "Alexandra\tMitchell", false));
+        students.add(new Student("60004170029", "Alexandra\tInce", false));
+        students.add(new Student("60004170030", "Jason\tNolan", false));
+        students.add(new Student("60004170031", "Phil\tMiller", false));
+        students.add(new Student("60004170032", "Wanda\tLambert", false));
+        students.add(new Student("60004170033", "Eric\tStewart", false));
+        students.add(new Student("60004170034", "Angela\tDickens", false));
+        students.add(new Student("60004170035", "Jack\tReid", false));
+        students.add(new Student("60004170036", "Vanessa\tSpringer", false));
+        students.add(new Student("60004170037", "Christopher\tSanderson", false));
+        students.add(new Student("60004170038", "Massive Dummy List", false));
+        students.add(new Student("60004170039", "I'm getting tired", false));
+        students.add(new Student("60004170040", "That's enough", false));
         return students;
     }
 
-    public ArrayList<Student> applySearchResult(String query){
+    public ArrayList<Student> applySearchResult(String query) {
         ArrayList<Student> resultList = new ArrayList<>();
-        for(Student student : studentList){
+        for (Student student : studentList) {
             query = query.toLowerCase();
-            if(student.getStudentName().toLowerCase().contains(query)
+            if (student.getStudentName().toLowerCase().contains(query)
                     || student.getSapID().toLowerCase().contains(query))
                 resultList.add(student);
         }
