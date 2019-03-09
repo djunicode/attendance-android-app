@@ -95,3 +95,6 @@ public class MainActivity extends AppCompatActivity {
         lectureListView.setAdapter(myLectureListAdapt);
     }
 }
+
+
+
