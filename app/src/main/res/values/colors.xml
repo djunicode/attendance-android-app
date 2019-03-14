@@ -6,11 +6,16 @@
     <color name="secondaryColor">#5c6bc0</color>
     <color name="secondaryLightColor">#8e99f3</color>
     <color name="secondaryDarkColor">#26418f</color>
+    <color name="lightBlue">#00AAFF</color>
+    <color name="ring">#CCC614</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
-    <color name="errorWidgetColor">#d32f2f</color>
+    <color name="errorWidgetColor">#d63031</color>
     <color name="colorOnErrorWidget">#ffffff</color>
-    <color name="Grey">#7D8183</color>
+    <color name="Grey">#585858</color>
+    <color name="yellow">#f1c40f</color>
+    <color name="green">#27ae60</color>
     <color name="DarkGrey">#383838</color>
     <color name="White">#FFFFFF</color>
+    <color name="SmokeWhite">#F5F5F5</color>
 </resources>
