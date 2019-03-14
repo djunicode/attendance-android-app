@@ -4,6 +4,13 @@ public class SubjectAttendanceModel {
     private Integer attended,conducted,subjectCode;
     private String name;
 
+    public SubjectAttendanceModel(Integer attended, Integer conducted, Integer subjectCode, String name) {
+        this.attended = attended;
+        this.conducted = conducted;
+        this.subjectCode = subjectCode;
+        this.name = name;
+    }
+
     public Integer getAttended() {
         return attended;
     }
