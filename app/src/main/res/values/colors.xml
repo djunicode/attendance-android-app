@@ -13,9 +13,17 @@
     <color name="errorWidgetColor">#d63031</color>
     <color name="colorOnErrorWidget">#ffffff</color>
     <color name="Grey">#585858</color>
-    <color name="yellow">#f1c40f</color>
-    <color name="green">#27ae60</color>
     <color name="DarkGrey">#383838</color>
     <color name="White">#FFFFFF</color>
     <color name="SmokeWhite">#F5F5F5</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="light_purple">#E8E1E7</color>
+    <color name="light_green">#50d050</color>
+    <color name="dark_green">#008000</color>
+    <color name="light_gray">#BBC2C2</color>
+    <color name="dark_blue">#2c3e50</color>
 </resources>

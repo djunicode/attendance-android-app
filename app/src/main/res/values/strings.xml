@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Attendance App</string>
     <string name="title_activity_picker">PickerActivity</string>
+
+    <string name="password">Password</string>
+    <string name="log_in">Log In</string>
+    <string name="sap_id">SAP ID</string>
 </resources>
