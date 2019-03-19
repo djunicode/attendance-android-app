@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:background="@color/dark_blue"
+    >
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="370dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/relative_layout_curved_corners"
+        android:gravity="center"
+        android:alpha="0.95"
+
+        >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_above="@+id/autocomplete_sap"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/user_logo"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/dark_blue"/>
+
+        <!--#2c3e50-->
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/autocomplete_sap"
+            android:layout_above="@+id/s1"
+            android:layout_alignParentStart="true"
+            android:textColorHint="@color/black">
+
+            <AutoCompleteTextView
+                android:id="@+id/sap_id"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="50dp"
+                android:hint="@string/sap_id"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textIsSelectable="false"
+                android:textSize="20sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/s1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:textColorHint="@color/black">
+
+            <AutoCompleteTextView
+                android:id="@+id/password"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="50dp"
+                android:hint="@string/password"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textIsSelectable="false"
+                android:textSize="20sp" />
+        </android.support.design.widget.TextInputLayout>
+
+
+
+
+        <Button
+            android:id="@+id/button_login"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/s1"
+            android:layout_centerHorizontal="true"
+            style="@style/EqualButtons"
+            android:text="@string/log_in"
+            />
+    </RelativeLayout>
+</RelativeLayout>
