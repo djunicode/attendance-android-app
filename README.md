@@ -1,12 +1,10 @@
 # DJ Attendance Android App
-
+Attendence management android app for DJ Sanghvi College.
 
 #### Use Cases: 
-* 
-* 
-* 
-* 
-* 
+* Teachers can take attendence of students present
+* Students can view past attendence record
+* Teachers can reschudule lectures
 
 ## License
 
