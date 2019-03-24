@@ -1,4 +1,4 @@
-# DJ Attendance Android App [![Build Status](https://travis-ci.org/djunicode/attendance-android-app.svg?branch=master)](https://travis-ci.org/djunicode/attendance-android-app)
+# DJ Attendance Android App
 
 
 #### Use Cases: 
