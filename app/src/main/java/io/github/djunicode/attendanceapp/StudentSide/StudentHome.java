@@ -22,7 +22,7 @@ public class StudentHome extends AppCompatActivity {
     public static RetrofitInterface retrofitInterface;
     private static final String TAG = "StudentHome";
     TextView predictionView, percentView, nameView, initialsView;
-    public static String STUDENT_NAME = "Yash Javeri";   //backend people set it!
+    public static String STUDENT_NAME = "John Doe";   //backend people set it!
     private int totalConducted;
     private int totalAttended;
     SubjectAttendanceAdapter subjectAttendanceAdapter;
