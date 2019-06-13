@@ -2,7 +2,6 @@ package io.github.djunicode.attendanceapp.StudentSide.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +56,7 @@ public class SubjectAttendanceAdapter extends BaseAdapter {
         String predictionText;
 
         if (percent >= 75.0) {
-            predictionView.setTextColor(context.getResources().getColor(R.color.green));
+            predictionView.setTextColor(context.getResources().getColor(R.color.dark_green));
             predictionText = "Can bunk: " + (int)((4*(double)sam.getAttended()-3*(double)sam.getConducted())/3);
         } else if (percent < 75.0 && percent >= 70.0) {
             predictionView.setTextColor(context.getResources().getColor(R.color.yellow));

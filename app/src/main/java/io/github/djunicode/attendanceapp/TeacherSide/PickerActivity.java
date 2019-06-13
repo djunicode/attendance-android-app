@@ -16,10 +16,6 @@ import android.widget.Switch;
 import java.util.ArrayList;
 
 import io.github.djunicode.attendanceapp.CommonModels.StudentDetailsModel;
-<<<<<<< HEAD
-import io.github.djunicode.attendanceapp.Constants;
-=======
->>>>>>> yash/development
 import io.github.djunicode.attendanceapp.MainActivity;
 import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.TeacherSide.Adapters.PickerAdapter;
@@ -40,11 +36,7 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
     private ArrayList<Student> studentList;
     private PickerAdapter pickerAdapter;
     private int present = 0;
-<<<<<<< HEAD
     String sem,subject,division;
-=======
-    String sem, subject, division;
->>>>>>> yash/development
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

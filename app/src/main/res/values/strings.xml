@@ -5,4 +5,5 @@
     <string name="password">Password</string>
     <string name="log_in">Log In</string>
     <string name="sap_id">SAP ID</string>
+    <string name="title_activity_timetable">TimetableActivity</string>
 </resources>
