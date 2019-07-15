@@ -1,5 +1,6 @@
 package io.github.djunicode.attendanceapp.TeacherSide;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
@@ -13,6 +14,7 @@ import io.github.djunicode.attendanceapp.RetrofitInterface;
 import io.github.djunicode.attendanceapp.TeacherSide.Adapters.MyLectureListAdapt;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.Lecture;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.TeacherTimeTableModel;
+import okhttp3.HttpUrl;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,15 +25,14 @@ public class TeacherHome extends AppCompatActivity {
     ArrayList<Lecture> lectureList;
     ListView lectureListView;
     MyLectureListAdapt myLectureListAdapt;
-    RetrofitInterface retrofitInterface;
+
+    SharedPreferences spref;
+    SharedPreferences.Editor edit;
     String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_home);
-//        Retrofit retrofit=new Retrofit.Builder().baseUrl("Enter URL HERE").addConverterFactory(GsonConverterFactory.create()).build();
-//        RetrofitInterface retrofitInterface =retrofit.create(RetrofitInterface.class);
-
         init();
         setListeners();
     }

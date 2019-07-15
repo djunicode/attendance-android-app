@@ -51,7 +51,7 @@
                 android:layout_marginTop="50dp"
                 android:hint="@string/sap_id"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="number"
                 android:maxLines="1"
                 android:textIsSelectable="false"
                 android:textSize="20sp" />
