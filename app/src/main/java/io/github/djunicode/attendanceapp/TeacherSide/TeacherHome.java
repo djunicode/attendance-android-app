@@ -26,10 +26,7 @@ public class TeacherHome extends AppCompatActivity {
     ArrayList<Lecture> lectureList = new ArrayList<>();
     ListView lectureListView;
     MyLectureListAdapt myLectureListAdapt;
-
     SharedPreferences spref;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +38,6 @@ public class TeacherHome extends AppCompatActivity {
         RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
         //TODO: CHANGE DATE
         Call<WebLectureOfDay> lectureOfDay = retrofitInterface.teacherTimeTable("Token " + spref.getString("token", null), "04-07-2019");
-
         lectureOfDay.enqueue(new Callback<WebLectureOfDay>() {
             @Override
             public void onResponse(Call<WebLectureOfDay> call, Response<WebLectureOfDay> response) {
@@ -50,7 +46,7 @@ public class TeacherHome extends AppCompatActivity {
                 if (webLectureOfDays != null) {
 
                     for (WebLectureOfDayDetails e : webLectureOfDays.getLectures()) {
-                        lectureList.add(new Lecture(e.getSubject().toString(), e.getTiming(), e.getRoomNumber(), e.getDiv().substring(3), e.getDiv().substring(0, 2)));
+                        lectureList.add(new Lecture(e.getSubject(), e.getTiming(), e.getRoomNumber(), e.getDiv().substring(3), e.getDiv().substring(0, 2)));
 
                     }
                     lectureListView = findViewById(R.id.list_lectures);
@@ -66,8 +62,5 @@ public class TeacherHome extends AppCompatActivity {
                 System.out.println("" + t.getMessage());
             }
         });
-
-
     }
-
 }
