@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                 sap=mSap.getText().toString();
                 password=mPassword.getText().toString();
 
-                retrofit2.Retrofit retrofit=new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
+               Retrofit retrofit=new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
                 RetrofitInterface retrofitInterface =retrofit.create(RetrofitInterface.class);
                 final TokenRequest tokenRequest=new TokenRequest(""+mSap.getText().toString(),""+mPassword.getText().toString());
                 Call<TokenResponse> tokenResponseCall=retrofitInterface.login(tokenRequest);
@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                         TokenResponse tokenResponse=response.body();
                         HttpUrl url=response.raw().request().url();
-                        System.out.println(""+url);
                         if (tokenResponse != null) {
                             edit.putString("name",tokenResponse.getUser().getName());
                             edit.putString("sapId",tokenResponse.getUser().getSapID());

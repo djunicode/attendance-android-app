@@ -1,13 +1,17 @@
 package io.github.djunicode.attendanceapp.StudentSide.Models;
 
 public class SubjectAttendanceModel {
-    private Integer attended,conducted,subjectCode;
-    private String name;
+    private Integer attended,conducted;
+    private String lectureType,name;
 
-    public SubjectAttendanceModel(Integer attended, Integer conducted, Integer subjectCode, String name) {
+    public String getLectureType() {
+        return lectureType;
+    }
+
+    public SubjectAttendanceModel(Integer attended, Integer conducted, String lectureType, String name) {
         this.attended = attended;
         this.conducted = conducted;
-        this.subjectCode = subjectCode;
+        this.lectureType = lectureType;
         this.name = name;
     }
 
@@ -19,9 +23,7 @@ public class SubjectAttendanceModel {
         return conducted;
     }
 
-    public Integer getSubjectCode() {
-        return subjectCode;
-    }
+
 
     public String getName() {
         return name;

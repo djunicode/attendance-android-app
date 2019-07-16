@@ -26,7 +26,7 @@
                 android:layout_alignParentTop="true"
                 android:background="@drawable/circle"
                 android:gravity="center"
-                android:text="YJ"
+
                 android:textColor="@color/DarkGrey"
                 android:textSize="18dp"
                 android:textStyle="bold" />
@@ -34,18 +34,7 @@
         </RelativeLayout>
 
 
-        <TextView
-            android:id="@+id/txt_main_bunk"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_mainPercent"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="51dp"
-            android:text="You need to attend \n 3 more lectures"
-            android:textAlignment="center"
-            android:textColor="@color/SmokeWhite"
-            android:textSize="14sp" />
+
 
         <TextView
             android:id="@+id/txt_name"
@@ -57,7 +46,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginBottom="5dp"
             android:paddingTop="4dp"
-            android:text="Yash Javeri"
+
             android:textColor="@color/SmokeWhite"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -70,7 +59,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="61dp"
             android:paddingBottom="8dp"
-            android:text="72.12%"
+
             android:textColor="@color/SmokeWhite"
             android:textSize="34sp"
             android:textStyle="bold" />
