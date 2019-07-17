@@ -13,23 +13,24 @@ import java.util.ArrayList;
 
 import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.Student;
+import io.github.djunicode.attendanceapp.TeacherSide.Models.WebStudentsList;
 
 
 public class PickerAdapter extends RecyclerView.Adapter<PickerAdapter.PickerViewHolder>{
     private static final String TAG = "PickerAdapter";
 
-    private ArrayList<Student> studentList;
+    private ArrayList<WebStudentsList> studentList;
     private PickerViewHolder.OnMarkedPresent mOnMarkedPresent;
 
     public void setAllStatus(boolean status){
-        for (Student student : studentList) student.setPresent(status);
+        for (WebStudentsList student : studentList) student.setAttendance((status)? 1 : 0);
         notifyDataSetChanged();
     }
 
-    public PickerAdapter(PickerViewHolder.OnMarkedPresent onMarkedPresent, ArrayList<Student> studentList) {
+    public PickerAdapter(PickerViewHolder.OnMarkedPresent onMarkedPresent, ArrayList<WebStudentsList> studentList) {
         this.studentList = studentList;
         this.mOnMarkedPresent = onMarkedPresent;
-        Log.d(TAG, "PickerAdapter: " + studentList.get(0).getStudentName());
+        Log.d(TAG, "PickerAdapter: " + studentList.get(0).getName());
     }
 
     @NonNull
@@ -42,10 +43,10 @@ public class PickerAdapter extends RecyclerView.Adapter<PickerAdapter.PickerView
 
     @Override
     public void onBindViewHolder(@NonNull PickerViewHolder holder, int position) {
-        Student student = studentList.get(position);
-        holder.nameTV.setText(student.getStudentName());
+        WebStudentsList student = studentList.get(position);
+        holder.nameTV.setText(student.getName());
         holder.sapidTV.setText(student.getSapID());
-        holder.presentStatus.setChecked(student.isPresent());
+        holder.presentStatus.setChecked((student.getAttendance() == 0) ? false : true);
         holder.setStudent(student);
     }
 
@@ -54,7 +55,7 @@ public class PickerAdapter extends RecyclerView.Adapter<PickerAdapter.PickerView
         return ((studentList != null || studentList.size() != 0) ? studentList.size() : 0);
     }
 
-    public void updateList(ArrayList<Student> newList){
+    public void updateList(ArrayList<WebStudentsList> newList){
         studentList = newList;
         notifyDataSetChanged();
     }
@@ -66,7 +67,7 @@ public class PickerAdapter extends RecyclerView.Adapter<PickerAdapter.PickerView
         TextView nameTV;
         TextView sapidTV;
         View.OnClickListener listener;
-        Student student;
+        WebStudentsList student;
         public interface OnMarkedPresent{
             void onMarkedPresent(boolean isIncreased);
         }
@@ -81,7 +82,7 @@ public class PickerAdapter extends RecyclerView.Adapter<PickerAdapter.PickerView
                 @Override
                 public void onClick(View v) {
                     if (v != presentStatus) presentStatus.toggle();
-                    student.setPresent(presentStatus.isChecked());
+                    student.setAttendance((presentStatus.isChecked())? 1 : 0);
                     onMarkedPresent.onMarkedPresent(presentStatus.isChecked());
                 }
             };
@@ -89,7 +90,7 @@ public class PickerAdapter extends RecyclerView.Adapter<PickerAdapter.PickerView
             presentStatus.setOnClickListener(listener);
         }
 
-        public void setStudent(Student student){
+        public void setStudent(WebStudentsList student){
             this.student = student;
         }
     }

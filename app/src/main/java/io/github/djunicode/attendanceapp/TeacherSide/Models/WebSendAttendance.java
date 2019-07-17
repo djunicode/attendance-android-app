@@ -26,6 +26,16 @@ public class WebSendAttendance {
     @SerializedName("date")
     String date;
 
+    public WebSendAttendance(ArrayList<WebStudentsList> students, String subject, String div, String room, String startTime, String endTime, String date) {
+        this.students = students;
+        this.subject = subject;
+        this.div = div;
+        this.room = room;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.date = date;
+    }
+
     public String getSubject() {
         return subject;
     }

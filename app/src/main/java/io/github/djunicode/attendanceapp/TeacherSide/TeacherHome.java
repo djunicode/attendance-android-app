@@ -42,7 +42,6 @@ public class TeacherHome extends AppCompatActivity {
             @Override
             public void onResponse(Call<WebLectureOfDay> call, Response<WebLectureOfDay> response) {
                 WebLectureOfDay webLectureOfDays = response.body();
-                System.out.println("" + response.raw().request().url());
                 if (webLectureOfDays != null) {
 
                     for (WebLectureOfDayDetails e : webLectureOfDays.getLectures()) {
@@ -59,7 +58,7 @@ public class TeacherHome extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<WebLectureOfDay> call, Throwable t) {
-                System.out.println("" + t.getMessage());
+                Toast.makeText(TeacherHome.this,""+t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
     }

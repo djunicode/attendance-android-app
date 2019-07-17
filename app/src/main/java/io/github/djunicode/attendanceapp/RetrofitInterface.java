@@ -1,11 +1,6 @@
 package io.github.djunicode.attendanceapp;
-
-import java.util.ArrayList;
-
-import io.github.djunicode.attendanceapp.CommonModels.StudentDetailsModel;
 import io.github.djunicode.attendanceapp.StudentSide.WebLecturesAttended;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebLectureOfDay;
-import io.github.djunicode.attendanceapp.TeacherSide.Models.WebLectureOfDayDetails;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebSendAttendance;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebStudents;
 import io.github.djunicode.attendanceapp.TeacherSide.TokenRequest;
@@ -16,7 +11,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface RetrofitInterface {
     @GET("get-lectures-of-the-day/{date}")
