@@ -48,6 +48,7 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
     private int present = 0;
     SharedPreferences spref;
     String batch, subject, startTime, endTime, date, room;
+    int WebPresent=0;
 
 
     @Override
@@ -74,14 +75,19 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
         }
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<WebStudents> webStudentsCall = retrofitInterface.studentList("Token " + spref.getString("token", null), subject, batch);
+        //TODO:CHANGE DATE
+        Call<WebStudents> webStudentsCall = retrofitInterface.studentList("Token " + spref.getString("token", null), subject, batch,"04-07-2019",startTime);
         webStudentsCall.enqueue(new Callback<WebStudents>() {
             @Override
             public void onResponse(Call<WebStudents> call, Response<WebStudents> response) {
                 WebStudents webStudents = response.body();
                 if (webStudents != null) {
                     for (WebStudentsList e : webStudents.getStudents()) {
-                        studentList.add(new WebStudentsList(e.getSapID(), e.getName(), e.getAttendance()));
+                        studentList.add(new WebStudentsList( e.getName(),e.getSapID(), e.getAttendance()));
+                        if(e.getAttendance()==1)
+                        {
+                            WebPresent++;
+                        }
                     }
                     toolbar.setSubtitle("0 out of " + studentList.size() + " present");
                     pickerAdapter = new PickerAdapter(PickerActivity.this, studentList);
@@ -143,15 +149,16 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.submit) {
+            //TODO:CHANGE DATE
             WebSendAttendance webSendAttendance = new WebSendAttendance(studentList, subject, batch, room, startTime, endTime, "04-07-2019");
             Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
             RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
-            Call<WebSendAttendance> webStudentsListCall = retrofitInterface.sendAttendance(webSendAttendance);
+            Call<WebSendAttendance> webStudentsListCall = retrofitInterface.sendAttendance("Token " + spref.getString("token", null),webSendAttendance);
             webStudentsListCall.enqueue(new Callback<WebSendAttendance>() {
                 @Override
                 public void onResponse(Call<WebSendAttendance> call, Response<WebSendAttendance> response) {
                     WebSendAttendance webSendAttendance1 = response.body();
-                    Toast.makeText(PickerActivity.this,"yeyeyeye",Toast.LENGTH_LONG).show();
+                    Toast.makeText(PickerActivity.this,"Attendance saved successfully",Toast.LENGTH_LONG).show();
 
                 }
 

@@ -16,8 +16,8 @@ public interface RetrofitInterface {
     @GET("get-lectures-of-the-day/{date}")
     Call<WebLectureOfDay> teacherTimeTable(@Header("Authorization")String header, @Path("date")String date);
 
-    @GET("get-student-list/{subject}/{batch}")
-    Call<WebStudents> studentList(@Header("Authorization")String header,@Path("subject")String subject,@Path("batch")String batch);
+    @GET("get-student-list/{subject}/{batch}/{date}/{startTime}")
+    Call<WebStudents> studentList(@Header("Authorization")String header,@Path("subject")String subject,@Path("batch")String batch,@Path("date")String date,@Path("startTime")String startTime);
 
     @GET("get-students-attendance/")
     Call<WebLecturesAttended> studentLectures(@Header("Authorization")String header);
@@ -26,5 +26,6 @@ public interface RetrofitInterface {
     Call<TokenResponse> login(@Body TokenRequest tokenRequest);
 
     @POST("save-attendance/")
-    Call<WebSendAttendance>sendAttendance(@Body WebSendAttendance webSendAttendance);
+    Call<WebSendAttendance>sendAttendance(@Header("Authorization")String header,@Body WebSendAttendance webSendAttendance);
+
 }
