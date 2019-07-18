@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
@@ -20,12 +19,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
 import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.RetrofitInterface;
 import io.github.djunicode.attendanceapp.TeacherSide.Adapters.PickerAdapter;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.Lecture;
-import io.github.djunicode.attendanceapp.TeacherSide.Models.Student;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebSendAttendance;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebStudents;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebStudentsList;
@@ -88,7 +85,8 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
                             WebPresent++;
                         }
                     }
-                    toolbar.setSubtitle("0 out of " + studentList.size() + " present");
+                    present = WebPresent;
+                    toolbar.setSubtitle(WebPresent + " out of " + studentList.size() + " present");
                     pickerAdapter = new PickerAdapter(PickerActivity.this, studentList);
                     list = findViewById(R.id.studentList);
                     list.setLayoutManager(new GridLayoutManager(PickerActivity.this, 2));
@@ -118,8 +116,6 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
 
             }
         });
-
-
     }
 
     @Override
