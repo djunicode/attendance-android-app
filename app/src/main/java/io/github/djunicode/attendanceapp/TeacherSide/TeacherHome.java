@@ -2,7 +2,10 @@ package io.github.djunicode.attendanceapp.TeacherSide;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,21 +19,35 @@ import io.github.djunicode.attendanceapp.TeacherSide.Adapters.MyLectureListAdapt
 import io.github.djunicode.attendanceapp.TeacherSide.Models.Lecture;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebLectureOfDay;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebLectureOfDayDetails;
+import io.github.djunicode.attendanceapp.TeacherSide.FormDialogFragment.OnDetailsSaved;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class TeacherHome extends AppCompatActivity {
+public class TeacherHome extends AppCompatActivity implements OnDetailsSaved{
     ArrayList<Lecture> lectureList = new ArrayList<>();
     ListView lectureListView;
     MyLectureListAdapt myLectureListAdapt;
     SharedPreferences spref;
+
+    private FloatingActionButton newLectureFAB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_home);
+
+        newLectureFAB = findViewById(R.id.new_lecture_fab);
+        newLectureFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                FormDialogFragment fragment = new FormDialogFragment();
+                fragment.show(transaction, "form-dialog-fragment");
+            }
+        });
+
         spref = getApplicationContext().getSharedPreferences("user", MODE_PRIVATE);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String format = sdf.format(Calendar.getInstance().getTime());
@@ -51,7 +68,7 @@ public class TeacherHome extends AppCompatActivity {
                     }
                     lectureListView = findViewById(R.id.list_lectures);
                     myLectureListAdapt = new MyLectureListAdapt(TeacherHome.this, lectureList);
-                    lectureListView.setAdapter(myLectureListAdapt);
+//                    lectureListView.setAdapter(myLectureListAdapt);
                 } else {
                     Toast.makeText(TeacherHome.this, "Something went wrong", Toast.LENGTH_LONG).show();
                 }
@@ -62,5 +79,10 @@ public class TeacherHome extends AppCompatActivity {
                 Toast.makeText(TeacherHome.this,""+t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onDetailsSaved(String year, String subject, String startTime, String endTime) {
+
     }
 }
