@@ -1,5 +1,6 @@
 package io.github.djunicode.attendanceapp.TeacherSide;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -26,13 +27,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class TeacherHome extends AppCompatActivity implements OnDetailsSaved{
+public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
     ArrayList<Lecture> lectureList = new ArrayList<>();
     ListView lectureListView;
     MyLectureListAdapt myLectureListAdapt;
     SharedPreferences spref;
+    Lecture lectureForm;
 
     private FloatingActionButton newLectureFAB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,39 +53,51 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved{
 
         spref = getApplicationContext().getSharedPreferences("user", MODE_PRIVATE);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        String format = sdf.format(Calendar.getInstance().getTime());
+        String date = sdf.format(Calendar.getInstance().getTime());
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
-        //TODO: CHANGE DATE
-        Call<WebLectureOfDay> lectureOfDay = retrofitInterface.teacherTimeTable("Token " + spref.getString("token", null), "04-07-2019");
+        Call<WebLectureOfDay> lectureOfDay = retrofitInterface.teacherTimeTable("Token " + spref.getString("token", null), date);
         lectureOfDay.enqueue(new Callback<WebLectureOfDay>() {
             @Override
             public void onResponse(Call<WebLectureOfDay> call, Response<WebLectureOfDay> response) {
                 WebLectureOfDay webLectureOfDays = response.body();
                 if (webLectureOfDays != null) {
+                    if (webLectureOfDays.getLectures().size() != 0) {
+                        for (WebLectureOfDayDetails e : webLectureOfDays.getLectures()) {
 
-                    for (WebLectureOfDayDetails e : webLectureOfDays.getLectures()) {
-                        //TODO:e.getAttendanceTaken
-                        lectureList.add(new Lecture(e.getSubject(), e.getTiming(), e.getRoomNumber(), e.getDiv().substring(3), e.getDiv().substring(0, 2),e.getAttendanceTaken()));
+                            lectureList.add(new Lecture(e.getSubject(), e.getTiming(), e.getRoomNumber(), e.getDiv().substring(3), e.getDiv().substring(0, 2), e.getAttendanceTaken()));
 
+                        }
+                        lectureListView = findViewById(R.id.list_lectures);
+                        myLectureListAdapt = new MyLectureListAdapt(TeacherHome.this, lectureList);
+                    lectureListView.setAdapter(myLectureListAdapt);
+                    } else {
+                        Toast.makeText(TeacherHome.this, "Something went wrong. Please try again", Toast.LENGTH_LONG).show();
                     }
-                    lectureListView = findViewById(R.id.list_lectures);
-                    myLectureListAdapt = new MyLectureListAdapt(TeacherHome.this, lectureList);
-//                    lectureListView.setAdapter(myLectureListAdapt);
-                } else {
-                    Toast.makeText(TeacherHome.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(TeacherHome.this,"Something went wrong. Please try again.",Toast.LENGTH_LONG).show();
+
                 }
             }
 
+
             @Override
             public void onFailure(Call<WebLectureOfDay> call, Throwable t) {
-                Toast.makeText(TeacherHome.this,""+t.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(TeacherHome.this, "" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
+
     @Override
-    public void onDetailsSaved(String year, String subject, String startTime, String endTime) {
+    public void onDetailsSaved(String year, String subject, String startTime, String endTime,String roomNumber,String division) {
+        lectureForm=new Lecture(subject,startTime+":00 - "+endTime+":00",roomNumber,division,year,0);
+        Intent intent = new Intent(TeacherHome.this, PickerActivity.class);
+        intent.putExtra("LectureData", lectureForm);
+        startActivity(intent);
 
     }
+
 }

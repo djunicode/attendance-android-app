@@ -75,8 +75,7 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
         }
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
-        //TODO:CHANGE DATE
-        Call<WebStudents> webStudentsCall = retrofitInterface.studentList("Token " + spref.getString("token", null), subject, batch,"04-07-2019",startTime);
+        Call<WebStudents> webStudentsCall = retrofitInterface.studentList("Token " + spref.getString("token", null), subject, batch,date,startTime);
         webStudentsCall.enqueue(new Callback<WebStudents>() {
             @Override
             public void onResponse(Call<WebStudents> call, Response<WebStudents> response) {
@@ -149,8 +148,9 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.submit) {
-            //TODO:CHANGE DATE
-            WebSendAttendance webSendAttendance = new WebSendAttendance(studentList, subject, batch, room, startTime, endTime, "04-07-2019");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String date = sdf.format(Calendar.getInstance().getTime());
+            WebSendAttendance webSendAttendance = new WebSendAttendance(studentList, subject, batch, room, startTime, endTime, date);
             Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
             RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
             Call<WebSendAttendance> webStudentsListCall = retrofitInterface.sendAttendance("Token " + spref.getString("token", null),webSendAttendance);
@@ -158,8 +158,13 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
                 @Override
                 public void onResponse(Call<WebSendAttendance> call, Response<WebSendAttendance> response) {
                     WebSendAttendance webSendAttendance1 = response.body();
-                    Toast.makeText(PickerActivity.this,"Attendance saved successfully",Toast.LENGTH_LONG).show();
-
+                    if(webSendAttendance1!=null) {
+                        Toast.makeText(PickerActivity.this, "Attendance saved successfully", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(PickerActivity.this, "Something went wrong. Please try again", Toast.LENGTH_LONG).show();
+                    }
                 }
 
                 @Override
@@ -192,4 +197,10 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
         toolbar.setSubtitle(present + " out of " + studentList.size() + " present");
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(PickerActivity.this,TeacherHome.class));
+        finish();
+    }
 }

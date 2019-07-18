@@ -54,7 +54,7 @@ public class MyLectureListAdapt extends BaseAdapter{
         TextView classRoomView = relativeLayoutItem.findViewById(R.id.txt_classRoom);
         Button takeAttendance = relativeLayoutItem.findViewById(R.id.btn_takeAttendance);
 
-        if(lectureList.get(i).getAttendanceTaken()==1)
+        if(lo.getAttendanceTaken()==1)
         {
             attendanceTaken.setVisibility(View.VISIBLE);
         }

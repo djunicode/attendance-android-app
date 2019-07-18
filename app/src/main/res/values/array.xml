@@ -1,23 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="spinnerArrayDebug" >
-        <item>AOA</item>
-        <item>ECCF</item>
-        <item>DEMM</item>
-        <item>SON</item>
-        <item>CYKA</item>
-        <item>BLYAT</item>
-    </array>
-
-    <array name="yearArray" >
-        <item>FE</item>
-        <item>SE</item>
-        <item>TE</item>
-        <item>BE</item>
-    </array>
-
-    <array name="divisionArray">
-        <item>A</item>
-        <item>B</item>
+        <item>SE A</item>
+        <item>SE B</item>
+        <item>TE A</item>
+        <item>TE B</item>
+        <item>BE A</item>
+        <item>BE B</item>
     </array>
 </resources>

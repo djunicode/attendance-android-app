@@ -22,6 +22,7 @@ public class Lecture implements Serializable{
         this.classRoomName = classRoomName;
         this.division = division;
         this.year = year;
+        this.attendanceTaken=attendanceTaken;
     }
 
     public String getSubjectName() {

@@ -20,6 +20,7 @@ import io.github.djunicode.attendanceapp.StudentSide.Adapters.SubjectAttendanceA
 import io.github.djunicode.attendanceapp.StudentSide.Models.SubjectAttendanceModel;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.Student;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebLectureOfDay;
+import io.github.djunicode.attendanceapp.TeacherSide.TeacherHome;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,7 +38,8 @@ public class StudentHome extends AppCompatActivity {
     SubjectAttendanceAdapter subjectAttendanceAdapter;
     ArrayList<SubjectAttendanceModel> subjectModelList;
     ListView subListView;
-    public  SharedPreferences spref;
+    public SharedPreferences spref;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
@@ -69,24 +71,25 @@ public class StudentHome extends AppCompatActivity {
     }
 
     private void loadData() {
-        Retrofit retrofit=new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
-        RetrofitInterface retrofitInterface =retrofit.create(RetrofitInterface.class);
-        spref=getApplicationContext().getSharedPreferences("user",MODE_PRIVATE);
-        Call<WebLecturesAttended> webLecturesAttendedCall=retrofitInterface.studentLectures("Token "+spref.getString("token",null));
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
+        RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
+        spref = getApplicationContext().getSharedPreferences("user", MODE_PRIVATE);
+        Call<WebLecturesAttended> webLecturesAttendedCall = retrofitInterface.studentLectures("Token " + spref.getString("token", null));
 
         webLecturesAttendedCall.enqueue(new Callback<WebLecturesAttended>() {
             @Override
             public void onResponse(Call<WebLecturesAttended> call, Response<WebLecturesAttended> response) {
-                WebLecturesAttended webLecturesAttended=response.body();
-                if(webLecturesAttended!=null) {
-                    for (WebIndividualLectures e : webLecturesAttended.getAttendance()) {
-                        subjectModelList.add(new SubjectAttendanceModel(Integer.parseInt(e.getAttended()), Integer.parseInt(e.getTotal()), e.getType(), "" + e.getSubject()));
-                    }
-                    for (SubjectAttendanceModel sam : subjectModelList) {
-                        totalConducted += sam.getConducted();
-                        totalAttended += sam.getAttended();
-                    }
-                    double totalPercent = ((double) totalAttended * 100) / (double) totalConducted;
+                WebLecturesAttended webLecturesAttended = response.body();
+                if (webLecturesAttended != null) {
+                    if (webLecturesAttended.getAttendance().size() != 0) {
+                        for (WebIndividualLectures e : webLecturesAttended.getAttendance()) {
+                            subjectModelList.add(new SubjectAttendanceModel(Integer.parseInt(e.getAttended()), Integer.parseInt(e.getTotal()), e.getType(), "" + e.getSubject()));
+                        }
+                        for (SubjectAttendanceModel sam : subjectModelList) {
+                            totalConducted += sam.getConducted();
+                            totalAttended += sam.getAttended();
+                        }
+                        double totalPercent = ((double) totalAttended * 100) / (double) totalConducted;
 //                String predictionText;
 //
 //                if (totalPercent >= 75.0)
@@ -96,24 +99,30 @@ public class StudentHome extends AppCompatActivity {
 //                else
 //                    predictionText = "You need to\nattend: " + (3 * totalConducted - 4 * totalAttended);
 
-                    percentView.setText(String.format("%.2f", totalPercent) + "%");
-                    String str = "" +spref.getString("name", "student student");
-                    String[] splitStr = str.split("\\s+");
+                        percentView.setText(String.format("%.2f", totalPercent) + "%");
+                        String str = "" + spref.getString("name", "student student");
+                        String[] splitStr = str.split("\\s+");
 
-                    nameView.setText(spref.getString("name", "student student"));
+                        nameView.setText(spref.getString("name", "student student"));
 
-                    initialsView.setText(""+splitStr[0].substring(0,1)+splitStr[1].substring(0,1));
+                        initialsView.setText("" + splitStr[0].substring(0, 1) + splitStr[1].substring(0, 1));
 
-                    subjectAttendanceAdapter = new SubjectAttendanceAdapter(StudentHome.this, subjectModelList);
+                        subjectAttendanceAdapter = new SubjectAttendanceAdapter(StudentHome.this, subjectModelList);
 
-                    subListView.setAdapter(subjectAttendanceAdapter);
+                        subListView.setAdapter(subjectAttendanceAdapter);
+                    } else {
+                        Toast.makeText(StudentHome.this, "Something went wrong. Please try again", Toast.LENGTH_LONG).show();
+
+                    }
+                } else {
+                    Toast.makeText(StudentHome.this, "Something went wrong. Please try again", Toast.LENGTH_LONG).show();
+
                 }
-
             }
 
             @Override
             public void onFailure(Call<WebLecturesAttended> call, Throwable t) {
-                Toast.makeText(StudentHome.this,""+t.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(StudentHome.this, "" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 

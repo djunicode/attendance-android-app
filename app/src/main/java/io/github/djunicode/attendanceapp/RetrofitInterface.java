@@ -1,5 +1,8 @@
 package io.github.djunicode.attendanceapp;
+import java.util.ArrayList;
+
 import io.github.djunicode.attendanceapp.StudentSide.WebLecturesAttended;
+import io.github.djunicode.attendanceapp.TeacherSide.Models.WebDivAndSubjectsForForm;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebLectureOfDay;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebSendAttendance;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebStudents;
@@ -21,6 +24,9 @@ public interface RetrofitInterface {
 
     @GET("get-students-attendance/")
     Call<WebLecturesAttended> studentLectures(@Header("Authorization")String header);
+
+    @GET("get-all-subjects-and-divisions/")
+    Call<ArrayList<WebDivAndSubjectsForForm>>formSpinnerData(@Header("Authorization")String header);
 
     @POST("generic-login/")
     Call<TokenResponse> login(@Body TokenRequest tokenRequest);

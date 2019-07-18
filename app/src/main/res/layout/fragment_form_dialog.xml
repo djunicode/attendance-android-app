@@ -19,7 +19,7 @@
             android:id="@+id/year_select"
             android:layout_width="320dp"
             android:layout_height="match_parent"
-            android:entries="@array/yearArray">
+            >
 
         </android.support.v7.widget.AppCompatSpinner>
 
@@ -39,7 +39,7 @@
             android:id="@+id/division_select"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:entries="@array/divisionArray">
+           >
 
         </android.support.v7.widget.AppCompatSpinner>
 
@@ -59,7 +59,7 @@
             android:id="@+id/subject_select"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:entries="@array/spinnerArrayDebug">
+            >
 
         </android.support.v7.widget.AppCompatSpinner>
 
@@ -73,7 +73,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
-        android:hint="Room No">
+        android:hint="@string/room_no_eg_l1_c2">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/room_input"

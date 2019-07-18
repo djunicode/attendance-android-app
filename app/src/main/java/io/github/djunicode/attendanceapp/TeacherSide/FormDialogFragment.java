@@ -2,6 +2,7 @@ package io.github.djunicode.attendanceapp.TeacherSide;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,17 +15,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import io.github.djunicode.attendanceapp.R;
+import io.github.djunicode.attendanceapp.RetrofitInterface;
+import io.github.djunicode.attendanceapp.TeacherSide.Models.WebDivAndSubjectsForForm;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by Jugal Mistry on 7/18/2019.
- */
+import static android.content.Context.MODE_PRIVATE;
+
+
 public class FormDialogFragment extends DialogFragment implements
         AppCompatSpinner.OnItemSelectedListener,
         View.OnClickListener {
@@ -32,10 +44,14 @@ public class FormDialogFragment extends DialogFragment implements
     private AppCompatSpinner yearSelect, subjectSelect, divisionSelect;
     private TextInputEditText startTime, endTime, roomNumber;
     private ImageButton saveDetails;
-
+    ArrayList<String>year=new ArrayList<>();
+    ArrayList<String>subject=new ArrayList<>();
+    ArrayList<String>division=new ArrayList<>();
+    SharedPreferences spref;
+    int i;
 
     public interface OnDetailsSaved{
-        void onDetailsSaved(String year, String subject, String startTime, String endTime);
+        void onDetailsSaved(String year, String subject, String startTime, String endTime,String roomNumber,String division);
     }
 
     private OnDetailsSaved mOnDetailsSaved;
@@ -48,14 +64,57 @@ public class FormDialogFragment extends DialogFragment implements
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        spref = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
+        RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
+        final Call<ArrayList<WebDivAndSubjectsForForm>> divAndSubForm=retrofitInterface.formSpinnerData("Token " + spref.getString("token", null));
+        divAndSubForm.enqueue(new Callback<ArrayList<WebDivAndSubjectsForForm>>() {
+            @Override
+            public void onResponse(Call<ArrayList<WebDivAndSubjectsForForm>> call, Response<ArrayList<WebDivAndSubjectsForForm>> response) {
+                ArrayList<WebDivAndSubjectsForForm>webDivAndSubjectsForForms=response.body();
+                if(webDivAndSubjectsForForms!=null)
+                {
+                    if (webDivAndSubjectsForForms.size()!=0)
+                    {
+
+                        for(i = 0; i<webDivAndSubjectsForForms.size(); i++)
+                        {//TODO:IF NO ATTENDANCE
+                            year.add(webDivAndSubjectsForForms.get(i).getDiv().substring(0,2));
+                            division.add(webDivAndSubjectsForForms.get(i).getDiv().substring(3));
+                            subject.add(webDivAndSubjectsForForms.get(i).getSubject());
+                        }
+                        ArrayAdapter<String>yearAdapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_spinner_item);
+                        yearSelect.setAdapter(yearAdapter);
+                        ArrayAdapter<String>divAdapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_spinner_item);
+                        divisionSelect.setAdapter(divAdapter);
+                        ArrayAdapter<String>subjectAdapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_spinner_item);
+                        subjectSelect.setAdapter(subjectAdapter);
+
+                    }
+                    else
+                    {
+                        Toast.makeText(view.getContext(),"Something went wrong. Please try again.",Toast.LENGTH_LONG).show();
+
+                    }
+                }
+                else
+                {
+                    Toast.makeText(view.getContext(),"Something went wrong. Please try again.",Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<WebDivAndSubjectsForForm>> call, Throwable t) {
+
+            }
+        });
         yearSelect = view.findViewById(R.id.year_select);
         subjectSelect = view.findViewById(R.id.subject_select);
-//        subjectSelect.setEnabled(false);
         divisionSelect = view.findViewById(R.id.division_select);
-//        divisionSelect.setEnabled(false);
+
 
         startTime = view.findViewById(R.id.start_time_input);
         startTime.setClickable(false);
@@ -67,8 +126,7 @@ public class FormDialogFragment extends DialogFragment implements
         endTime.setOnClickListener(this);
 
         roomNumber = view.findViewById(R.id.room_input);
-//        roomNumber.setClickable(false);
-//        roomNumber.setFocusable(false);
+
         roomNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionID, KeyEvent keyEvent) {
@@ -90,7 +148,7 @@ public class FormDialogFragment extends DialogFragment implements
                 mOnDetailsSaved.onDetailsSaved(yearSelect.getSelectedItem().toString(),
                         subjectSelect.getSelectedItem().toString(),
                         startTime.getText().toString(),
-                        endTime.getText().toString());
+                        endTime.getText().toString(),roomNumber.getText().toString(),divisionSelect.getSelectedItem().toString());
 
                 FormDialogFragment.this.dismiss();
             }
