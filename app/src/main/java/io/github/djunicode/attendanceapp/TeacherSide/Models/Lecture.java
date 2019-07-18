@@ -10,8 +10,13 @@ public class Lecture implements Serializable{
     private String classRoomName;
     private String division;
     private String year;
+    Integer attendanceTaken;
 
-    public Lecture(String subjectName, String timing, String classRoomName, String division, String year) {
+    public Integer getAttendanceTaken() {
+        return attendanceTaken;
+    }
+
+    public Lecture(String subjectName, String timing, String classRoomName, String division, String year,Integer attendanceTaken) {
         this.subjectName = subjectName;
         this.timing = timing;
         this.classRoomName = classRoomName;

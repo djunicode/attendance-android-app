@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -46,12 +47,17 @@ public class MyLectureListAdapt extends BaseAdapter{
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
         @SuppressLint("ViewHolder") View relativeLayoutItem = inflater.inflate(R.layout.lecture_item, viewGroup, false);
-
+        ImageView attendanceTaken=relativeLayoutItem.findViewById(R.id.img_attendanceTaken);
         TextView subNameView = relativeLayoutItem.findViewById(R.id.txt_subName);
         TextView divisionTextView = relativeLayoutItem.findViewById(R.id.txt_class);
         TextView timingView = relativeLayoutItem.findViewById(R.id.txt_timing);
         TextView classRoomView = relativeLayoutItem.findViewById(R.id.txt_classRoom);
         Button takeAttendance = relativeLayoutItem.findViewById(R.id.btn_takeAttendance);
+
+        if(lectureList.get(i).getAttendanceTaken()==1)
+        {
+            attendanceTaken.setVisibility(View.VISIBLE);
+        }
 
         takeAttendance.setOnClickListener(new View.OnClickListener() {
             @Override

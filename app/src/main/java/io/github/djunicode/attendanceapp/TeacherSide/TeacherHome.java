@@ -45,7 +45,8 @@ public class TeacherHome extends AppCompatActivity {
                 if (webLectureOfDays != null) {
 
                     for (WebLectureOfDayDetails e : webLectureOfDays.getLectures()) {
-                        lectureList.add(new Lecture(e.getSubject(), e.getTiming(), e.getRoomNumber(), e.getDiv().substring(3), e.getDiv().substring(0, 2)));
+                        //TODO:e.getAttendanceTaken
+                        lectureList.add(new Lecture(e.getSubject(), e.getTiming(), e.getRoomNumber(), e.getDiv().substring(3), e.getDiv().substring(0, 2),0));
 
                     }
                     lectureListView = findViewById(R.id.list_lectures);
