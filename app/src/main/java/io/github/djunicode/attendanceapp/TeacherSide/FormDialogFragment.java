@@ -1,5 +1,7 @@
 package io.github.djunicode.attendanceapp.TeacherSide;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,16 +10,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -34,24 +34,22 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static android.content.Context.MODE_PRIVATE;
-
 
 public class FormDialogFragment extends DialogFragment implements
-        AppCompatSpinner.OnItemSelectedListener,
         View.OnClickListener {
 
-    private AppCompatSpinner yearSelect, subjectSelect, divisionSelect;
+    private AppCompatAutoCompleteTextView yearSelect, subjectSelect, divisionSelect;
     private TextInputEditText startTime, endTime, roomNumber;
     private ImageButton saveDetails;
-    ArrayList<String>year=new ArrayList<>();
-    ArrayList<String>subject=new ArrayList<>();
-    ArrayList<String>division=new ArrayList<>();
+    private ArrayList<String> year = new ArrayList<>();
+    private ArrayList<String> subject = new ArrayList<>();
+    private ArrayList<String> division = new ArrayList<>();
+    private boolean[] checks = new boolean[6];
     SharedPreferences spref;
-    int i;
+    private int i;
 
     public interface OnDetailsSaved{
-        void onDetailsSaved(String year, String subject, String startTime, String endTime,String roomNumber,String division);
+        void onDetailsSaved(String year, String subject, String startTime, String endTime, String roomNumber, String division);
     }
 
     private OnDetailsSaved mOnDetailsSaved;
@@ -86,11 +84,11 @@ public class FormDialogFragment extends DialogFragment implements
                             division.add(webDivAndSubjectsForForms.get(i).getDiv().substring(3));
                             subject.add(webDivAndSubjectsForForms.get(i).getSubject());
                         }
-                        ArrayAdapter<String>yearAdapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_spinner_item);
+                        ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(view.getContext(),R.layout.spinner_item,year);
                         yearSelect.setAdapter(yearAdapter);
-                        ArrayAdapter<String>divAdapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_spinner_item);
+                        ArrayAdapter<String> divAdapter = new ArrayAdapter<>(view.getContext(),R.layout.spinner_item, division);
                         divisionSelect.setAdapter(divAdapter);
-                        ArrayAdapter<String>subjectAdapter=new ArrayAdapter<>(view.getContext(),android.R.layout.simple_spinner_item);
+                        ArrayAdapter<String> subjectAdapter = new ArrayAdapter<>(view.getContext(),R.layout.spinner_item, subject);
                         subjectSelect.setAdapter(subjectAdapter);
 
                     }
@@ -117,11 +115,9 @@ public class FormDialogFragment extends DialogFragment implements
 
 
         startTime = view.findViewById(R.id.start_time_input);
-        startTime.setClickable(false);
         startTime.setFocusable(false);
         startTime.setOnClickListener(this);
         endTime = view.findViewById(R.id.end_time_input);
-        endTime.setClickable(false);
         endTime.setFocusable(false);
         endTime.setOnClickListener(this);
 
@@ -141,16 +137,32 @@ public class FormDialogFragment extends DialogFragment implements
         });
 
         saveDetails = view.findViewById(R.id.save_details);
-        saveDetails.setEnabled(false);
         saveDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnDetailsSaved.onDetailsSaved(yearSelect.getSelectedItem().toString(),
-                        subjectSelect.getSelectedItem().toString(),
-                        startTime.getText().toString(),
-                        endTime.getText().toString(),roomNumber.getText().toString(),divisionSelect.getSelectedItem().toString());
+                checks[0] = (yearSelect.getText() != null && yearSelect.getText().toString().trim().length() > 0);
+                checks[1] = (divisionSelect.getText() != null && divisionSelect.getText().toString().trim().length() > 0);
+                checks[2] = (subjectSelect.getText() != null && subjectSelect.getText().toString().trim().length() > 0);
+                checks[3] = (roomNumber.getText() != null && roomNumber.getText().toString().trim().length() > 0);
+                checks[4] = (startTime.getText() != null && startTime.getText().toString().trim().length() > 0);
+                checks[5] = (endTime.getText() != null && endTime.getText().toString().trim().length() > 0);
+                boolean finalCheck = true;
 
-                FormDialogFragment.this.dismiss();
+                for (i = 0; i < checks.length; ++i) {
+                    finalCheck = finalCheck && checks[i];
+                }
+
+                if (finalCheck) {
+                    mOnDetailsSaved.onDetailsSaved(yearSelect.getText().toString(),
+                            subjectSelect.getText().toString(),
+                            startTime.getText().toString(),
+                            endTime.getText().toString(),roomNumber.getText().toString(),divisionSelect.getText().toString());
+
+                    FormDialogFragment.this.dismiss();
+                } else {
+                    Toast.makeText(getContext(), "Please fill all the fields", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
     }
@@ -165,34 +177,23 @@ public class FormDialogFragment extends DialogFragment implements
         }
     }
 
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-        if (adapterView.getId() == R.id.year_select)
-            divisionSelect.setEnabled(true);
-        else if (adapterView.getId() == R.id.division_select)
-            subjectSelect.setEnabled(true);
-        else if (adapterView.getId() == R.id. subject_select) {
-            roomNumber.setClickable(true);
-            roomNumber.setFocusable(false);
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
     @Override
     public void onClick(final View view) {
         if (view.getId() == R.id.start_time_input || view.getId() == R.id.end_time_input) {
             Calendar calendar = Calendar.getInstance();
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
+            final int minute = calendar.get(Calendar.MINUTE);
             TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
-                    ((TextInputEditText) view).setText(hour + ":" +minutes);
+                    StringBuffer result = new StringBuffer();
+                    if (hour < 10)
+                        result.append(0);
+                    result.append(hour + ":");
+                    if(minutes < 10)
+                        result.append("0");
+                    result.append(minutes);
+                    ((TextInputEditText) view).setText(result.toString());
                 }
             };
             TimePickerDialog dialog = new TimePickerDialog(getContext(), timeSetListener, hour, minute, true);

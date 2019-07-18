@@ -2,68 +2,124 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
-        android:background="@drawable/spinner_outline">
+        android:hint="Year">
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:padding="8dp"
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
             android:id="@+id/year_select"
-            android:layout_width="320dp"
-            android:layout_height="match_parent"
-            >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="0"
+            android:padding="12dp"
+            android:textSize="14sp" />
 
-        </android.support.v7.widget.AppCompatSpinner>
+    </android.support.design.widget.TextInputLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
-        android:background="@drawable/spinner_outline">
+        android:hint="Division">
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:padding="8dp"
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
             android:id="@+id/division_select"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-           >
+            android:layout_height="wrap_content"
+            android:completionThreshold="0"
+            android:padding="12dp"
+            android:textSize="14sp" />
 
-        </android.support.v7.widget.AppCompatSpinner>
+    </android.support.design.widget.TextInputLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
-        android:background="@drawable/spinner_outline">
+        android:hint="Subject">
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:padding="8dp"
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
             android:id="@+id/subject_select"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="wrap_content"
+            android:completionThreshold="0"
+            android:padding="12dp"
+            android:textSize="14sp" />
 
-        </android.support.v7.widget.AppCompatSpinner>
+    </android.support.design.widget.TextInputLayout>
 
-    </LinearLayout>
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:layout_marginBottom="4dp"-->
+    <!--android:background="@drawable/spinner_outline">-->
+
+    <!--<android.support.v7.widget.AppCompatSpinner-->
+    <!--android:padding="8dp"-->
+    <!--android:id="@+id/year_select"-->
+    <!--android:layout_width="320dp"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--</android.support.v7.widget.AppCompatSpinner>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_marginTop="4dp"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:layout_marginBottom="4dp"-->
+    <!--android:background="@drawable/spinner_outline">-->
+
+    <!--<android.support.v7.widget.AppCompatSpinner-->
+    <!--android:padding="8dp"-->
+    <!--android:id="@+id/division_select"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--</android.support.v7.widget.AppCompatSpinner>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_marginTop="4dp"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:layout_marginBottom="4dp"-->
+    <!--android:background="@drawable/spinner_outline">-->
+
+    <!--<android.support.v7.widget.AppCompatSpinner-->
+    <!--android:padding="8dp"-->
+    <!--android:id="@+id/subject_select"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--</android.support.v7.widget.AppCompatSpinner>-->
+
+    <!--</LinearLayout>-->
 
     <android.support.design.widget.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -77,12 +133,12 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/room_input"
-            android:lines="1"
-            android:maxLines="1"
+            android:inputType="textCapCharacters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:imeOptions="actionDone"/>
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:textSize="14sp" />
 
     </android.support.design.widget.TextInputLayout>
 

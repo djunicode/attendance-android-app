@@ -99,7 +99,6 @@
         android:src="@drawable/ic_check"
         android:layout_alignBottom="@id/btn_takeAttendance"
         android:layout_marginLeft="20dp"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
 </RelativeLayout>
