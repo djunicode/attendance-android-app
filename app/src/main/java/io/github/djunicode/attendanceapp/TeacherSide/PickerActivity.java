@@ -215,10 +215,12 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
                     WebSendAttendance webSendAttendance1 = response.body();
                     if(webSendAttendance1!=null) {
                         Toast.makeText(PickerActivity.this, "Attendance saved successfully", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(PickerActivity.this,TeacherHome.class));
+                        finish();
                     }
                     else
                     {
-                        Toast.makeText(PickerActivity.this, "Something went very wrong. Please try again", Toast.LENGTH_LONG).show();
+                        Toast.makeText(PickerActivity.this, "Something went wrong. Please try again", Toast.LENGTH_LONG).show();
                     }
                 }
 
