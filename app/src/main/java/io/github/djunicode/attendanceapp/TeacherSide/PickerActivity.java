@@ -71,10 +71,12 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
             type=intent.getStringExtra("type");
         }
         if(type.equals("form"))
-        {
+        {   SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String date = sdf.format(Calendar.getInstance().getTime());
             Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
             RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
-            Call<WebStudents> webStudentsCall = retrofitInterface.formStudentList("Token " + spref.getString("token", null), subject, batch,date,startTime);
+            WebSendAttendance webSendAttendance=new WebSendAttendance(null,subject,batch,room,startTime,endTime,date);
+            Call<WebStudents> webStudentsCall = retrofitInterface.formStudentList("Token " + spref.getString("token", null),webSendAttendance);
             webStudentsCall.enqueue(new Callback<WebStudents>() {
                 @Override
                 public void onResponse(Call<WebStudents> call, Response<WebStudents> response) {
@@ -109,6 +111,9 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
                                 toolbar.setSubtitle(present + " out of " + studentList.size() + " present");
                             }
                         });
+                    }
+                    else {
+                        Toast.makeText(PickerActivity.this,"Something went wrong",Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -156,6 +161,10 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
                                 toolbar.setSubtitle(present + " out of " + studentList.size() + " present");
                             }
                         });
+                    }
+                    else
+                    {
+                        Toast.makeText(PickerActivity.this,"Something went wrong",Toast.LENGTH_LONG).show();
                     }
                 }
 
