@@ -64,6 +64,7 @@ public class MyLectureListAdapt extends BaseAdapter{
             public void onClick(View v) {
                 Intent intent = new Intent(inflater.getContext(), PickerActivity.class);
                 intent.putExtra("LectureData", lectureList.get(i));
+                intent.putExtra("type","list");
                 context.startActivity(intent);
             }
         });

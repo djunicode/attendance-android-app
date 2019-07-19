@@ -96,6 +96,7 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
         lectureForm=new Lecture(subject,startTime+":00 - "+endTime+":00",roomNumber,division,year,0);
         Intent intent = new Intent(TeacherHome.this, PickerActivity.class);
         intent.putExtra("LectureData", lectureForm);
+        intent.putExtra("type","form");
         startActivity(intent);
 
     }

@@ -44,7 +44,7 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
     private PickerAdapter pickerAdapter;
     private int present = 0;
     SharedPreferences spref;
-    String batch, subject, startTime, endTime, date, room;
+    String batch, subject, startTime, endTime, date, room,type;
     int WebPresent=0;
 
 
@@ -68,54 +68,104 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             date = sdf.format(Calendar.getInstance().getTime());
             room = lecture.getClassRooomName();
-
+            type=intent.getStringExtra("type");
         }
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
-        RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<WebStudents> webStudentsCall = retrofitInterface.studentList("Token " + spref.getString("token", null), subject, batch,date,startTime);
-        webStudentsCall.enqueue(new Callback<WebStudents>() {
-            @Override
-            public void onResponse(Call<WebStudents> call, Response<WebStudents> response) {
-                WebStudents webStudents = response.body();
-                if (webStudents != null) {
-                    for (WebStudentsList e : webStudents.getStudents()) {
-                        studentList.add(new WebStudentsList( e.getName(),e.getSapID(), e.getAttendance()));
-                        if(e.getAttendance()==1)
-                        {
-                            WebPresent++;
-                        }
-                    }
-                    present = WebPresent;
-                    toolbar.setSubtitle(WebPresent + " out of " + studentList.size() + " present");
-                    pickerAdapter = new PickerAdapter(PickerActivity.this, studentList);
-                    list = findViewById(R.id.studentList);
-                    list.setLayoutManager(new GridLayoutManager(PickerActivity.this, 2));
-                    list.setAdapter(pickerAdapter);
-                    toggleSwitch = findViewById(R.id.toggleSwitch);
-                    toggleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            pickerAdapter.setAllStatus(isChecked);
-                            if (isChecked) {
-                                present = studentList.size();
-                                toggleSwitch.setText("Deselect All");
-                            } else {
-                                present = 0;
-                                toggleSwitch.setText("Select All");
+        if(type.equals("form"))
+        {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
+            RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
+            Call<WebStudents> webStudentsCall = retrofitInterface.formStudentList("Token " + spref.getString("token", null), subject, batch,date,startTime);
+            webStudentsCall.enqueue(new Callback<WebStudents>() {
+                @Override
+                public void onResponse(Call<WebStudents> call, Response<WebStudents> response) {
+                    WebStudents webStudents = response.body();
+                    if (webStudents != null) {
+                        for (WebStudentsList e : webStudents.getStudents()) {
+                            studentList.add(new WebStudentsList( e.getName(),e.getSapID(), e.getAttendance()));
+                            if(e.getAttendance()==1)
+                            {
+                                WebPresent++;
                             }
-                            presentPercent.setProgress(present * 100 / studentList.size());
-                            toolbar.setSubtitle(present + " out of " + studentList.size() + " present");
                         }
-                    });
+                        present = WebPresent;
+                        toolbar.setSubtitle(WebPresent + " out of " + studentList.size() + " present");
+                        pickerAdapter = new PickerAdapter(PickerActivity.this, studentList);
+                        list = findViewById(R.id.studentList);
+                        list.setLayoutManager(new GridLayoutManager(PickerActivity.this, 2));
+                        list.setAdapter(pickerAdapter);
+                        toggleSwitch = findViewById(R.id.toggleSwitch);
+                        toggleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                pickerAdapter.setAllStatus(isChecked);
+                                if (isChecked) {
+                                    present = studentList.size();
+                                    toggleSwitch.setText("Deselect All");
+                                } else {
+                                    present = 0;
+                                    toggleSwitch.setText("Select All");
+                                }
+                                presentPercent.setProgress(present * 100 / studentList.size());
+                                toolbar.setSubtitle(present + " out of " + studentList.size() + " present");
+                            }
+                        });
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<WebStudents> call, Throwable t) {
-                Toast.makeText(PickerActivity.this, "" + t.getMessage(), Toast.LENGTH_LONG).show();
+                @Override
+                public void onFailure(Call<WebStudents> call, Throwable t) {
+                    Toast.makeText(PickerActivity.this, "" + t.getMessage(), Toast.LENGTH_LONG).show();
 
-            }
-        });
+                }
+            });
+        }
+        else {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
+            RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
+            Call<WebStudents> webStudentsCall = retrofitInterface.studentList("Token " + spref.getString("token", null), subject, batch, date, startTime);
+            webStudentsCall.enqueue(new Callback<WebStudents>() {
+                @Override
+                public void onResponse(Call<WebStudents> call, Response<WebStudents> response) {
+                    WebStudents webStudents = response.body();
+                    if (webStudents != null) {
+                        for (WebStudentsList e : webStudents.getStudents()) {
+                            studentList.add(new WebStudentsList(e.getName(), e.getSapID(), e.getAttendance()));
+                            if (e.getAttendance() == 1) {
+                                WebPresent++;
+                            }
+                        }
+                        present = WebPresent;
+                        toolbar.setSubtitle(WebPresent + " out of " + studentList.size() + " present");
+                        pickerAdapter = new PickerAdapter(PickerActivity.this, studentList);
+                        list = findViewById(R.id.studentList);
+                        list.setLayoutManager(new GridLayoutManager(PickerActivity.this, 2));
+                        list.setAdapter(pickerAdapter);
+                        toggleSwitch = findViewById(R.id.toggleSwitch);
+                        toggleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                pickerAdapter.setAllStatus(isChecked);
+                                if (isChecked) {
+                                    present = studentList.size();
+                                    toggleSwitch.setText("Deselect All");
+                                } else {
+                                    present = 0;
+                                    toggleSwitch.setText("Select All");
+                                }
+                                presentPercent.setProgress(present * 100 / studentList.size());
+                                toolbar.setSubtitle(present + " out of " + studentList.size() + " present");
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<WebStudents> call, Throwable t) {
+                    Toast.makeText(PickerActivity.this, "" + t.getMessage(), Toast.LENGTH_LONG).show();
+
+                }
+            });
+        }
     }
 
     @Override
@@ -159,7 +209,7 @@ public class PickerActivity extends AppCompatActivity implements PickerAdapter.P
                     }
                     else
                     {
-                        Toast.makeText(PickerActivity.this, "Something went wrong. Please try again", Toast.LENGTH_LONG).show();
+                        Toast.makeText(PickerActivity.this, "Something went very wrong. Please try again", Toast.LENGTH_LONG).show();
                     }
                 }
 

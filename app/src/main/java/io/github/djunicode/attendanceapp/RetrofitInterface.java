@@ -28,6 +28,9 @@ public interface RetrofitInterface {
     @GET("get-all-subjects-and-divisions/")
     Call<ArrayList<WebDivAndSubjectsForForm>>formSpinnerData(@Header("Authorization")String header);
 
+    @GET("save-lecture-and-get-student-list/{subject}/{batch}/{date}/{startTime}")
+    Call<WebStudents> formStudentList(@Header("Authorization")String header,@Path("subject")String subject,@Path("batch")String batch,@Path("date")String date,@Path("startTime")String startTime);
+
     @POST("generic-login/")
     Call<TokenResponse> login(@Body TokenRequest tokenRequest);
 
