@@ -1,5 +1,6 @@
 package io.github.djunicode.attendanceapp.StudentSide;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import io.github.djunicode.attendanceapp.LoginActivity;
 import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.RetrofitInterface;
 import io.github.djunicode.attendanceapp.StudentSide.Adapters.SubjectAttendanceAdapter;
@@ -38,6 +40,7 @@ public class StudentHome extends AppCompatActivity {
     ArrayList<SubjectAttendanceModel> subjectModelList;
     ListView subListView;
     public SharedPreferences spref;
+    public SharedPreferences.Editor edit;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
@@ -73,6 +76,7 @@ public class StudentHome extends AppCompatActivity {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
         spref = getApplicationContext().getSharedPreferences("user", MODE_PRIVATE);
+        edit=spref.edit();
         Call<WebLecturesAttended> webLecturesAttendedCall = retrofitInterface.studentLectures("Token " + spref.getString("token", null));
 
         webLecturesAttendedCall.enqueue(new Callback<WebLecturesAttended>() {
@@ -137,7 +141,10 @@ public class StudentHome extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_logout) {
-//            TODO Add Logout Code Here
+            edit.clear();
+            edit.commit();
+            startActivity(new Intent(StudentHome.this, LoginActivity.class));
+            finish();
             return true;
         }
         return false;

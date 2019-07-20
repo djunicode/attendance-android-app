@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        spref=getApplication().getSharedPreferences("userType",MODE_PRIVATE);
+        spref=getApplication().getSharedPreferences("user",MODE_PRIVATE);
         if(spref.getString("userType","temp").equals("temp"))
         {
             startActivity(new Intent(MainActivity.this,LoginActivity.class));

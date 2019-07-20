@@ -57,15 +57,17 @@ public class LoginActivity extends AppCompatActivity {
                             edit.putString("token",tokenResponse.getToken());
                             if(tokenResponse.getStudent())
                             {
-                                edit.putString("type","student");
+                                edit.putString("userType","student");
                                 edit.commit();
                                 startActivity(new Intent(LoginActivity.this, StudentHome.class));
+                                finish();
                             }
                             else
                             {
-                                edit.putString("type","teacher");
+                                edit.putString("userType","teacher");
                                 edit.commit();
                                 startActivity(new Intent(LoginActivity.this,TeacherHome.class));
+                                finish();
                             }
 
 

@@ -17,8 +17,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import io.github.djunicode.attendanceapp.LoginActivity;
 import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.RetrofitInterface;
+import io.github.djunicode.attendanceapp.StudentSide.StudentHome;
 import io.github.djunicode.attendanceapp.TeacherSide.Adapters.MyLectureListAdapt;
 import io.github.djunicode.attendanceapp.TeacherSide.FormDialogFragment.OnDetailsSaved;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.Lecture;
@@ -36,7 +38,7 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
     MyLectureListAdapt myLectureListAdapt;
     SharedPreferences spref;
     Lecture lectureForm;
-
+    public SharedPreferences.Editor edit;
     private FloatingActionButton newLectureFAB;
 
     @Override
@@ -55,6 +57,7 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
         });
 
         spref = getApplicationContext().getSharedPreferences("user", MODE_PRIVATE);
+        edit=spref.edit();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String date = sdf.format(Calendar.getInstance().getTime());
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
@@ -114,7 +117,10 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_logout) {
-//            TODO Add Logout Code Here
+            edit.clear();
+            edit.commit();
+            startActivity(new Intent(TeacherHome.this, LoginActivity.class));
+            finish();
             return true;
         }
         return false;

@@ -66,6 +66,8 @@
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/s1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
