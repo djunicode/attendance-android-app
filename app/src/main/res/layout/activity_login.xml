@@ -10,9 +10,9 @@
 
 
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="370dp"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/relative_layout_curved_corners"
         android:gravity="center"
@@ -21,34 +21,41 @@
         >
 
         <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_above="@+id/autocomplete_sap"
-            android:layout_centerHorizontal="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/user_logo"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/dark_blue"/>
+            android:backgroundTint="@color/dark_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--#2c3e50-->
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/autocomplete_sap"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/s1"
             android:layout_alignParentStart="true"
-            android:textColorHint="@color/black">
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
-            <AutoCompleteTextView
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/sap_id"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginTop="50dp"
                 android:hint="@string/sap_id"
                 android:imeOptions="actionNext"
                 android:inputType="number"
@@ -59,22 +66,21 @@
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/s1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:textColorHint="@color/black">
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/autocomplete_sap">
 
-            <AutoCompleteTextView
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/password"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginTop="50dp"
                 android:hint="@string/password"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
@@ -84,16 +90,21 @@
         </android.support.design.widget.TextInputLayout>
 
 
-
-
         <Button
             android:id="@+id/button_login"
+            style="@style/EqualButtons"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/s1"
             android:layout_centerHorizontal="true"
-            style="@style/EqualButtons"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/log_in"
-            />
-    </RelativeLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/s1" />
+    </android.support.constraint.ConstraintLayout>
 </RelativeLayout>
