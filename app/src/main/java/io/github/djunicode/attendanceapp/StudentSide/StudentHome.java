@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,9 +20,6 @@ import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.RetrofitInterface;
 import io.github.djunicode.attendanceapp.StudentSide.Adapters.SubjectAttendanceAdapter;
 import io.github.djunicode.attendanceapp.StudentSide.Models.SubjectAttendanceModel;
-import io.github.djunicode.attendanceapp.TeacherSide.Models.Student;
-import io.github.djunicode.attendanceapp.TeacherSide.Models.WebLectureOfDay;
-import io.github.djunicode.attendanceapp.TeacherSide.TeacherHome;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -128,5 +127,19 @@ public class StudentHome extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_logout,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_logout) {
+//            TODO Add Logout Code Here
+            return true;
+        }
+        return false;
+    }
 }

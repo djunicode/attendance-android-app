@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -17,10 +20,10 @@ import java.util.Calendar;
 import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.RetrofitInterface;
 import io.github.djunicode.attendanceapp.TeacherSide.Adapters.MyLectureListAdapt;
+import io.github.djunicode.attendanceapp.TeacherSide.FormDialogFragment.OnDetailsSaved;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.Lecture;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebLectureOfDay;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebLectureOfDayDetails;
-import io.github.djunicode.attendanceapp.TeacherSide.FormDialogFragment.OnDetailsSaved;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -101,4 +104,19 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_logout,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_logout) {
+//            TODO Add Logout Code Here
+            return true;
+        }
+        return false;
+    }
 }
