@@ -6,6 +6,6 @@
     <string name="log_in">Log In</string>
     <string name="sap_id">SAP ID</string>
     <string name="room_no_eg_l1_c2">Room No (Eg-L1)</string>
-    <string name="empty_screen_teacher_side">No Lectures Available.\nUse The Button Below to Continue</string>
+    <string name="empty_screen_teacher_side">No Lectures Available.\nUse the Button below to add a new Lecture</string>
     <string name="empty_screen_student_side">No Attendance Recorded</string>
 </resources>

@@ -22,12 +22,16 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.RetrofitInterface;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebDivAndSubjectsForForm;
+import io.github.djunicode.attendanceapp.TeacherSide.Models.WebStudents;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +48,8 @@ public class FormDialogFragment extends DialogFragment implements
     private ArrayList<String> year = new ArrayList<>();
     private ArrayList<String> subject = new ArrayList<>();
     private ArrayList<String> division = new ArrayList<>();
+    private ArrayList<String> divisionOrdered = new ArrayList<>();
+
     private boolean[] checks = new boolean[6];
     SharedPreferences spref;
     private int i;
@@ -84,9 +90,27 @@ public class FormDialogFragment extends DialogFragment implements
                             division.add(webDivAndSubjectsForForms.get(i).getDiv().substring(3));
                             subject.add(webDivAndSubjectsForForms.get(i).getSubject());
                         }
+                        Set<String> setYear = new HashSet<>(year);
+                        year.clear();
+                        year.addAll(setYear);
+                        Set<String> setDivision = new HashSet<>(division);
+                        division.clear();
+                        division.addAll(setDivision);
+                        Set<String> setSubject = new HashSet<>(subject);
+                        subject.clear();
+                        subject.addAll(setSubject);
+                        for(int i=0;i<division.size();i++)
+                        {
+                            if(division.get(i).length()>2)
+                            {
+                                divisionOrdered.add(division.get(i));
+                                division.remove(i);
+                            }
+                        }
+                        divisionOrdered.addAll(division);
                         ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(view.getContext(),R.layout.spinner_item,year);
                         yearSelect.setAdapter(yearAdapter);
-                        ArrayAdapter<String> divAdapter = new ArrayAdapter<>(view.getContext(),R.layout.spinner_item, division);
+                        ArrayAdapter<String> divAdapter = new ArrayAdapter<>(view.getContext(),R.layout.spinner_item, divisionOrdered);
                         divisionSelect.setAdapter(divAdapter);
                         ArrayAdapter<String> subjectAdapter = new ArrayAdapter<>(view.getContext(),R.layout.spinner_item, subject);
                         subjectSelect.setAdapter(subjectAdapter);
@@ -153,12 +177,43 @@ public class FormDialogFragment extends DialogFragment implements
                 }
 
                 if (finalCheck) {
-                    mOnDetailsSaved.onDetailsSaved(yearSelect.getText().toString(),
-                            subjectSelect.getText().toString(),
-                            startTime.getText().toString(),
-                            endTime.getText().toString(),roomNumber.getText().toString(),divisionSelect.getText().toString());
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    String date = sdf.format(Calendar.getInstance().getTime());
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
+                    RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
+                    Call<WebStudents> webStudentsCall = retrofitInterface.studentList("Token " + spref.getString("token", null), subjectSelect.getText().toString(),""+yearSelect.getText().toString()+"_"+divisionSelect.getText().toString(), date, startTime.getText().toString());
+                    webStudentsCall.enqueue(new Callback<WebStudents>() {
+                        @Override
+                        public void onResponse(Call<WebStudents> call, Response<WebStudents> response) {
+                            WebStudents webStudents=response.body();
+                            if(webStudents!=null)
+                            {
+                                mOnDetailsSaved.onDetailsSaved(yearSelect.getText().toString(),
+                                        subjectSelect.getText().toString(),
+                                        startTime.getText().toString(),
+                                        endTime.getText().toString(),roomNumber.getText().toString(),divisionSelect.getText().toString());
 
-                    FormDialogFragment.this.dismiss();
+                                FormDialogFragment.this.dismiss();
+                            }
+                            else
+                            {
+                                Toast.makeText(getContext(), "No such lecture possible", Toast.LENGTH_LONG).show();
+                                yearSelect.setText("");
+                                subjectSelect.setText("");
+                                startTime.setText("");
+                                endTime.setText("");
+                                divisionSelect.setText("");
+                                roomNumber.setText("");
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<WebStudents> call, Throwable t) {
+                            Toast.makeText(getContext(),""+t.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+                    });
+
                 } else {
                     Toast.makeText(getContext(), "Please fill all the fields", Toast.LENGTH_LONG).show();
                 }

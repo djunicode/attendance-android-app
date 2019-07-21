@@ -76,25 +76,25 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
 
                         }
                         lectureListView = findViewById(R.id.list_lectures);
-//                        TODO Empty Screen Logic Here Written.
-                        emptyScreen.setVisibility(View.GONE);
+
+
                         lectureListView.setVisibility(View.VISIBLE);
                         myLectureListAdapt = new MyLectureListAdapt(TeacherHome.this, lectureList);
                         lectureListView.setAdapter(myLectureListAdapt);
                     } else {
-                        Toast.makeText(TeacherHome.this, "Something went wrong. Please try again", Toast.LENGTH_LONG).show();
+                        emptyScreen.setVisibility(View.VISIBLE);
                     }
                 }
                 else
                 {
-                    Toast.makeText(TeacherHome.this,"Something went wrong. Please try again.",Toast.LENGTH_LONG).show();
-
+                    emptyScreen.setVisibility(View.VISIBLE);
                 }
             }
 
 
             @Override
             public void onFailure(Call<WebLectureOfDay> call, Throwable t) {
+                emptyScreen.setVisibility(View.GONE);
                 Toast.makeText(TeacherHome.this, "" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });

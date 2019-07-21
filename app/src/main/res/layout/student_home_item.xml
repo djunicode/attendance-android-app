@@ -31,7 +31,7 @@
 
         <TextView
             android:id="@+id/txt_attended"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_percent"
             android:layout_alignParentTop="true"
@@ -45,7 +45,7 @@
 
         <TextView
             android:id="@+id/txt_outOf"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/txt_attended"
             android:layout_marginStart="26dp"
@@ -66,11 +66,27 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="19dp"
             android:layout_marginEnd="18dp"
-            android:layout_marginBottom="2dp"
+
             android:text="Data Structure"
             android:textAlignment="center"
             android:textSize="25sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_subject"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginRight="19dp"
+            android:layout_marginBottom="9dp"
+            android:text="fdgdfg"
+
+
+            android:textAlignment="center"
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/txt_need_bunk"

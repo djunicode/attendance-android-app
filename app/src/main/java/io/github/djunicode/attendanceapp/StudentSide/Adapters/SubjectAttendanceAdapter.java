@@ -2,6 +2,7 @@ package io.github.djunicode.attendanceapp.StudentSide.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import io.github.djunicode.attendanceapp.R;
+import io.github.djunicode.attendanceapp.StudentSide.DaywiseDetails;
 import io.github.djunicode.attendanceapp.StudentSide.Models.SubjectAttendanceModel;
 
 public class SubjectAttendanceAdapter extends BaseAdapter {
@@ -40,11 +42,12 @@ public class SubjectAttendanceAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        SubjectAttendanceModel sam = subjectAttendanceModels.get(position);
+
+        final SubjectAttendanceModel sam = subjectAttendanceModels.get(position);
 
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        @SuppressLint("ViewHolder") View cardView = inflater.inflate(R.layout.student_home_item, parent, false);
+        @SuppressLint("ViewHolder") final View cardView = inflater.inflate(R.layout.student_home_item, parent, false);
 
 
         TextView subNameView = cardView.findViewById(R.id.txt_subject);
@@ -52,7 +55,7 @@ public class SubjectAttendanceAdapter extends BaseAdapter {
         TextView attendedView = cardView.findViewById(R.id.txt_attended);
         TextView outOfView = cardView.findViewById(R.id.txt_outOf);
         TextView predictionView = cardView.findViewById(R.id.txt_need_bunk);
-
+        TextView type = cardView.findViewById(R.id.type);
         double percent = ((double) sam.getAttended() / (double) sam.getConducted()) * 100;
         String predictionText;
 
@@ -72,6 +75,16 @@ public class SubjectAttendanceAdapter extends BaseAdapter {
         percentView.setText(String.format("%.2f", percent) + "%");
         attendedView.setText("Attended: " + sam.getAttended());
         outOfView.setText("Out Of: " + sam.getConducted());
+        type.setText(""+sam.getLectureType());
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toAttendanceDetails=new Intent(cardView.getContext(), DaywiseDetails.class);
+                toAttendanceDetails.putExtra("subject",sam.getName());
+                toAttendanceDetails.putExtra("type",sam.getLectureType());
+                v.getContext().startActivity(toAttendanceDetails);
+            }
+        });
 
         return cardView;
     }

@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".StudentSide.StudentHome">
         </activity>
+        <activity android:name=".StudentSide.DaywiseDetails">
+        </activity>
         <activity
             android:name=".TeacherSide.PickerActivity"
             android:label="@string/title_activity_picker"

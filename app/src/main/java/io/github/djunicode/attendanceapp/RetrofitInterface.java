@@ -1,6 +1,8 @@
 package io.github.djunicode.attendanceapp;
 import java.util.ArrayList;
 
+
+import io.github.djunicode.attendanceapp.StudentSide.Models.DaywiseDetailsModel;
 import io.github.djunicode.attendanceapp.StudentSide.WebLecturesAttended;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebDivAndSubjectsForForm;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebLectureOfDay;
@@ -27,6 +29,9 @@ public interface RetrofitInterface {
 
     @GET("get-all-subjects-and-divisions/")
     Call<ArrayList<WebDivAndSubjectsForForm>>formSpinnerData(@Header("Authorization")String header);
+
+    @GET("get-students-attendance-history/{subject}/{type}")
+    Call<ArrayList<DaywiseDetailsModel>>getDateWiseDetails(@Header("Authorization")String header, @Path("subject")String subject, @Path("type")String type);
 
     @POST("save-lecture-and-get-student-list/")
     Call<WebStudents> formStudentList(@Header("Authorization")String header,@Body WebSendAttendance webSendAttendance);

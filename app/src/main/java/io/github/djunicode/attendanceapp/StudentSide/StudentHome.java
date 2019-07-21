@@ -96,7 +96,6 @@ public class StudentHome extends AppCompatActivity {
                             totalAttended += sam.getAttended();
                         }
                         double totalPercent = ((double) totalAttended * 100) / (double) totalConducted;
-                        emptyScreen.setVisibility(View.GONE);
                         subListView.setVisibility(View.VISIBLE);
 //                String predictionText;
 //
@@ -119,11 +118,11 @@ public class StudentHome extends AppCompatActivity {
 
                         subListView.setAdapter(subjectAttendanceAdapter);
                     } else {
-                        Toast.makeText(StudentHome.this, "Something went wrong. Please try again", Toast.LENGTH_LONG).show();
+                        emptyScreen.setVisibility(View.GONE);
 
                     }
                 } else {
-                    Toast.makeText(StudentHome.this, "Something went wrong. Please try again", Toast.LENGTH_LONG).show();
+                    emptyScreen.setVisibility(View.GONE);
 
                 }
             }

@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rel_topArea"
             android:layout_alignStart="@+id/rel_topArea"
-            android:layout_marginStart="-7dp"
+            android:layout_marginStart="-9dp"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="5dp"
             android:paddingTop="4dp"
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="61dp"
+            android:layout_marginEnd="10dp"
             android:paddingBottom="8dp"
 
             android:textColor="@color/SmokeWhite"
@@ -69,7 +69,8 @@
     <RelativeLayout
         android:id="@+id/empty_screen"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <LinearLayout
             android:orientation="vertical"
