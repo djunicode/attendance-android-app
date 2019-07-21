@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -20,7 +21,6 @@ import java.util.Calendar;
 import io.github.djunicode.attendanceapp.LoginActivity;
 import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.RetrofitInterface;
-import io.github.djunicode.attendanceapp.StudentSide.StudentHome;
 import io.github.djunicode.attendanceapp.TeacherSide.Adapters.MyLectureListAdapt;
 import io.github.djunicode.attendanceapp.TeacherSide.FormDialogFragment.OnDetailsSaved;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.Lecture;
@@ -33,11 +33,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
-    ArrayList<Lecture> lectureList = new ArrayList<>();
-    ListView lectureListView;
-    MyLectureListAdapt myLectureListAdapt;
-    SharedPreferences spref;
-    Lecture lectureForm;
+    private ArrayList<Lecture> lectureList = new ArrayList<>();
+    private ListView lectureListView;
+    private MyLectureListAdapt myLectureListAdapt;
+    private SharedPreferences spref;
+    private Lecture lectureForm;
     public SharedPreferences.Editor edit;
     private FloatingActionButton newLectureFAB;
 
@@ -46,6 +46,7 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_home);
 
+        final RelativeLayout emptyScreen = findViewById(R.id.empty_screen);
         newLectureFAB = findViewById(R.id.new_lecture_fab);
         newLectureFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +76,11 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
 
                         }
                         lectureListView = findViewById(R.id.list_lectures);
+//                        TODO Empty Screen Logic Here Written.
+                        emptyScreen.setVisibility(View.GONE);
+                        lectureListView.setVisibility(View.VISIBLE);
                         myLectureListAdapt = new MyLectureListAdapt(TeacherHome.this, lectureList);
-                    lectureListView.setAdapter(myLectureListAdapt);
+                        lectureListView.setAdapter(myLectureListAdapt);
                     } else {
                         Toast.makeText(TeacherHome.this, "Something went wrong. Please try again", Toast.LENGTH_LONG).show();
                     }
