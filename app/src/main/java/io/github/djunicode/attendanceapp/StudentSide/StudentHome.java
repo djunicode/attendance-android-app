@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ public class StudentHome extends AppCompatActivity {
     RetrofitInterface retrofitInterface;
     String TAG = "StudentHome";
     TextView predictionView, percentView, nameView, initialsView;
+    RelativeLayout emptyScreen;
 
     private int totalConducted;
     private int totalAttended;
@@ -60,6 +62,7 @@ public class StudentHome extends AppCompatActivity {
     }
 
     private void init() {
+        emptyScreen = findViewById(R.id.empty_screen);
         subListView = findViewById(R.id.list_studentSubjects);
 
         percentView = findViewById(R.id.txt_mainPercent);
@@ -93,6 +96,8 @@ public class StudentHome extends AppCompatActivity {
                             totalAttended += sam.getAttended();
                         }
                         double totalPercent = ((double) totalAttended * 100) / (double) totalConducted;
+                        emptyScreen.setVisibility(View.GONE);
+                        subListView.setVisibility(View.VISIBLE);
 //                String predictionText;
 //
 //                if (totalPercent >= 75.0)
