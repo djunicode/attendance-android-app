@@ -2,10 +2,12 @@ package io.github.djunicode.attendanceapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import io.github.djunicode.attendanceapp.StudentSide.StudentHome;
@@ -26,6 +28,9 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences spref;
     SharedPreferences.Editor edit;
     RetrofitInterface retrofitInterface;
+    ProgressBar mProgressBar;
+    ConstraintLayout mForm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +40,17 @@ public class LoginActivity extends AppCompatActivity {
         mSap = findViewById(R.id.sap_id);
         mPassword = findViewById(R.id.password);
         mButton = findViewById(R.id.button_login);
+        mProgressBar = findViewById(R.id.progress_circular);
+        mForm = findViewById(R.id.login_form);
+        mProgressBar.setVisibility(View.INVISIBLE);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sap=mSap.getText().toString();
                 password=mPassword.getText().toString();
-
+//                TODO: ProgressBar Logic Below
+                mProgressBar.setVisibility(View.VISIBLE);
+                mForm.setVisibility(View.INVISIBLE);
                Retrofit retrofit=new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
                 RetrofitInterface retrofitInterface =retrofit.create(RetrofitInterface.class);
                 final TokenRequest tokenRequest=new TokenRequest(""+mSap.getText().toString(),""+mPassword.getText().toString());
@@ -71,9 +81,10 @@ public class LoginActivity extends AppCompatActivity {
                             }
 
 
-                        }
-                        else
-                        {
+                        } else {
+                            mProgressBar.setVisibility(View.INVISIBLE);
+                            mForm.setVisibility(View.VISIBLE);
+
                             mSap.setText("");
                             mPassword.setText("");
                             Toast.makeText(LoginActivity.this,"SAP Id or password incorrect. Please try again",Toast.LENGTH_LONG).show();
@@ -82,6 +93,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<TokenResponse> call, Throwable t) {
+                        mProgressBar.setVisibility(View.INVISIBLE);
+                        mForm.setVisibility(View.VISIBLE);
+
                         Toast.makeText(LoginActivity.this,""+t.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 });

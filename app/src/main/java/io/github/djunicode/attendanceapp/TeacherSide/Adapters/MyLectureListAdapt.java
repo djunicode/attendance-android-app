@@ -1,5 +1,7 @@
 package io.github.djunicode.attendanceapp.TeacherSide.Adapters;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -29,8 +31,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class MyLectureListAdapt extends BaseAdapter{
     private Context context;
@@ -119,6 +119,11 @@ public class MyLectureListAdapt extends BaseAdapter{
                 intent.putExtra("LectureData", lectureList.get(i));
                 intent.putExtra("type","list");
                 context.startActivity(intent);
+                try {
+                    ((TeacherHome)context).finish();
+                } catch (ClassCastException e){
+                    e.printStackTrace();
+                }
             }
         });
 
