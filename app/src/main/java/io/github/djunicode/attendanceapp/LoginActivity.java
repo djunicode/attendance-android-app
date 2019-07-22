@@ -12,7 +12,6 @@ import io.github.djunicode.attendanceapp.StudentSide.StudentHome;
 import io.github.djunicode.attendanceapp.TeacherSide.TeacherHome;
 import io.github.djunicode.attendanceapp.TeacherSide.TokenRequest;
 import io.github.djunicode.attendanceapp.TeacherSide.TokenResponse;
-import okhttp3.HttpUrl;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,11 +49,11 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                         TokenResponse tokenResponse=response.body();
-                        HttpUrl url=response.raw().request().url();
                         if (tokenResponse != null) {
                             edit.putString("name",tokenResponse.getUser().getName());
-                            edit.putString("sapId",tokenResponse.getUser().getSapID());
+                            edit.putString("sap",tokenResponse.getUser().getSapID());
                             edit.putString("token",tokenResponse.getToken());
+                            edit.commit();
                             if(tokenResponse.getStudent())
                             {
                                 edit.putString("userType","student");
@@ -65,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                             else
                             {
                                 edit.putString("userType","teacher");
+                                edit.putString("specialization",tokenResponse.getUser().getSpecialization());
                                 edit.commit();
                                 startActivity(new Intent(LoginActivity.this,TeacherHome.class));
                                 finish();

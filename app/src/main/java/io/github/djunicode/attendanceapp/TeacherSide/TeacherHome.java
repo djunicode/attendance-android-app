@@ -18,7 +18,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import io.github.djunicode.attendanceapp.LoginActivity;
 import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.RetrofitInterface;
 import io.github.djunicode.attendanceapp.TeacherSide.Adapters.MyLectureListAdapt;
@@ -26,6 +25,7 @@ import io.github.djunicode.attendanceapp.TeacherSide.FormDialogFragment.OnDetail
 import io.github.djunicode.attendanceapp.TeacherSide.Models.Lecture;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebLectureOfDay;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebLectureOfDayDetails;
+import io.github.djunicode.attendanceapp.UserActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -71,13 +71,9 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
                 if (webLectureOfDays != null) {
                     if (webLectureOfDays.getLectures().size() != 0) {
                         for (WebLectureOfDayDetails e : webLectureOfDays.getLectures()) {
-
-                            lectureList.add(new Lecture(e.getSubject(), e.getTiming(), e.getRoomNumber(), e.getDiv().substring(3), e.getDiv().substring(0, 2), e.getAttendanceTaken()));
-
+                            lectureList.add(new Lecture(e.getType(),e.getSubject(), e.getTiming(), e.getRoomNumber(), e.getDiv().substring(3), e.getDiv().substring(0, 2), e.getAttendanceTaken()));
                         }
                         lectureListView = findViewById(R.id.list_lectures);
-
-
                         lectureListView.setVisibility(View.VISIBLE);
                         myLectureListAdapt = new MyLectureListAdapt(TeacherHome.this, lectureList);
                         lectureListView.setAdapter(myLectureListAdapt);
@@ -103,28 +99,25 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
 
     @Override
     public void onDetailsSaved(String year, String subject, String startTime, String endTime,String roomNumber,String division) {
-        lectureForm=new Lecture(subject,startTime+":00 - "+endTime+":00",roomNumber,division,year,0);
-        Intent intent = new Intent(TeacherHome.this, PickerActivity.class);
-        intent.putExtra("LectureData", lectureForm);
-        intent.putExtra("type","form");
-        startActivity(intent);
+//        lectureForm=new Lecture(subject,startTime+":00 - "+endTime+":00",roomNumber,division,year,0);
+//        Intent intent = new Intent(TeacherHome.this, PickerActivity.class);
+//        intent.putExtra("LectureData", lectureForm);
+//        intent.putExtra("type","form");
+//        startActivity(intent);
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_logout,menu);
+        inflater.inflate(R.menu.menu_user_details,menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_logout) {
-            edit.clear();
-            edit.commit();
-            startActivity(new Intent(TeacherHome.this, LoginActivity.class));
-            finish();
+        if (item.getItemId() == R.id.menu_item_account) {
+            startActivity(new Intent(this, UserActivity.class));
             return true;
         }
         return false;

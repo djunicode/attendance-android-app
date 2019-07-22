@@ -29,12 +29,24 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/txt_subName"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="33dp"
         android:text="Class 1A"
         android:textAlignment="center"
         android:textColor="@color/Grey"
         android:textSize="15sp"
         tools:ignore="HardcodedText" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="type"
+        android:id="@+id/type"
+        android:textColor="@color/Grey"
+        android:textAlignment="center"
+        tools:ignore="HardcodedText"
+        android:layout_marginTop="53dp"
+        android:layout_marginLeft="12dp"/>
+
 
     <TextView
         android:id="@+id/txt_class"
@@ -67,9 +79,8 @@
 
     <Button
         android:id="@+id/btn_cancel"
-        android:visibility="invisible"
         android:layout_width="56dp"
-        android:layout_height="24dp"
+        android:layout_height="27dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="122dp"
@@ -78,12 +89,12 @@
         android:backgroundTint="@color/errorWidgetColor"
         android:text="Cancel"
         android:textColor="@color/White"
-        android:textSize="9sp" />
+        android:textSize="10sp" />
 
     <Button
         android:id="@+id/btn_takeAttendance"
         android:layout_width="96dp"
-        android:layout_height="24dp"
+        android:layout_height="27dp"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/btn_cancel"
         android:layout_marginEnd="16dp"
@@ -91,7 +102,7 @@
         android:backgroundTint="@color/primaryColor"
         android:text="Take Attendance"
         android:textColor="@color/White"
-        android:textSize="9sp" />
+        android:textSize="10sp" />
 
     <ImageView
         android:id="@+id/img_attendanceTaken"

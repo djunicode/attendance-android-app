@@ -1,9 +1,8 @@
 package io.github.djunicode.attendanceapp.TeacherSide;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,12 +30,15 @@ import java.util.Set;
 import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.RetrofitInterface;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebDivAndSubjectsForForm;
+import io.github.djunicode.attendanceapp.TeacherSide.Models.WebSendAttendance;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebStudents;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class FormDialogFragment extends DialogFragment implements
@@ -163,7 +165,7 @@ public class FormDialogFragment extends DialogFragment implements
         saveDetails = view.findViewById(R.id.save_details);
         saveDetails.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 checks[0] = (yearSelect.getText() != null && yearSelect.getText().toString().trim().length() > 0);
                 checks[1] = (divisionSelect.getText() != null && divisionSelect.getText().toString().trim().length() > 0);
                 checks[2] = (subjectSelect.getText() != null && subjectSelect.getText().toString().trim().length() > 0);
@@ -181,18 +183,15 @@ public class FormDialogFragment extends DialogFragment implements
                     String date = sdf.format(Calendar.getInstance().getTime());
                     Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
                     RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
-                    Call<WebStudents> webStudentsCall = retrofitInterface.studentList("Token " + spref.getString("token", null), subjectSelect.getText().toString(),""+yearSelect.getText().toString()+"_"+divisionSelect.getText().toString(), date, startTime.getText().toString());
+                     WebSendAttendance webSendAttendance =new WebSendAttendance(null,subjectSelect.getText().toString(),""+yearSelect.getText().toString()+"_"+divisionSelect.getText().toString(),roomNumber.getText().toString(),startTime.getText().toString()+":00",endTime.getText().toString()+":00",date);
+                    Call<WebStudents> webStudentsCall = retrofitInterface.formStudentList("Token " + spref.getString("token", null),webSendAttendance);
                     webStudentsCall.enqueue(new Callback<WebStudents>() {
                         @Override
                         public void onResponse(Call<WebStudents> call, Response<WebStudents> response) {
                             WebStudents webStudents=response.body();
                             if(webStudents!=null)
                             {
-                                mOnDetailsSaved.onDetailsSaved(yearSelect.getText().toString(),
-                                        subjectSelect.getText().toString(),
-                                        startTime.getText().toString(),
-                                        endTime.getText().toString(),roomNumber.getText().toString(),divisionSelect.getText().toString());
-
+                                view.getContext().startActivity(new Intent(getContext(),TeacherHome.class));
                                 FormDialogFragment.this.dismiss();
                             }
                             else

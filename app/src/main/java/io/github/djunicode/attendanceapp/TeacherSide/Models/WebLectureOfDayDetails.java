@@ -1,8 +1,12 @@
 package io.github.djunicode.attendanceapp.TeacherSide.Models;
 //used for get-lecture-of-the-day RetrofitInterface
 public class WebLectureOfDayDetails {
-    String timing,date,subject,teacher,roomNumber,div;
+    String timing,date,subject,roomNumber,div,type;
     Integer attendanceTaken;
+
+    public String getType() {
+        return type;
+    }
 
     public Integer getAttendanceTaken() {
         return attendanceTaken;
@@ -24,11 +28,18 @@ public class WebLectureOfDayDetails {
         return subject;
     }
 
-    public String getTeacher() {
-        return teacher;
-    }
 
     public String getRoomNumber() {
         return roomNumber;
+    }
+
+    public WebLectureOfDayDetails(String timing, String date, String subject, String roomNumber, String div, Integer attendanceTaken,String type) {
+        this.timing = timing;
+        this.date = date;
+        this.subject = subject;
+        this.roomNumber = roomNumber;
+        this.div = div;
+        this.attendanceTaken = attendanceTaken;
+        this.type=type;
     }
 }

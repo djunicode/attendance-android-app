@@ -1,7 +1,7 @@
 package io.github.djunicode.attendanceapp.CommonModels;
 
 public class User {
-    String name,sapID;
+    String name, sapID, specialization;
 
     public String getName() {
         return name;
@@ -9,5 +9,9 @@ public class User {
 
     public String getSapID() {
         return sapID;
+    }
+
+    public String getSpecialization() {
+        return specialization;
     }
 }

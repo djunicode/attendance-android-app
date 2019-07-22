@@ -1,13 +1,13 @@
 package io.github.djunicode.attendanceapp;
 import java.util.ArrayList;
 
-
 import io.github.djunicode.attendanceapp.StudentSide.Models.DaywiseDetailsModel;
 import io.github.djunicode.attendanceapp.StudentSide.WebLecturesAttended;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebDivAndSubjectsForForm;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebLectureOfDay;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebSendAttendance;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebStudents;
+import io.github.djunicode.attendanceapp.TeacherSide.Models.deleteResponse;
 import io.github.djunicode.attendanceapp.TeacherSide.TokenRequest;
 import io.github.djunicode.attendanceapp.TeacherSide.TokenResponse;
 import retrofit2.Call;
@@ -41,5 +41,8 @@ public interface RetrofitInterface {
 
     @POST("save-attendance/")
     Call<WebSendAttendance>sendAttendance(@Header("Authorization")String header,@Body WebSendAttendance webSendAttendance);
+
+    @POST("delete-lecture/")
+    Call<deleteResponse>deleteLecture(@Header("Authorization")String header, @Body WebSendAttendance webSendAttendance);
 
 }

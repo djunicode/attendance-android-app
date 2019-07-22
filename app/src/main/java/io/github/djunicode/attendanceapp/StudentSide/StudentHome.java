@@ -18,11 +18,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import io.github.djunicode.attendanceapp.LoginActivity;
 import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.RetrofitInterface;
 import io.github.djunicode.attendanceapp.StudentSide.Adapters.SubjectAttendanceAdapter;
 import io.github.djunicode.attendanceapp.StudentSide.Models.SubjectAttendanceModel;
+import io.github.djunicode.attendanceapp.UserActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,7 +54,7 @@ public class StudentHome extends AppCompatActivity {
         super.onResume();
         setContentView(R.layout.student_home);
         Objects.requireNonNull(getSupportActionBar()).setElevation(0);
-        getSupportActionBar().setTitle("=  Attendance Manager");
+        getSupportActionBar().setTitle("Attendance Manager");
 
         init();
         loadData();
@@ -92,11 +92,15 @@ public class StudentHome extends AppCompatActivity {
                             subjectModelList.add(new SubjectAttendanceModel(Integer.parseInt(e.getAttended()), Integer.parseInt(e.getTotal()), e.getType(), "" + e.getSubject()));
                         }
                         for (SubjectAttendanceModel sam : subjectModelList) {
-                            totalConducted += sam.getConducted();
-                            totalAttended += sam.getAttended();
+                            String type=sam.getLectureType();
+                            if(!type.equals("Practical")) {
+                                totalConducted += sam.getConducted();
+                                totalAttended += sam.getAttended();
+                            }
                         }
                         double totalPercent = ((double) totalAttended * 100) / (double) totalConducted;
                         subListView.setVisibility(View.VISIBLE);
+
 //                String predictionText;
 //
 //                if (totalPercent >= 75.0)
@@ -138,17 +142,14 @@ public class StudentHome extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_logout,menu);
+        inflater.inflate(R.menu.menu_user_details,menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_logout) {
-            edit.clear();
-            edit.commit();
-            startActivity(new Intent(StudentHome.this, LoginActivity.class));
-            finish();
+        if (item.getItemId() == R.id.menu_item_account) {
+            startActivity(new Intent(this, UserActivity.class));
             return true;
         }
         return false;

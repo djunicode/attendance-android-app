@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.github.djunicode.attendanceapp">
-<uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,9 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity" android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".UserActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -19,19 +27,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StudentSide.StudentHome">
-        </activity>
-        <activity android:name=".StudentSide.DaywiseDetails">
-        </activity>
+        <activity android:name=".StudentSide.StudentHome"
+            android:screenOrientation="portrait" ></activity>
+        <activity android:name=".StudentSide.DaywiseDetails"
+            android:screenOrientation="portrait" ></activity>
         <activity
             android:name=".TeacherSide.PickerActivity"
             android:label="@string/title_activity_picker"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name=".TeacherSide.TeacherHome">
-
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".TeacherSide.TeacherHome"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>
