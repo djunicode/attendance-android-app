@@ -2,25 +2,11 @@ package io.github.djunicode.attendanceapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ListView;
-import android.widget.Toast;
-
-
-import java.util.ArrayList;
-import java.util.Calendar;
+import android.support.v7.app.AppCompatActivity;
 
 import io.github.djunicode.attendanceapp.StudentSide.StudentHome;
-import io.github.djunicode.attendanceapp.TeacherSide.Adapters.MyLectureListAdapt;
-import io.github.djunicode.attendanceapp.TeacherSide.Models.Lecture;
-import io.github.djunicode.attendanceapp.TeacherSide.Models.TeacherTimeTableModel;
 import io.github.djunicode.attendanceapp.TeacherSide.TeacherHome;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences spref;

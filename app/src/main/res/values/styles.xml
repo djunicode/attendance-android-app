@@ -23,4 +23,8 @@
         <item name="android:background">@drawable/log_in_button</item>
     </style>
 
+    <style name="ErrorButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/errorWidgetColor</item>
+    </style>
+
 </resources>

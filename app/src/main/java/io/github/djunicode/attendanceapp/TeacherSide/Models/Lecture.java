@@ -2,7 +2,7 @@ package io.github.djunicode.attendanceapp.TeacherSide.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-//use LectureModel
+
 public class Lecture implements Parcelable {
 
     private String subjectName;
