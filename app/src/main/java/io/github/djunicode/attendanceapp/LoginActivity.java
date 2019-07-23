@@ -48,9 +48,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 sap=mSap.getText().toString();
                 password=mPassword.getText().toString();
-//                TODO: ProgressBar Logic Below
+                mButton.setVisibility(View.INVISIBLE);
                 mProgressBar.setVisibility(View.VISIBLE);
-                mForm.setVisibility(View.INVISIBLE);
                Retrofit retrofit=new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
                 RetrofitInterface retrofitInterface =retrofit.create(RetrofitInterface.class);
                 final TokenRequest tokenRequest=new TokenRequest(""+mSap.getText().toString(),""+mPassword.getText().toString());
@@ -83,19 +82,18 @@ public class LoginActivity extends AppCompatActivity {
 
                         } else {
                             mProgressBar.setVisibility(View.INVISIBLE);
-                            mForm.setVisibility(View.VISIBLE);
-
+                            mButton.setVisibility(View.VISIBLE);
                             mSap.setText("");
                             mPassword.setText("");
                             Toast.makeText(LoginActivity.this,"SAP Id or password incorrect. Please try again",Toast.LENGTH_LONG).show();
+
                         }
                     }
 
                     @Override
                     public void onFailure(Call<TokenResponse> call, Throwable t) {
                         mProgressBar.setVisibility(View.INVISIBLE);
-                        mForm.setVisibility(View.VISIBLE);
-
+                        mButton.setVisibility(View.VISIBLE);
                         Toast.makeText(LoginActivity.this,""+t.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 });

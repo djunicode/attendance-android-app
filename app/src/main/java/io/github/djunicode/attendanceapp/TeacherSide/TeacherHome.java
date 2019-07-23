@@ -47,7 +47,6 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_home);
-
         mProgressBar = findViewById(R.id.progress_circular);
         mProgressBar.setVisibility(View.VISIBLE);
 
@@ -61,7 +60,6 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
                 fragment.show(transaction, "form-dialog-fragment");
             }
         });
-
         spref = getApplicationContext().getSharedPreferences("user", MODE_PRIVATE);
         edit=spref.edit();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");

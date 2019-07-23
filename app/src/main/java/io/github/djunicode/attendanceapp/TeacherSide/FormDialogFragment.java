@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ public class FormDialogFragment extends DialogFragment implements
     private AppCompatAutoCompleteTextView yearSelect, subjectSelect, divisionSelect;
     private TextInputEditText startTime, endTime, roomNumber;
     private ImageButton saveDetails;
+    ProgressBar progressBarTick;
     private ArrayList<String> year = new ArrayList<>();
     private ArrayList<String> subject = new ArrayList<>();
     private ArrayList<String> division = new ArrayList<>();
@@ -76,6 +78,7 @@ public class FormDialogFragment extends DialogFragment implements
         spref = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
+        progressBarTick=view.findViewById(R.id.donePbar);
         final Call<ArrayList<WebDivAndSubjectsForForm>> divAndSubForm=retrofitInterface.formSpinnerData("Token " + spref.getString("token", null));
         divAndSubForm.enqueue(new Callback<ArrayList<WebDivAndSubjectsForForm>>() {
             @Override
@@ -87,7 +90,7 @@ public class FormDialogFragment extends DialogFragment implements
                     {
 
                         for(i = 0; i<webDivAndSubjectsForForms.size(); i++)
-                        {//TODO:IF NO ATTENDANCE
+                        {
                             year.add(webDivAndSubjectsForForms.get(i).getDiv().substring(0,2));
                             division.add(webDivAndSubjectsForForms.get(i).getDiv().substring(3));
                             subject.add(webDivAndSubjectsForForms.get(i).getSubject());
@@ -166,6 +169,8 @@ public class FormDialogFragment extends DialogFragment implements
         saveDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                saveDetails.setVisibility(View.INVISIBLE);
+                progressBarTick.setVisibility(View.VISIBLE);
                 checks[0] = (yearSelect.getText() != null && yearSelect.getText().toString().trim().length() > 0);
                 checks[1] = (divisionSelect.getText() != null && divisionSelect.getText().toString().trim().length() > 0);
                 checks[2] = (subjectSelect.getText() != null && subjectSelect.getText().toString().trim().length() > 0);
@@ -183,7 +188,7 @@ public class FormDialogFragment extends DialogFragment implements
                     String date = sdf.format(Calendar.getInstance().getTime());
                     Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
                     RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
-                     WebSendAttendance webSendAttendance =new WebSendAttendance(null,subjectSelect.getText().toString(),""+yearSelect.getText().toString()+"_"+divisionSelect.getText().toString(),roomNumber.getText().toString(),startTime.getText().toString()+":00",endTime.getText().toString()+":00",date);
+                     WebSendAttendance webSendAttendance =new WebSendAttendance(null,subjectSelect.getText().toString().toUpperCase(),""+yearSelect.getText().toString().toUpperCase()+"_"+divisionSelect.getText().toString().toUpperCase(),roomNumber.getText().toString(),startTime.getText().toString()+":00",endTime.getText().toString()+":00",date);
                     Call<WebStudents> webStudentsCall = retrofitInterface.formStudentList("Token " + spref.getString("token", null),webSendAttendance);
                     webStudentsCall.enqueue(new Callback<WebStudents>() {
                         @Override
@@ -192,10 +197,12 @@ public class FormDialogFragment extends DialogFragment implements
                             if(webStudents!=null)
                             {
                                 view.getContext().startActivity(new Intent(getContext(),TeacherHome.class));
+                                getActivity().finish();
                                 FormDialogFragment.this.dismiss();
                             }
                             else
-                            {
+                            {     saveDetails.setVisibility(View.VISIBLE);
+                                progressBarTick.setVisibility(View.INVISIBLE);
                                 Toast.makeText(getContext(), "No such lecture possible", Toast.LENGTH_LONG).show();
                                 yearSelect.setText("");
                                 subjectSelect.setText("");
@@ -209,11 +216,15 @@ public class FormDialogFragment extends DialogFragment implements
 
                         @Override
                         public void onFailure(Call<WebStudents> call, Throwable t) {
+                            saveDetails.setVisibility(View.VISIBLE);
+                            progressBarTick.setVisibility(View.INVISIBLE);
                             Toast.makeText(getContext(),""+t.getMessage(),Toast.LENGTH_LONG).show();
                         }
                     });
 
                 } else {
+                    saveDetails.setVisibility(View.VISIBLE);
+                    progressBarTick.setVisibility(View.INVISIBLE);
                     Toast.makeText(getContext(), "Please fill all the fields", Toast.LENGTH_LONG).show();
                 }
 

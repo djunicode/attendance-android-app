@@ -1,7 +1,5 @@
 package io.github.djunicode.attendanceapp.TeacherSide.Adapters;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +30,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class MyLectureListAdapt extends BaseAdapter{
     private Context context;
@@ -71,8 +72,10 @@ public class MyLectureListAdapt extends BaseAdapter{
         TextView timingView = relativeLayoutItem.findViewById(R.id.txt_timing);
         TextView classRoomView = relativeLayoutItem.findViewById(R.id.txt_classRoom);
         TextView type=relativeLayoutItem.findViewById(R.id.type);
-        Button takeAttendance = relativeLayoutItem.findViewById(R.id.btn_takeAttendance);
-        Button cancelAttendance=relativeLayoutItem.findViewById(R.id.btn_cancel);
+        final Button takeAttendance = relativeLayoutItem.findViewById(R.id.btn_takeAttendance);
+        final Button cancelAttendance=relativeLayoutItem.findViewById(R.id.btn_cancel);
+        final ProgressBar cancelPbar=relativeLayoutItem.findViewById(R.id.pbar_cancel);
+        final ProgressBar takePbar=relativeLayoutItem.findViewById(R.id.pbar_take);
         if(lo.getAttendanceTaken()==1)
         {
             attendanceTaken.setVisibility(View.VISIBLE);
@@ -80,6 +83,8 @@ public class MyLectureListAdapt extends BaseAdapter{
         cancelAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cancelAttendance.setVisibility(View.INVISIBLE);
+                cancelPbar.setVisibility(View.VISIBLE);
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                 String date = sdf.format(Calendar.getInstance().getTime());
                 WebSendAttendance webSendAttendance=new WebSendAttendance(null,lectureList.get(i).getSubjectName(),
@@ -96,17 +101,27 @@ public class MyLectureListAdapt extends BaseAdapter{
                         if(response1.getSuccess()==0)
                                 {
                             Toast.makeText(view.getContext(),"No such lecture exists",Toast.LENGTH_LONG).show();
-                        }
+                                    cancelPbar.setVisibility(View.INVISIBLE);
+
+                                }
                         else
                         {
                             Toast.makeText(view.getContext(),"Lecture deleted successfully",Toast.LENGTH_LONG).show();
+                            cancelPbar.setVisibility(View.INVISIBLE);
                             view.getContext().startActivity(new Intent(view.getContext(), TeacherHome.class));
+                            try {
+                                ((TeacherHome)context).finish();
+                            } catch (ClassCastException e){
+                                e.printStackTrace();
+                            }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<deleteResponse> call, Throwable t) {
                         Toast.makeText(view.getContext(),""+t.getMessage(),Toast.LENGTH_LONG).show();
+                        cancelAttendance.setVisibility(View.VISIBLE);
+                        cancelPbar.setVisibility(View.INVISIBLE);
                     }
                 });
             }
@@ -115,6 +130,8 @@ public class MyLectureListAdapt extends BaseAdapter{
         takeAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                takeAttendance.setVisibility(View.INVISIBLE);
+                takePbar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(inflater.getContext(), PickerActivity.class);
                 intent.putExtra("LectureData", lectureList.get(i));
                 intent.putExtra("type","list");
