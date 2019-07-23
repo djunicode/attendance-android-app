@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -40,11 +41,15 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
     private Lecture lectureForm;
     public SharedPreferences.Editor edit;
     private FloatingActionButton newLectureFAB;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_home);
+
+        mProgressBar = findViewById(R.id.progress_circular);
+        mProgressBar.setVisibility(View.VISIBLE);
 
         final RelativeLayout emptyScreen = findViewById(R.id.empty_screen);
         newLectureFAB = findViewById(R.id.new_lecture_fab);
@@ -69,6 +74,7 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
             public void onResponse(Call<WebLectureOfDay> call, Response<WebLectureOfDay> response) {
                 WebLectureOfDay webLectureOfDays = response.body();
                 if (webLectureOfDays != null) {
+                    mProgressBar.setVisibility(View.INVISIBLE);
                     if (webLectureOfDays.getLectures().size() != 0) {
                         for (WebLectureOfDayDetails e : webLectureOfDays.getLectures()) {
                             lectureList.add(new Lecture(e.getType(),e.getSubject(), e.getTiming(), e.getRoomNumber(), e.getDiv().substring(3), e.getDiv().substring(0, 2), e.getAttendanceTaken()));
@@ -80,9 +86,8 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
                     } else {
                         emptyScreen.setVisibility(View.VISIBLE);
                     }
-                }
-                else
-                {
+                } else {
+                    mProgressBar.setVisibility(View.INVISIBLE);
                     emptyScreen.setVisibility(View.VISIBLE);
                 }
             }
@@ -90,6 +95,7 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
 
             @Override
             public void onFailure(Call<WebLectureOfDay> call, Throwable t) {
+                mProgressBar.setVisibility(View.INVISIBLE);
                 emptyScreen.setVisibility(View.GONE);
                 Toast.makeText(TeacherHome.this, "" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -104,7 +110,6 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
 //        intent.putExtra("LectureData", lectureForm);
 //        intent.putExtra("type","form");
 //        startActivity(intent);
-
     }
 
     @Override

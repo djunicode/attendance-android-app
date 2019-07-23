@@ -8,18 +8,6 @@
     app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="175dp"
-        android:alpha="0.2"
-        android:src="@drawable/clg_logo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
     <Button
         android:id="@+id/change_password"
         style="@style/Widget.MaterialComponents.Button"
@@ -41,7 +29,7 @@
 
     <Button
         android:id="@+id/button_logout"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/ErrorButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -49,7 +37,7 @@
         android:layout_marginBottom="36dp"
         android:background="@drawable/btn_background_corners"
         android:backgroundTint="@color/errorWidgetColor"
-        android:text="LOGOUT"
+        android:text="Logout"
         android:textColor="@color/colorOnErrorWidget"
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="parent"

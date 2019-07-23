@@ -1,8 +1,9 @@
 package io.github.djunicode.attendanceapp.TeacherSide.Models;
 
-import java.io.Serializable;
-//use LectureModel
-public class Lecture implements Serializable{
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Lecture implements Parcelable {
 
     private String subjectName;
     private String timing;
@@ -45,4 +46,51 @@ public class Lecture implements Serializable{
     public String getDivision() { return division; }
 
     public String getYear() { return year; }
+
+    protected Lecture(Parcel in) {
+        subjectName = in.readString();
+        timing = in.readString();
+        classRoomName = in.readString();
+        division = in.readString();
+        year = in.readString();
+        if (in.readByte() == 0) {
+            attendanceTaken = null;
+        } else {
+            attendanceTaken = in.readInt();
+        }
+        type = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(subjectName);
+        dest.writeString(timing);
+        dest.writeString(classRoomName);
+        dest.writeString(division);
+        dest.writeString(year);
+        if (attendanceTaken == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(attendanceTaken);
+        }
+        dest.writeString(type);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Lecture> CREATOR = new Creator<Lecture>() {
+        @Override
+        public Lecture createFromParcel(Parcel in) {
+            return new Lecture(in);
+        }
+
+        @Override
+        public Lecture[] newArray(int size) {
+            return new Lecture[size];
+        }
+    };
 }
