@@ -16,19 +16,19 @@ public class UserActivity extends AppCompatActivity implements
     private TextView mInitialsText, mNameText, mSapIDText, mMiscText;
     private Button logoutButton, mChangePassword;
 
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences spref;
     SharedPreferences.Editor edit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        sharedPreferences = getApplicationContext().getSharedPreferences("user",MODE_PRIVATE);
-        edit=sharedPreferences.edit();
-        String name = sharedPreferences.getString("name", "TestName");
-        String sapId = sharedPreferences.getString("sap", "60000000001");
+        spref = getApplicationContext().getSharedPreferences("user",MODE_PRIVATE);
+        edit=spref.edit();
+        String name = spref.getString("name", "TestName");
+        String sapId = spref.getString("sap", "60000000001");
         String[] split = name.split("\\s+");
         String initials = ("" + split[0].substring(0,1) + split[1].substring(0,1) + "").toUpperCase();
-        String spec = sharedPreferences.getString("specialization", "");
+        String spec = spref.getString("specialization", "");
 
 
         mInitialsText = findViewById(R.id.text_initials);
@@ -64,6 +64,6 @@ public class UserActivity extends AppCompatActivity implements
 
     @Override
     public void onPasswordChange(String oldPassword, String newPassword) {
-//        TODO: add New password Code here
+
     }
 }

@@ -245,6 +245,7 @@ public class FormDialogFragment extends DialogFragment implements
     @Override
     public void onClick(final View view) {
         if (view.getId() == R.id.start_time_input || view.getId() == R.id.end_time_input) {
+            roomNumber.onEditorAction(EditorInfo.IME_ACTION_DONE);
             Calendar calendar = Calendar.getInstance();
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             final int minute = calendar.get(Calendar.MINUTE);

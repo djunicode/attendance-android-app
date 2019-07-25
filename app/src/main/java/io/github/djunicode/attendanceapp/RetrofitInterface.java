@@ -45,4 +45,7 @@ public interface RetrofitInterface {
     @POST("delete-lecture/")
     Call<deleteResponse>deleteLecture(@Header("Authorization")String header, @Body WebSendAttendance webSendAttendance);
 
+    @POST("change-password/")
+    Call<deleteResponse>changePassword(@Header("Authorization")String header,@Body changePassword changePassword);
+
 }

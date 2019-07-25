@@ -41,8 +41,7 @@
             android:text="Attended: 40"
             android:textColor="@color/primaryColor"
             android:textSize="14sp"
-            android:textStyle="italic" />
-
+/>
         <TextView
             android:id="@+id/txt_outOf"
             android:layout_width="100dp"
@@ -54,8 +53,7 @@
             android:text="Out Of: 50"
             android:textColor="@color/primaryColor"
             android:textSize="14sp"
-            android:textStyle="italic" />
-
+/>
         <TextView
             android:id="@+id/txt_subject"
             android:layout_width="wrap_content"
