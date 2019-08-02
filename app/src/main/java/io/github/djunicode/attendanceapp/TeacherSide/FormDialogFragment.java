@@ -1,5 +1,7 @@
 package io.github.djunicode.attendanceapp.TeacherSide;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -38,8 +40,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.content.Context.MODE_PRIVATE;
 
 
 public class FormDialogFragment extends DialogFragment implements
@@ -194,14 +194,13 @@ public class FormDialogFragment extends DialogFragment implements
                         @Override
                         public void onResponse(Call<WebStudents> call, Response<WebStudents> response) {
                             WebStudents webStudents=response.body();
-                            if(webStudents!=null)
-                            {
+                            if(webStudents!=null) {
+                                Toast.makeText(getContext(), "Lecture Added", Toast.LENGTH_LONG).show();
                                 view.getContext().startActivity(new Intent(getContext(),TeacherHome.class));
                                 getActivity().finish();
                                 FormDialogFragment.this.dismiss();
-                            }
-                            else
-                            {     saveDetails.setVisibility(View.VISIBLE);
+                            } else {
+                                saveDetails.setVisibility(View.VISIBLE);
                                 progressBarTick.setVisibility(View.INVISIBLE);
                                 Toast.makeText(getContext(), "No such lecture possible", Toast.LENGTH_LONG).show();
                                 yearSelect.setText("");

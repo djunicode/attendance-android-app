@@ -50,6 +50,8 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
         mProgressBar = findViewById(R.id.progress_circular);
         mProgressBar.setVisibility(View.VISIBLE);
 
+        setTitle("Upcoming Lectures");
+
         final RelativeLayout emptyScreen = findViewById(R.id.empty_screen);
         newLectureFAB = findViewById(R.id.new_lecture_fab);
         newLectureFAB.setOnClickListener(new View.OnClickListener() {
