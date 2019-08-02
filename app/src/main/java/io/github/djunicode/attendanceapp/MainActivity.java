@@ -9,12 +9,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import io.github.djunicode.attendanceapp.StudentSide.StudentHome;
 import io.github.djunicode.attendanceapp.TeacherSide.TeacherHome;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences spref;
+    private TextView noInterentText;
+    private ImageView noInternetImg;
 
 
     @Override
