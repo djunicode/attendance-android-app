@@ -204,12 +204,6 @@ public class FormDialogFragment extends DialogFragment implements
                             {     saveDetails.setVisibility(View.VISIBLE);
                                 progressBarTick.setVisibility(View.INVISIBLE);
                                 Toast.makeText(getContext(), "No such lecture possible", Toast.LENGTH_LONG).show();
-                                yearSelect.setText("");
-                                subjectSelect.setText("");
-                                startTime.setText("");
-                                endTime.setText("");
-                                divisionSelect.setText("");
-                                roomNumber.setText("");
 
                             }
                         }

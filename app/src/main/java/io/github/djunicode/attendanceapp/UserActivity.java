@@ -25,12 +25,9 @@ public class UserActivity extends AppCompatActivity implements
         spref = getApplicationContext().getSharedPreferences("user",MODE_PRIVATE);
         edit=spref.edit();
         String name = spref.getString("name", "TestName");
-        String sapId = spref.getString("sap", "60000000001");
-        String[] split = name.split("\\s+");
-        String initials = ("" + split[0].substring(0,1) + split[1].substring(0,1) + "").toUpperCase();
+        String sapId = spref.getString("sap", "60000000000");
+
         String spec = spref.getString("specialization", "");
-
-
         mInitialsText = findViewById(R.id.text_initials);
         mNameText = findViewById(R.id.text_name);
         mSapIDText = findViewById(R.id.text_sap_id);
@@ -41,6 +38,9 @@ public class UserActivity extends AppCompatActivity implements
 
         mNameText.setText(name);
         mSapIDText.setText(sapId);
+
+        String[] split = name.split("\\s+");
+        String initials = ("" + split[0].substring(0,1) + split[split.length-1].substring(0,1) + "").toUpperCase();
         mInitialsText.setText(initials);
         mMiscText.setText(spec);
 

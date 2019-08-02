@@ -125,4 +125,9 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
         }
         return false;
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

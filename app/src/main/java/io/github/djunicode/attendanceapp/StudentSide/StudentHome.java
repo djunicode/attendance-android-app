@@ -31,8 +31,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StudentHome extends AppCompatActivity {
 
-    RetrofitInterface retrofitInterface;
-    String TAG = "StudentHome";
     TextView predictionView, percentView, nameView, initialsView;
     RelativeLayout emptyScreen;
 
@@ -116,7 +114,7 @@ public class StudentHome extends AppCompatActivity {
 
                         nameView.setText(spref.getString("name", "student student"));
 
-                        initialsView.setText("" + splitStr[0].substring(0, 1) + splitStr[1].substring(0, 1));
+                        initialsView.setText("" + splitStr[0].substring(0, 1) + splitStr[splitStr.length-1].substring(0, 1));
 
                         subjectAttendanceAdapter = new SubjectAttendanceAdapter(StudentHome.this, subjectModelList);
 
@@ -153,5 +151,10 @@ public class StudentHome extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
