@@ -1,3 +1,4 @@
+
 package io.github.djunicode.attendanceapp.TeacherSide.Adapters;
 
 import android.annotation.SuppressLint;
@@ -99,11 +100,11 @@ public class MyLectureListAdapt extends BaseAdapter{
                     public void onResponse(Call<deleteResponse> call, Response<deleteResponse> response) {
                         deleteResponse response1=response.body();
                         if(response1.getSuccess()==0)
-                                {
+                        {
                             Toast.makeText(view.getContext(),"No such lecture exists",Toast.LENGTH_LONG).show();
-                                    cancelPbar.setVisibility(View.INVISIBLE);
+                            cancelPbar.setVisibility(View.INVISIBLE);
 
-                                }
+                        }
                         else
                         {
                             Toast.makeText(view.getContext(),"Lecture deleted successfully",Toast.LENGTH_LONG).show();

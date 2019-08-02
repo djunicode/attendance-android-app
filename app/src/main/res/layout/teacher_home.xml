@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,13 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".TeacherSide.TeacherHome">
 
-
     <ProgressBar
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:visibility="invisible"
         android:id="@+id/progress_circular"
         android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:visibility="invisible" />
+        android:layout_height="48dp" />
 
     <RelativeLayout
         android:id="@+id/empty_screen"
@@ -21,54 +21,50 @@
         android:visibility="gone">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_centerInParent="true"
-            android:orientation="vertical">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/empty_screen_image"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_margin="16dp"
+                android:layout_gravity="center_horizontal"
+                android:tint="@android:color/secondary_text_dark"
                 android:src="@drawable/ic_add"
-                android:tint="@android:color/secondary_text_dark" />
+                android:layout_width="120dp"
+                android:layout_height="120dp" />
 
             <TextView
                 android:id="@+id/empty_screen_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/empty_screen_teacher_side"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:textAlignment="center"
-                android:textColor="#aaaaaa" />
+                android:text="@string/empty_screen_teacher_side"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
     </RelativeLayout>
 
     <ListView
+        android:visibility="gone"
         android:id="@+id/list_lectures"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
+        android:layout_height="wrap_content"
         android:paddingBottom="96dp"
         android:clipToPadding="false"/>
 
     <android.support.design.widget.FloatingActionButton
+        android:layout_margin="16dp"
         android:id="@+id/new_lecture_fab"
+        android:layout_gravity="center|bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_add"
         app:fabSize="auto"
-        app:layout_anchor="@id/list_lectures"
-        app:layout_anchorGravity="bottom|center"
-        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"/>
+        android:src="@drawable/ic_add"/>
 
 </android.support.design.widget.CoordinatorLayout>
