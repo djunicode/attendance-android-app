@@ -3,7 +3,7 @@
 * [Kaustubh Kekre](https://github.com/KaustubhKekre)
 * [Jugal Mistry](https://github.com/HuM4NoiD)
 * [YashJaveri](https://github.com/YashJaveri)
-### Mentors
+#### Mentors
 * [Kushal Jain](https://github.com/kushalj001)
 * [Aamir](https://github.com/aamir21198)
 * [Jai Kotia](https://github.com/JaiKotia)
