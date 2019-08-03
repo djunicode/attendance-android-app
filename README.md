@@ -1,4 +1,7 @@
-### Contributors
+# Attendance Android App
+Attendence management android app for Dwarkadas J. Sanghvi College of Engineering. This application was one of the annual software development projects undertaken by [Unicode](https://github.com/djunicode). 
+
+# Contributors
 #### Developers
 * [Kaustubh Kekre](https://github.com/KaustubhKekre)
 * [Jugal Mistry](https://github.com/HuM4NoiD)
@@ -8,10 +11,7 @@
 * [Aamir](https://github.com/aamir21198)
 * [Jai Kotia](https://github.com/JaiKotia)
 
-# Attendance Android App
-Attendence management android app for Dwarkadas J. Sanghvi College of Engineering.
-
-#### Use Cases: 
+## Use Cases: 
 * Teachers can take attendence of students present
 * Students can view past attendence record
 * Teachers can reschudule lectures
