@@ -17,7 +17,7 @@ Attendence management android app for Dwarkadas J. Sanghvi College of Engineerin
 * Students can view past attendence record
 * Teachers can reschudule lectures
 
-## License
+# License
 
     MIT License
 
