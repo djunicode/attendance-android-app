@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="primaryColor">#263238</color>
+    <color name="primaryLightColor">#4f5b62</color>
+    <color name="primaryDarkColor">#040e16</color>
+    <color name="secondaryColor">#5c6bc0</color>
+    <color name="secondaryLightColor">#8e99f3</color>
+    <color name="secondaryDarkColor">#26418f</color>
+    <color name="lightBlue">#00AAFF</color>
+    <color name="ring">#CCC614</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#ffffff</color>
+    <color name="errorWidgetColor">#d63031</color>
+    <color name="colorOnErrorWidget">#ffffff</color>
+    <color name="Grey">#585858</color>
+    <color name="DarkGrey">#383838</color>
+    <color name="White">#FFFFFF</color>
+    <color name="SmokeWhite">#F5F5F5</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="light_purple">#E8E1E7</color>
+    <color name="light_green">#50d050</color>
+    <color name="dark_green">#008000</color>
+    <color name="light_gray">#BBC2C2</color>
+    <color name="dark_blue">#2c3e50</color>
+    <color name="yellow">#f1c40f</color>
+    <color name="green">#008000</color>
 </resources>

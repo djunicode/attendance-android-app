@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="310dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
+        android:hint="Year (Eg- FE)"
+        >
+
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/year_select"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:completionThreshold="0"
+            android:padding="12dp"
+            android:textSize="14sp"
+            android:inputType="textCapCharacters"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
+        android:hint="Division (Eg- A)">
+
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/division_select"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:completionThreshold="0"
+            android:padding="12dp"
+            android:textSize="14sp"
+            android:inputType="textCapCharacters"/>
+
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
+        android:hint="Subject (Eg-OOPM)">
+
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/subject_select"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:completionThreshold="0"
+            android:padding="12dp"
+            android:textSize="14sp"
+            android:inputType="textCapCharacters"/>
+
+
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/room_no_eg_l1_c2">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/room_input"
+            android:inputType="textCapCharacters"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:textSize="14sp" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
+        android:hint="Start Time">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/start_time_input"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:textSize="14sp" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
+        android:hint="End Time">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/end_time_input"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:textSize="14sp" />
+
+    </android.support.design.widget.TextInputLayout>
+<RelativeLayout
+    android:layout_width="290dp"
+    android:layout_height="wrap_content">
+    <ImageButton
+        android:id="@+id/save_details"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_check"
+        android:tint="@color/secondaryColor" />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/donePbar"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"/>
+</RelativeLayout>
+
+
+</LinearLayout>
