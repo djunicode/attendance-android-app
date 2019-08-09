@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.attendancepicker.PickerActivity">
     <item
+        android:id="@+id/previousLectureAttendance"
+        android:icon="@drawable/previous_lecture"
+        android:title="Previous Lecture's Attendance"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/submit"
         android:icon="@drawable/ic_save"
         android:title="Save and Submit"
@@ -14,4 +19,5 @@
         android:title="Search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom" />
+
 </menu>

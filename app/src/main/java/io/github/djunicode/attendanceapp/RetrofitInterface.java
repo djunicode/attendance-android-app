@@ -24,6 +24,9 @@ public interface RetrofitInterface {
     @GET("get-student-list/{subject}/{batch}/{date}/{startTime}")
     Call<WebStudents> studentList(@Header("Authorization")String header,@Path("subject")String subject,@Path("batch")String batch,@Path("date")String date,@Path("startTime")String startTime);
 
+    @GET("get-previous-lecture-attendance/{subject}/{batch}/{date}/{startTime}")
+    Call<WebStudents> studentListFromPrevious(@Header("Authorization")String header,@Path("subject")String subject,@Path("batch")String batch,@Path("date")String date,@Path("startTime")String startTime);
+
     @GET("get-students-attendance/")
     Call<WebLecturesAttended> studentLectures(@Header("Authorization")String header);
 

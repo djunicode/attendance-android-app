@@ -43,12 +43,13 @@ public class PickerActivity extends AppCompatActivity implements
     private ProgressBar presentPercent, mProgressBar;
     private Switch toggleSwitch;
     private ArrayList<WebStudentsList> studentList = new ArrayList<>();
+
     private PickerAdapter pickerAdapter;
     private int present = 0;
     SharedPreferences spref;
     String batch, subject, startTime, endTime, date, room, type;
     int WebPresent = 0;
-
+    RetrofitInterface retrofitInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class PickerActivity extends AppCompatActivity implements
         Retrofit retrofit = new Retrofit.Builder().baseUrl(
                 "https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(
                 GsonConverterFactory.create()).build();
-        RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
         Call<WebStudents> webStudentsCall = retrofitInterface.studentList(
                 "Token " + spref.getString("token", null), subject, batch, date, startTime);
         webStudentsCall.enqueue(new Callback<WebStudents>() {
@@ -192,6 +193,45 @@ public class PickerActivity extends AppCompatActivity implements
                 }
             });
 
+            return true;
+        }
+        else if (item.getItemId() == R.id.previousLectureAttendance)
+        {
+            studentList.clear();
+            Call<WebStudents> webStudentsCall = retrofitInterface.studentListFromPrevious(
+                    "Token " + spref.getString("token", null), subject, batch, date, startTime);
+            webStudentsCall.enqueue(new Callback<WebStudents>() {
+                @Override
+                public void onResponse(Call<WebStudents> call, Response<WebStudents> response) {
+                    WebStudents webStudents = response.body();
+                    WebPresent=0;
+                    if (webStudents != null) {
+                        mProgressBar.setVisibility(View.INVISIBLE);
+                        for (WebStudentsList e : webStudents.getStudents()) {
+                            studentList.add(
+                                    new WebStudentsList(e.getName(), e.getSapID(), e.getAttendance()));
+                            if (e.getAttendance() == 1) {
+                                WebPresent++;
+                            }
+                        }
+                        present = WebPresent;
+                        toolbar.setSubtitle(WebPresent + " out of " + studentList.size() + " present");
+                        Toast.makeText(PickerActivity.this, "Attendance from previous lecture loaded successfully",
+                                Toast.LENGTH_LONG).show();
+                        pickerAdapter.updateList(studentList);
+                    } else {
+                        Toast.makeText(PickerActivity.this, "No previous lecture for this class today",
+                                Toast.LENGTH_LONG).show();
+                        toolbar.getMenu().findItem(R.id.previousLectureAttendance).setVisible(false);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<WebStudents> call, Throwable t) {
+                    Toast.makeText(PickerActivity.this, "" + t.getMessage(), Toast.LENGTH_LONG).show();
+
+                }
+            });
             return true;
         }
         return false;
