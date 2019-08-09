@@ -77,7 +77,7 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
                     mProgressBar.setVisibility(View.INVISIBLE);
                     if (webLectureOfDays.getLectures().size() != 0) {
                         for (WebLectureOfDayDetails e : webLectureOfDays.getLectures()) {
-                            lectureList.add(new Lecture(e.getType(),e.getSubject(), e.getTiming(), e.getRoomNumber(), e.getDiv().substring(3), e.getDiv().substring(0, 2), e.getAttendanceTaken()));
+                            lectureList.add(new Lecture(e.getType(),e.getSubject(), e.getTiming(), e.getRoomNumber(), e.getDiv().substring(3), e.getDiv().substring(0, 2), e.getAttendanceTaken(),e.getPredicted()));
                         }
                         lectureListView = findViewById(R.id.list_lectures);
                         lectureListView.setVisibility(View.VISIBLE);

@@ -6,7 +6,7 @@ Attendence management android app for Dwarkadas J. Sanghvi College of Engineerin
 * [Kaustubh Kekre](https://github.com/KaustubhKekre)
 * [Jugal Mistry](https://github.com/HuM4NoiD)
 * [Yash Javeri](https://github.com/YashJaveri)
-* Adit Kalyani
+* [Adit Kalyani](https://github.com/aditkalyani)
 ## Mentors
 * [Kushal Jain](https://github.com/kushalj001)
 * [Aamir](https://github.com/aamir21198)
