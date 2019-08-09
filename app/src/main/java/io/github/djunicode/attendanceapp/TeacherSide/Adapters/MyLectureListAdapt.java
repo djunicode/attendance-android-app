@@ -150,7 +150,13 @@ public class MyLectureListAdapt extends BaseAdapter{
         divisionTextView.setText(divString);
         timingView.setText(lo.getTiming().substring(0,5)+" - "+lo.getTiming().substring(11,16));
         classRoomView.setText(lo.getClassRooomName());
-        type.setText(lo.getType());
+        if(lo.getPredicted()==0) {
+            type.setText(lo.getType()+" (New)");
+        }
+        else
+        {
+            type.setText(lo.getType()+" (Predicted)");
+        }
         return relativeLayoutItem;
     }
 }
