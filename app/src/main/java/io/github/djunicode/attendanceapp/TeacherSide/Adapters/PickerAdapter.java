@@ -2,7 +2,6 @@ package io.github.djunicode.attendanceapp.TeacherSide.Adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import io.github.djunicode.attendanceapp.R;
-import io.github.djunicode.attendanceapp.TeacherSide.Models.Student;
 import io.github.djunicode.attendanceapp.TeacherSide.Models.WebStudentsList;
 
 
 public class PickerAdapter extends RecyclerView.Adapter<PickerAdapter.PickerViewHolder>{
-    private static final String TAG = "PickerAdapter";
 
     private ArrayList<WebStudentsList> studentList;
     private PickerViewHolder.OnMarkedPresent mOnMarkedPresent;
@@ -30,13 +27,11 @@ public class PickerAdapter extends RecyclerView.Adapter<PickerAdapter.PickerView
     public PickerAdapter(PickerViewHolder.OnMarkedPresent onMarkedPresent, ArrayList<WebStudentsList> studentList) {
         this.studentList = studentList;
         this.mOnMarkedPresent = onMarkedPresent;
-        Log.d(TAG, "PickerAdapter: " + studentList.get(0).getName());
     }
 
     @NonNull
     @Override
     public PickerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.e(TAG, "onCreateViewHolder: created");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.record,parent,false);
         return new PickerViewHolder(view,mOnMarkedPresent);
     }
@@ -61,7 +56,6 @@ public class PickerAdapter extends RecyclerView.Adapter<PickerAdapter.PickerView
     }
 
     public static class PickerViewHolder extends RecyclerView.ViewHolder{
-        private static final String TAG = "PickerViewHolder";
 
         CheckBox presentStatus;
         TextView nameTV;

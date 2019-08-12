@@ -12,8 +12,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
-        android:hint="Year (Eg- FE)"
-        >
+        android:hint="Year (Eg- FE)">
 
         <android.support.v7.widget.AppCompatAutoCompleteTextView
             android:id="@+id/year_select"
