@@ -98,7 +98,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
-        android:hint="Start Time">
+        android:hint="Start Time (24 hour format)">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/start_time_input"
@@ -117,13 +117,14 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
-        android:hint="End Time">
+        android:hint="End Time (24 hour format)">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/end_time_input"
             android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:inputType="time"
+
             android:textSize="14sp" />
 
     </android.support.design.widget.TextInputLayout>
