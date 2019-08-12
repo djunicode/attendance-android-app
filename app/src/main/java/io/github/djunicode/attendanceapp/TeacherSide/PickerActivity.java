@@ -96,6 +96,8 @@ public class PickerActivity extends AppCompatActivity implements
                         }
                     }
                     present = WebPresent;
+                    presentPercent.setProgress(present * 100 / studentList.size());
+
                     toolbar.setSubtitle(WebPresent + " out of " + studentList.size() + " present");
                     pickerAdapter = new PickerAdapter(PickerActivity.this, studentList);
                     list = findViewById(R.id.studentList);
@@ -199,12 +201,13 @@ public class PickerActivity extends AppCompatActivity implements
         {
             studentList.clear();
             Call<WebStudents> webStudentsCall = retrofitInterface.studentListFromPrevious(
-                    "Token " + spref.getString("token", null), subject, batch, date, startTime);
+                    "Token " + spref.getString("token", null), batch, date, startTime);
             webStudentsCall.enqueue(new Callback<WebStudents>() {
                 @Override
                 public void onResponse(Call<WebStudents> call, Response<WebStudents> response) {
                     WebStudents webStudents = response.body();
                     WebPresent=0;
+                    present=0;
                     if (webStudents != null) {
                         mProgressBar.setVisibility(View.INVISIBLE);
                         for (WebStudentsList e : webStudents.getStudents()) {
@@ -212,11 +215,14 @@ public class PickerActivity extends AppCompatActivity implements
                                     new WebStudentsList(e.getName(), e.getSapID(), e.getAttendance()));
                             if (e.getAttendance() == 1) {
                                 WebPresent++;
+                                present++;
+
                             }
                         }
+                        presentPercent.setProgress(present * 100 / studentList.size());
                         present = WebPresent;
                         toolbar.setSubtitle(WebPresent + " out of " + studentList.size() + " present");
-                        Toast.makeText(PickerActivity.this, "Attendance from previous lecture loaded successfully",
+                        Toast.makeText(PickerActivity.this, "Attendance from previous lecture\n(Subject- "+webStudents.getSubject()+", Conducted At- "+webStudents.getTiming().substring(0,5)+") loaded successfully",
                                 Toast.LENGTH_LONG).show();
                         pickerAdapter.updateList(studentList);
                     } else {

@@ -7,6 +7,16 @@ import java.util.ArrayList;
 public class WebStudents {
     @SerializedName("students")
     ArrayList<WebStudentsList> students;
+    String subject,timing;
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public String getTiming() {
+        return timing;
+    }
+
     public ArrayList<WebStudentsList> getStudents() {
         return students;
     }

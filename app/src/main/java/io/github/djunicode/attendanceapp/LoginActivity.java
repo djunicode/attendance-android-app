@@ -63,19 +63,20 @@ public class LoginActivity extends AppCompatActivity {
                             edit.putString("sap",tokenResponse.getUser().getSapID());
                             edit.putString("token",tokenResponse.getToken());
                             edit.commit();
-                            if(tokenResponse.getStudent())
+                            if(tokenResponse.getTeacher())
                             {
-                                edit.putString("userType","student");
-                                edit.commit();
-                                startActivity(new Intent(LoginActivity.this, StudentHome.class));
-                                finish();
-                            }
-                            else
-                            {
+
                                 edit.putString("userType","teacher");
                                 edit.putString("specialization",tokenResponse.getUser().getSpecialization());
                                 edit.commit();
                                 startActivity(new Intent(LoginActivity.this,TeacherHome.class));
+                                finish();
+                            }
+                            else
+                            {
+                                edit.putString("userType","student");
+                                edit.commit();
+                                startActivity(new Intent(LoginActivity.this, StudentHome.class));
                                 finish();
                             }
 
