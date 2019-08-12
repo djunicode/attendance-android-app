@@ -199,7 +199,7 @@ public class PickerActivity extends AppCompatActivity implements
         }
         else if (item.getItemId() == R.id.previousLectureAttendance)
         {
-            studentList.clear();
+
             Call<WebStudents> webStudentsCall = retrofitInterface.studentListFromPrevious(
                     "Token " + spref.getString("token", null), batch, date, startTime);
             webStudentsCall.enqueue(new Callback<WebStudents>() {
@@ -209,6 +209,7 @@ public class PickerActivity extends AppCompatActivity implements
                     WebPresent=0;
                     present=0;
                     if (webStudents != null) {
+                        studentList.clear();
                         mProgressBar.setVisibility(View.INVISIBLE);
                         for (WebStudentsList e : webStudents.getStudents()) {
                             studentList.add(
