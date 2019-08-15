@@ -1,7 +1,5 @@
 package io.github.djunicode.attendanceapp.TeacherSide;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +39,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class FormDialogFragment extends DialogFragment implements
         View.OnClickListener {
@@ -58,8 +58,9 @@ public class FormDialogFragment extends DialogFragment implements
     SharedPreferences spref;
     private int i;
 
-    public interface OnDetailsSaved{
-        void onDetailsSaved(String year, String subject, String startTime, String endTime, String roomNumber, String division);
+    public interface OnDetailsSaved {
+        void onDetailsSaved(String year, String subject, String startTime, String endTime,
+                String roomNumber, String division);
     }
 
     private OnDetailsSaved mOnDetailsSaved;
@@ -76,22 +77,23 @@ public class FormDialogFragment extends DialogFragment implements
         super.onViewCreated(view, savedInstanceState);
 
         spref = getActivity().getSharedPreferences("user", MODE_PRIVATE);
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(
+                "https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(
+                GsonConverterFactory.create()).build();
         RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
-        progressBarTick=view.findViewById(R.id.donePbar);
-        final Call<ArrayList<WebDivAndSubjectsForForm>> divAndSubForm=retrofitInterface.formSpinnerData("Token " + spref.getString("token", null));
+        progressBarTick = view.findViewById(R.id.donePbar);
+        final Call<ArrayList<WebDivAndSubjectsForForm>> divAndSubForm =
+                retrofitInterface.formSpinnerData("Token " + spref.getString("token", null));
         divAndSubForm.enqueue(new Callback<ArrayList<WebDivAndSubjectsForForm>>() {
             @Override
-            public void onResponse(Call<ArrayList<WebDivAndSubjectsForForm>> call, Response<ArrayList<WebDivAndSubjectsForForm>> response) {
-                ArrayList<WebDivAndSubjectsForForm>webDivAndSubjectsForForms=response.body();
-                if(webDivAndSubjectsForForms!=null)
-                {
-                    if (webDivAndSubjectsForForms.size()!=0)
-                    {
+            public void onResponse(Call<ArrayList<WebDivAndSubjectsForForm>> call,
+                    Response<ArrayList<WebDivAndSubjectsForForm>> response) {
+                ArrayList<WebDivAndSubjectsForForm> webDivAndSubjectsForForms = response.body();
+                if (webDivAndSubjectsForForms != null) {
+                    if (webDivAndSubjectsForForms.size() != 0) {
 
-                        for(i = 0; i<webDivAndSubjectsForForms.size(); i++)
-                        {
-                            year.add(webDivAndSubjectsForForms.get(i).getDiv().substring(0,2));
+                        for (i = 0; i < webDivAndSubjectsForForms.size(); i++) {
+                            year.add(webDivAndSubjectsForForms.get(i).getDiv().substring(0, 2));
                             division.add(webDivAndSubjectsForForms.get(i).getDiv().substring(3));
                             subject.add(webDivAndSubjectsForForms.get(i).getSubject());
                         }
@@ -104,32 +106,31 @@ public class FormDialogFragment extends DialogFragment implements
                         Set<String> setSubject = new HashSet<>(subject);
                         subject.clear();
                         subject.addAll(setSubject);
-                        for(int i=0;i<division.size();i++)
-                        {
-                            if(division.get(i).length()>2)
-                            {
+                        for (int i = 0; i < division.size(); i++) {
+                            if (division.get(i).length() > 2) {
                                 divisionOrdered.add(division.get(i));
                                 division.remove(i);
                             }
                         }
                         divisionOrdered.addAll(division);
-                        ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(view.getContext(),R.layout.spinner_item,year);
+                        ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(view.getContext(),
+                                R.layout.spinner_item, year);
                         yearSelect.setAdapter(yearAdapter);
-                        ArrayAdapter<String> divAdapter = new ArrayAdapter<>(view.getContext(),R.layout.spinner_item, divisionOrdered);
+                        ArrayAdapter<String> divAdapter = new ArrayAdapter<>(view.getContext(),
+                                R.layout.spinner_item, divisionOrdered);
                         divisionSelect.setAdapter(divAdapter);
-                        ArrayAdapter<String> subjectAdapter = new ArrayAdapter<>(view.getContext(),R.layout.spinner_item, subject);
+                        ArrayAdapter<String> subjectAdapter = new ArrayAdapter<>(view.getContext(),
+                                R.layout.spinner_item, subject);
                         subjectSelect.setAdapter(subjectAdapter);
 
-                    }
-                    else
-                    {
-                        Toast.makeText(view.getContext(),"Something went wrong. Please try again.",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(view.getContext(), "Something went wrong. Please try again.",
+                                Toast.LENGTH_LONG).show();
 
                     }
-                }
-                else
-                {
-                    Toast.makeText(view.getContext(),"Something went wrong. Please try again.",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(view.getContext(), "Something went wrong. Please try again.",
+                            Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -155,7 +156,7 @@ public class FormDialogFragment extends DialogFragment implements
         roomNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionID, KeyEvent keyEvent) {
-                if(actionID == EditorInfo.IME_ACTION_DONE) {
+                if (actionID == EditorInfo.IME_ACTION_DONE) {
                     startTime.setClickable(true);
                     startTime.setFocusable(true);
                     startTime.setOnClickListener(FormDialogFragment.this);
@@ -171,12 +172,18 @@ public class FormDialogFragment extends DialogFragment implements
             public void onClick(final View view) {
                 saveDetails.setVisibility(View.INVISIBLE);
                 progressBarTick.setVisibility(View.VISIBLE);
-                checks[0] = (yearSelect.getText() != null && yearSelect.getText().toString().trim().length() > 0);
-                checks[1] = (divisionSelect.getText() != null && divisionSelect.getText().toString().trim().length() > 0);
-                checks[2] = (subjectSelect.getText() != null && subjectSelect.getText().toString().trim().length() > 0);
-                checks[3] = (roomNumber.getText() != null && roomNumber.getText().toString().trim().length() > 0);
-                checks[4] = (startTime.getText() != null && startTime.getText().toString().trim().length() > 0);
-                checks[5] = (endTime.getText() != null && endTime.getText().toString().trim().length() > 0);
+                checks[0] = (yearSelect.getText() != null
+                        && yearSelect.getText().toString().trim().length() > 0);
+                checks[1] = (divisionSelect.getText() != null
+                        && divisionSelect.getText().toString().trim().length() > 0);
+                checks[2] = (subjectSelect.getText() != null
+                        && subjectSelect.getText().toString().trim().length() > 0);
+                checks[3] = (roomNumber.getText() != null
+                        && roomNumber.getText().toString().trim().length() > 0);
+                checks[4] = (startTime.getText() != null
+                        && startTime.getText().toString().trim().length() > 0);
+                checks[5] = (endTime.getText() != null
+                        && endTime.getText().toString().trim().length() > 0);
                 boolean finalCheck = true;
 
                 for (i = 0; i < checks.length; ++i) {
@@ -186,23 +193,35 @@ public class FormDialogFragment extends DialogFragment implements
                 if (finalCheck) {
                     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                     String date = sdf.format(Calendar.getInstance().getTime());
-                    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl(
+                            "https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(
+                            GsonConverterFactory.create()).build();
                     RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
-                     WebSendAttendance webSendAttendance =new WebSendAttendance(null,subjectSelect.getText().toString().toUpperCase(),""+yearSelect.getText().toString().toUpperCase()+"_"+divisionSelect.getText().toString().toUpperCase(),roomNumber.getText().toString(),startTime.getText().toString()+":00",endTime.getText().toString()+":00",date);
-                    Call<WebStudents> webStudentsCall = retrofitInterface.formStudentList("Token " + spref.getString("token", null),webSendAttendance);
+                    WebSendAttendance webSendAttendance = new WebSendAttendance(null,
+                            subjectSelect.getText().toString().toUpperCase(),
+                            "" + yearSelect.getText().toString().toUpperCase() + "_"
+                                    + divisionSelect.getText().toString().toUpperCase(),
+                            roomNumber.getText().toString(), startTime.getText().toString() + ":00",
+                            endTime.getText().toString() + ":00", date);
+                    Call<WebStudents> webStudentsCall = retrofitInterface.formStudentList(
+                            "Token " + spref.getString("token", null), webSendAttendance);
                     webStudentsCall.enqueue(new Callback<WebStudents>() {
                         @Override
-                        public void onResponse(Call<WebStudents> call, Response<WebStudents> response) {
-                            WebStudents webStudents=response.body();
-                            if(webStudents!=null) {
-                                Toast.makeText(getContext(), "Lecture Added", Toast.LENGTH_LONG).show();
-                                view.getContext().startActivity(new Intent(getContext(),TeacherHome.class));
+                        public void onResponse(Call<WebStudents> call,
+                                Response<WebStudents> response) {
+                            WebStudents webStudents = response.body();
+                            if (webStudents != null) {
+                                Toast.makeText(getContext(), "Lecture Added",
+                                        Toast.LENGTH_LONG).show();
+                                view.getContext().startActivity(
+                                        new Intent(getContext(), TeacherHome.class));
                                 getActivity().finish();
                                 FormDialogFragment.this.dismiss();
                             } else {
                                 saveDetails.setVisibility(View.VISIBLE);
                                 progressBarTick.setVisibility(View.INVISIBLE);
-                                Toast.makeText(getContext(), "No such lecture possible", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), "No such lecture possible",
+                                        Toast.LENGTH_LONG).show();
 
                             }
                         }
@@ -211,14 +230,16 @@ public class FormDialogFragment extends DialogFragment implements
                         public void onFailure(Call<WebStudents> call, Throwable t) {
                             saveDetails.setVisibility(View.VISIBLE);
                             progressBarTick.setVisibility(View.INVISIBLE);
-                            Toast.makeText(getContext(),""+t.getMessage(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "" + t.getMessage(),
+                                    Toast.LENGTH_LONG).show();
                         }
                     });
 
                 } else {
                     saveDetails.setVisibility(View.VISIBLE);
                     progressBarTick.setVisibility(View.INVISIBLE);
-                    Toast.makeText(getContext(), "Please fill all the fields", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Please fill all the fields",
+                            Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -242,20 +263,24 @@ public class FormDialogFragment extends DialogFragment implements
             Calendar calendar = Calendar.getInstance();
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             final int minute = calendar.get(Calendar.MINUTE);
-            TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
-                    StringBuffer result = new StringBuffer();
-                    if (hour < 10)
-                        result.append(0);
-                    result.append(hour + ":");
-                    if(minutes < 10)
-                        result.append("0");
-                    result.append(minutes);
-                    ((TextInputEditText) view).setText(result.toString());
-                }
-            };
-            TimePickerDialog dialog = new TimePickerDialog(getContext(), timeSetListener, hour, minute, true);
+            TimePickerDialog.OnTimeSetListener timeSetListener =
+                    new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
+                            StringBuffer result = new StringBuffer();
+                            if (hour < 10) {
+                                result.append(0);
+                            }
+                            result.append(hour + ":");
+                            if (minutes < 10) {
+                                result.append("0");
+                            }
+                            result.append(minutes);
+                            ((TextInputEditText) view).setText(result.toString());
+                        }
+                    };
+            TimePickerDialog dialog = new TimePickerDialog(getContext(), timeSetListener, hour,
+                    minute, false);
             dialog.setTitle("Select Time");
             dialog.show();
 
@@ -263,8 +288,9 @@ public class FormDialogFragment extends DialogFragment implements
                 endTime.setFocusable(true);
                 endTime.setClickable(true);
                 endTime.setOnClickListener(FormDialogFragment.this);
-            } else
+            } else {
                 saveDetails.setEnabled(true);
+            }
         }
     }
 }
