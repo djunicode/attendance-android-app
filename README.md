@@ -18,15 +18,15 @@ Attendence management android app for Dwarkadas J. Sanghvi College of Engineerin
 * Teachers can reschudule lectures
 
 # Screens:
-![](screens/screen1.png)
-![](screens/screen2.png)
-![](screens/screen3.png)
-![](screens/screen4.png)
-![](screens/screen5.png)
-![](screens/screen6.png)
-![](screens/screen7.png)
-![](screens/screen8.png)
-![](screens/screen9.jpeg)
+<img src="screens/screen1.png" width="200"/>   
+<img src="screens/screen2.png" width="200"/>   
+<img src="screens/screen3.png" width="200"/>   
+<img src="screens/screen4.png" width="200"/>   
+<img src="screens/screen5.png" width="200"/>   
+<img src="screens/screen6.png" width="200"/>   
+<img src="screens/screen7.png" width="200"/>   
+<img src="screens/screen8.png" width="200"/>   
+<img src="screens/screen9.jpeg" width="200"/>   
 
 # License
 
