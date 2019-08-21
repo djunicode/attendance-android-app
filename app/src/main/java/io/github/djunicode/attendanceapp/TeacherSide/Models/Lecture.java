@@ -10,20 +10,25 @@ public class Lecture implements Parcelable {
     private String classRoomName;
     private String division;
     private String year;
-    Integer attendanceTaken;
+    Integer attendanceTaken,predicted;
     String type;
+
+    public Integer getPredicted() {
+        return predicted;
+    }
 
     public Integer getAttendanceTaken() {
         return attendanceTaken;
     }
 
-    public Lecture(String type,String subjectName, String timing, String classRoomName, String division, String year,Integer attendanceTaken) {
+    public Lecture(String type,String subjectName, String timing, String classRoomName, String division, String year,Integer attendanceTaken,Integer predicted) {
         this.subjectName = subjectName;
         this.type=type;
         this.timing = timing;
         this.classRoomName = classRoomName;
         this.division = division;
         this.year = year;
+        this.predicted=predicted;
         this.attendanceTaken=attendanceTaken;
     }
 

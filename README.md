@@ -6,7 +6,7 @@ Attendence management android app for Dwarkadas J. Sanghvi College of Engineerin
 * [Kaustubh Kekre](https://github.com/KaustubhKekre)
 * [Jugal Mistry](https://github.com/HuM4NoiD)
 * [Yash Javeri](https://github.com/YashJaveri)
-* Adit Kalyani
+* [Adit Kalyani](https://github.com/aditkalyani)
 ## Mentors
 * [Kushal Jain](https://github.com/kushalj001)
 * [Aamir](https://github.com/aamir21198)
@@ -16,6 +16,17 @@ Attendence management android app for Dwarkadas J. Sanghvi College of Engineerin
 * Teachers can take attendence of students present
 * Students can view past attendence record
 * Teachers can reschudule lectures
+
+# Screens:
+<img src="screens/screen1.png" width="200"/>   
+<img src="screens/screen2.png" width="200"/>   
+<img src="screens/screen3.png" width="200"/>   
+<img src="screens/screen4.png" width="200"/>   
+<img src="screens/screen5.png" width="200"/>   
+<img src="screens/screen6.png" width="200"/>   
+<img src="screens/screen7.png" width="200"/>   
+<img src="screens/screen8.png" width="200"/>   
+<img src="screens/screen9.jpeg" width="200"/>   
 
 # License
 

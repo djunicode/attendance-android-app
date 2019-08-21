@@ -2,7 +2,11 @@ package io.github.djunicode.attendanceapp.TeacherSide.Models;
 //used for get-lecture-of-the-day RetrofitInterface
 public class WebLectureOfDayDetails {
     String timing,date,subject,roomNumber,div,type;
-    Integer attendanceTaken;
+    Integer attendanceTaken,predicted;
+
+    public Integer getPredicted() {
+        return predicted;
+    }
 
     public String getType() {
         return type;
@@ -33,7 +37,7 @@ public class WebLectureOfDayDetails {
         return roomNumber;
     }
 
-    public WebLectureOfDayDetails(String timing, String date, String subject, String roomNumber, String div, Integer attendanceTaken,String type) {
+    public WebLectureOfDayDetails(String timing, String date, String subject, String roomNumber, String div, Integer attendanceTaken,String type,Integer predicted) {
         this.timing = timing;
         this.date = date;
         this.subject = subject;
@@ -41,5 +45,6 @@ public class WebLectureOfDayDetails {
         this.div = div;
         this.attendanceTaken = attendanceTaken;
         this.type=type;
+        this.predicted=predicted;
     }
 }
