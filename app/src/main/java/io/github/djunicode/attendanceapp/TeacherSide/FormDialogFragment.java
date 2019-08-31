@@ -1,7 +1,5 @@
 package io.github.djunicode.attendanceapp.TeacherSide;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -40,6 +38,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class FormDialogFragment extends DialogFragment implements

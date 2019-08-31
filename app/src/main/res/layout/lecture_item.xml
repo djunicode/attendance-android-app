@@ -91,13 +91,12 @@
 
     <Button
         android:id="@+id/btn_cancel"
-        android:layout_width="56dp"
-        android:layout_height="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/type"
-        android:layout_alignParentEnd="true"
+        android:layout_toLeftOf="@id/btn_takeAttendance"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="122dp"
-        android:background="@drawable/btn_background_corners"
+        android:layout_marginEnd="4dp"
         android:backgroundTint="@color/errorWidgetColor"
         android:text="Cancel"
         android:textColor="@color/White"
@@ -105,12 +104,11 @@
 
     <Button
         android:id="@+id/btn_takeAttendance"
-        android:layout_width="96dp"
-        android:layout_height="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignTop="@+id/btn_cancel"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/btn_background_corners"
         android:backgroundTint="@color/primaryColor"
         android:text="Take Attendance"
         android:textColor="@color/White"

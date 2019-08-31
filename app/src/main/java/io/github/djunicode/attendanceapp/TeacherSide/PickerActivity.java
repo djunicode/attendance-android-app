@@ -196,7 +196,9 @@ public class PickerActivity extends AppCompatActivity implements
             });
 
             return true;
+
         } else if (item.getItemId() == R.id.previousLectureAttendance) {
+
 
             Call<WebStudents> webStudentsCall = retrofitInterface.studentListFromPrevious(
                     "Token " + spref.getString("token", null), batch, date, startTime);
