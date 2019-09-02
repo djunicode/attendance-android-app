@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/SmokeWhite"
     android:orientation="vertical">
 
@@ -46,7 +47,8 @@
             android:layout_marginTop="3dp"
             android:layout_marginBottom="5dp"
             android:paddingTop="4dp"
-
+            android:text="name"
+            android:visibility="gone"
             android:textColor="@color/SmokeWhite"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -59,10 +61,25 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
             android:paddingBottom="8dp"
-
+            tools:text="Name"
             android:textColor="@color/SmokeWhite"
-            android:textSize="34sp"
-            android:textStyle="bold" />
+            android:textSize="25sp"
+             />
+
+        <TextView
+            android:id="@+id/text_sap_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/txt_mainPercent"
+            android:layout_alignBottom="@id/txt_mainPercent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="-40dp"
+            tools:text="Computer Engineering"
+            android:textColor="@color/SmokeWhite"
+            android:textSize="20sp"
+             />
     </RelativeLayout>
 
 
