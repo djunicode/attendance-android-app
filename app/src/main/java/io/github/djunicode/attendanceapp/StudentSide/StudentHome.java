@@ -31,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StudentHome extends AppCompatActivity {
 
-    TextView predictionView, percentView, nameView, initialsView;
+    TextView sapIdView,predictionView, percentView, nameView, initialsView;
     RelativeLayout emptyScreen;
 
     private int totalConducted;
@@ -62,7 +62,7 @@ public class StudentHome extends AppCompatActivity {
     private void init() {
         emptyScreen = findViewById(R.id.empty_screen);
         subListView = findViewById(R.id.list_studentSubjects);
-
+        sapIdView=findViewById(R.id.text_sap_id);
         percentView = findViewById(R.id.txt_mainPercent);
         nameView = findViewById(R.id.txt_name);
         RelativeLayout relativeLayout = findViewById(R.id.rel_topArea);
@@ -108,12 +108,12 @@ public class StudentHome extends AppCompatActivity {
 //                else
 //                    predictionText = "You need to\nattend: " + (3 * totalConducted - 4 * totalAttended);
 
-                        percentView.setText(String.format("%.2f", totalPercent) + "%");
+//                        percentView.setText(String.format("%.2f", totalPercent) + "%");
                         String str = "" + spref.getString("name", "student student");
                         String[] splitStr = str.split("\\s+");
-
+                        percentView.setText(spref.getString("name", "student student"));
                         nameView.setText(spref.getString("name", "student student"));
-
+                        sapIdView.setText("Computer Engineering");
                         initialsView.setText("" + splitStr[0].substring(0, 1) + splitStr[splitStr.length-1].substring(0, 1));
 
                         subjectAttendanceAdapter = new SubjectAttendanceAdapter(StudentHome.this, subjectModelList);
