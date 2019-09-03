@@ -11,7 +11,6 @@
         android:elevation="8dp">
 
         <android.support.v7.widget.Toolbar
-            android:elevation="27dp"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="User Details"
@@ -19,83 +18,75 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <android.support.design.card.MaterialCardView
-            android:elevation="24dp"
-            app:cardCornerRadius="0dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/primaryColor">
+            android:gravity="center_vertical">
 
-            <RelativeLayout
+            <TextView
+                android:layout_centerVertical="true"
+                android:id="@+id/text_initials"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="32dp"
+                android:background="@drawable/circle"
+                android:gravity="center"
+                android:textColor="@color/primaryColor"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:text="AD" />
+
+            <LinearLayout
+                android:layout_toRightOf="@id/text_initials"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_centerVertical="true"
-                    android:id="@+id/text_initials"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="32dp"
-                    android:background="@drawable/circle"
-                    android:gravity="center"
-                    android:textColor="@color/primaryColor"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    tools:text="AD" />
-
-                <LinearLayout
-                    android:layout_toRightOf="@id/text_initials"
+                    android:id="@+id/text_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="24sp"
+                    tools:text="Testing Name" />
 
-                    <TextView
-                        android:id="@+id/text_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="25sp"
-                        tools:text="Testing Name" />
+                <TextView
+                    android:id="@+id/text_sap_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="18sp"
+                    tools:text="60001110420" />
 
-                    <TextView
-                        android:id="@+id/text_sap_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="19sp"
-                        tools:text="60001110420" />
+                <!--<TextView-->
+                <!--android:id="@+id/text_dept"-->
+                <!--android:text="Computer Engineering"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="16dp"-->
+                <!--android:layout_marginBottom="16dp"-->
+                <!--android:textColor="@color/primaryTextColor"-->
+                <!--android:textSize="19sp"-->
+                <!--tools:text="Computer Engg" />-->
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/text_dept"-->
-                        <!--android:text="Computer Engineering"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginRight="16dp"-->
-                        <!--android:layout_marginBottom="16dp"-->
-                        <!--android:textColor="@color/primaryTextColor"-->
-                        <!--android:textSize="19sp"-->
-                        <!--tools:text="Computer Engg" />-->
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/text_misc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="18sp"
+                    tools:text="Specialization" />
 
-                    <TextView
-                        android:id="@+id/text_misc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="19sp"
-                        tools:text="Specialization" />
+            </LinearLayout>
 
-                </LinearLayout>
-
-            </RelativeLayout>
-
-        </android.support.design.card.MaterialCardView>
+        </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
 

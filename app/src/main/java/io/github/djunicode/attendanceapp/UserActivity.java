@@ -3,10 +3,10 @@ package io.github.djunicode.attendanceapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.card.MaterialCardView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class UserActivity extends AppCompatActivity implements
@@ -14,7 +14,7 @@ public class UserActivity extends AppCompatActivity implements
         ChangePasswordDialogFragment.OnPasswordChange{
 
     private TextView mInitialsText, mNameText, mSapIDText, mMiscText;
-    private Button logoutButton, mChangePassword;
+    private MaterialCardView logoutButton, mChangePassword;
 
     private SharedPreferences spref;
     SharedPreferences.Editor edit;
@@ -42,7 +42,10 @@ public class UserActivity extends AppCompatActivity implements
         String[] split = name.split("\\s+");
         String initials = ("" + split[0].substring(0,1) + split[split.length-1].substring(0,1) + "").toUpperCase();
         mInitialsText.setText(initials);
-        mMiscText.setText(spec);
+        if (spec != null && spec.length() > 0){
+            mMiscText.setVisibility(View.VISIBLE);
+            mMiscText.setText(spec);
+        }
 
         mChangePassword.setOnClickListener(this);
         logoutButton.setOnClickListener(this);
