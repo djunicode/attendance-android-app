@@ -6,43 +6,28 @@
     android:background="@color/SmokeWhite"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
+        android:elevation="8dp"
         android:layout_width="match_parent"
-        android:layout_height="154dp"
+        android:layout_height="wrap_content"
         android:background="@color/primaryColor"
-        android:gravity="center">
+        android:gravity="center_vertical">
 
-        <RelativeLayout
-            android:id="@+id/rel_topArea"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="45dp">
-
-            <TextView
-                android:id="@+id/txt_initials"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/circle"
-                android:gravity="center"
-
-                android:textColor="@color/DarkGrey"
-                android:textSize="25dp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-
-
+        <TextView
+            android:id="@+id/txt_initials"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="32dp"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:textColor="@color/DarkGrey"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txt_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rel_topArea"
-            android:layout_alignStart="@+id/rel_topArea"
             android:layout_marginStart="-9dp"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="5dp"
@@ -53,34 +38,34 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txt_mainPercent"
+        <LinearLayout
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginEnd="32dp"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:paddingBottom="8dp"
-            tools:text="Name"
-            android:textColor="@color/SmokeWhite"
-            android:textSize="25sp"
-             />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/text_sap_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/txt_mainPercent"
-            android:layout_alignBottom="@id/txt_mainPercent"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="7dp"
-            android:layout_marginBottom="-40dp"
-            tools:text="Computer Engineering"
-            android:textColor="@color/SmokeWhite"
-            android:textSize="20sp"
-             />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/txt_mainPercent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                tools:text="Name"
+                android:textColor="@color/SmokeWhite"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_marginTop="16dp"
+                android:id="@+id/text_sap_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/SmokeWhite"
+                android:textSize="18sp"
+                tools:text="Computer Engineering" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 
     <RelativeLayout

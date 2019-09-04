@@ -65,9 +65,8 @@ public class StudentHome extends AppCompatActivity {
         sapIdView=findViewById(R.id.text_sap_id);
         percentView = findViewById(R.id.txt_mainPercent);
         nameView = findViewById(R.id.txt_name);
-        RelativeLayout relativeLayout = findViewById(R.id.rel_topArea);
 
-        initialsView = relativeLayout.findViewById(R.id.txt_initials);
+        initialsView = findViewById(R.id.txt_initials);
 
 
         subjectModelList = new ArrayList<>();

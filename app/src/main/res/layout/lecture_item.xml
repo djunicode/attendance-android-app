@@ -61,7 +61,7 @@
         android:text="S.E. A"
         android:textAlignment="center"
         android:textColor="@color/primaryColor"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
 
@@ -78,16 +78,6 @@
         android:textSize="12sp"
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
-
-    <ProgressBar
-        android:id="@+id/pbar_cancel"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="73dp"
-        android:layout_marginEnd="132dp"
-        android:visibility="invisible" />
 
     <Button
         android:id="@+id/btn_cancel"
@@ -115,13 +105,25 @@
         android:textSize="10sp" />
 
     <ProgressBar
+        android:id="@+id/pbar_cancel"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_alignTop="@+id/btn_cancel"
+        android:layout_alignBottom="@id/btn_cancel"
+        android:layout_alignStart="@id/btn_cancel"
+        android:layout_alignEnd="@id/btn_cancel"
+        android:visibility="invisible" />
+
+    <ProgressBar
         android:id="@+id/pbar_take"
         android:layout_width="27dp"
         android:layout_height="27dp"
-        android:layout_alignTop="@+id/btn_cancel"
-        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/btn_takeAttendance"
+        android:layout_alignBottom="@id/btn_takeAttendance"
+        android:layout_alignStart="@id/btn_takeAttendance"
+        android:layout_alignEnd="@id/btn_takeAttendance"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="49dp"
+
         android:visibility="invisible" />
 
     <ImageView
