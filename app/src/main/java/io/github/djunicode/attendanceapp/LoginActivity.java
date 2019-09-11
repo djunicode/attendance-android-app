@@ -24,11 +24,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextInputEditText mSap,mPassword;
+    TextInputEditText mSap, mPassword;
     MaterialCardView mButton;
-    String sap,password;
+    String sap, password;
     SharedPreferences spref;
     SharedPreferences.Editor edit;
     RetrofitInterface retrofitInterface;
@@ -39,8 +39,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        spref=getApplicationContext().getSharedPreferences("user",MODE_PRIVATE);
-        edit=spref.edit();
+        spref = getApplicationContext().getSharedPreferences("user", MODE_PRIVATE);
+        edit = spref.edit();
         mSap = findViewById(R.id.sap_id);
         mPassword = findViewById(R.id.password);
         mButton = findViewById(R.id.button_login);
@@ -73,49 +73,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void login() {
-        sap=mSap.getText().toString();
-        password=mPassword.getText().toString();
+        sap = mSap.getText().toString();
+        password = mPassword.getText().toString();
         mButton.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
-        Retrofit retrofit=new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(
                 GsonConverterFactory.create()).build();
-        RetrofitInterface retrofitInterface =retrofit.create(RetrofitInterface.class);
-        final TokenRequest tokenRequest=new TokenRequest(""+mSap.getText().toString(),""+mPassword.getText().toString());
-        Call<TokenResponse> tokenResponseCall=retrofitInterface.login(tokenRequest);
+        RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
+        final TokenRequest tokenRequest = new TokenRequest("" + mSap.getText().toString(), "" + mPassword.getText().toString());
+        Call<TokenResponse> tokenResponseCall = retrofitInterface.login(tokenRequest);
         tokenResponseCall.enqueue(new Callback<TokenResponse>() {
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
-                TokenResponse tokenResponse=response.body();
+                TokenResponse tokenResponse = response.body();
                 if (tokenResponse != null) {
-                    edit.putString("name",tokenResponse.getUser().getName());
-                    edit.putString("sap",tokenResponse.getUser().getSapID());
-                    edit.putString("token",tokenResponse.getToken());
+                    edit.putString("name", tokenResponse.getUser().getName());
+                    edit.putString("sap", tokenResponse.getUser().getSapID());
+                    edit.putString("token", tokenResponse.getToken());
                     edit.commit();
-                    if(tokenResponse.getTeacher())
-                    {
-
-                        edit.putString("userType","teacher");
-                        edit.putString("specialization",tokenResponse.getUser().getSpecialization());
+                    if (tokenResponse.getTeacher()) {
+                        edit.putString("userType", "teacher");
+                        edit.putString("specialization", tokenResponse.getUser().getSpecialization());
                         edit.commit();
                         startActivity(new Intent(LoginActivity.this, TeacherHome.class));
                         finish();
-                    }
-                    else
-                    {
-                        edit.putString("userType","student");
+                    } else {
+                        edit.putString("userType", "student");
                         edit.commit();
                         startActivity(new Intent(LoginActivity.this, StudentHome.class));
                         finish();
                     }
-
-
                 } else {
                     mProgressBar.setVisibility(View.INVISIBLE);
                     mButton.setVisibility(View.VISIBLE);
                     mSap.setText("");
                     mPassword.setText("");
-                    Toast.makeText(LoginActivity.this,"SAP Id or password incorrect. Please try again",Toast.LENGTH_LONG).show();
-
+                    Toast.makeText(LoginActivity.this, "SAP Id or password incorrect. Please try again", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -123,7 +116,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onFailure(Call<TokenResponse> call, Throwable t) {
                 mProgressBar.setVisibility(View.INVISIBLE);
                 mButton.setVisibility(View.VISIBLE);
-                Toast.makeText(LoginActivity.this,""+t.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 

@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import io.github.djunicode.attendanceapp.StudentSide.StudentHome;
+
 public class UserActivity extends AppCompatActivity implements
         View.OnClickListener,
         ChangePasswordDialogFragment.OnPasswordChange{
@@ -68,5 +70,13 @@ public class UserActivity extends AppCompatActivity implements
     @Override
     public void onPasswordChange(String oldPassword, String newPassword) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent=new Intent(this, StudentHome.class);
+        startActivity(intent);
+        finish();
     }
 }
