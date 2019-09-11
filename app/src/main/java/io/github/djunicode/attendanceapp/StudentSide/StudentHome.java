@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,11 +32,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StudentHome extends AppCompatActivity {
 
-    TextView sapIdView,predictionView, percentView, nameView, initialsView;
+    TextView predictionView, percentView, nameView, initialsView;
     RelativeLayout emptyScreen;
 
     private int totalConducted;
     private int totalAttended;
+    private double totalPercent;
     SubjectAttendanceAdapter subjectAttendanceAdapter;
     ArrayList<SubjectAttendanceModel> subjectModelList;
     ListView subListView;
@@ -62,9 +64,8 @@ public class StudentHome extends AppCompatActivity {
     private void init() {
         emptyScreen = findViewById(R.id.empty_screen);
         subListView = findViewById(R.id.list_studentSubjects);
-        sapIdView=findViewById(R.id.text_sap_id);
-        percentView = findViewById(R.id.txt_mainPercent);
-        nameView = findViewById(R.id.txt_name);
+        percentView = findViewById(R.id.text_mainPercent);
+        nameView = findViewById(R.id.text_fullName);
 
         initialsView = findViewById(R.id.txt_initials);
 
@@ -76,7 +77,7 @@ public class StudentHome extends AppCompatActivity {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
         spref = getApplicationContext().getSharedPreferences("user", MODE_PRIVATE);
-        edit=spref.edit();
+        edit = spref.edit();
         Call<WebLecturesAttended> webLecturesAttendedCall = retrofitInterface.studentLectures("Token " + spref.getString("token", null));
 
         webLecturesAttendedCall.enqueue(new Callback<WebLecturesAttended>() {
@@ -89,13 +90,15 @@ public class StudentHome extends AppCompatActivity {
                             subjectModelList.add(new SubjectAttendanceModel(Integer.parseInt(e.getAttended()), Integer.parseInt(e.getTotal()), e.getType(), "" + e.getSubject()));
                         }
                         for (SubjectAttendanceModel sam : subjectModelList) {
-                            String type=sam.getLectureType();
-                            if(!type.equals("Practical")) {
+
+                            String type = sam.getLectureType();
+                            if (!type.equals("Practical")) {
                                 totalConducted += sam.getConducted();
                                 totalAttended += sam.getAttended();
                             }
                         }
-                        double totalPercent = ((double) totalAttended * 100) / (double) totalConducted;
+                        totalPercent = ((double) totalAttended * 100) / (double) totalConducted;
+//                      Log.d("StudentHome", "onResponse: " + totalConducted + " " + totalAttended);
                         subListView.setVisibility(View.VISIBLE);
 
 //                String predictionText;
@@ -106,25 +109,20 @@ public class StudentHome extends AppCompatActivity {
 //                    predictionText = "You need to\nattend: " + (3 * totalConducted - 4 * totalAttended);
 //                else
 //                    predictionText = "You need to\nattend: " + (3 * totalConducted - 4 * totalAttended);
-
-//                        percentView.setText(String.format("%.2f", totalPercent) + "%");
+                        percentView.setText(String.format("%.2f", totalPercent) + "%");
+                        totalAttended=0;
+                        totalConducted=0;
                         String str = "" + spref.getString("name", "student student");
                         String[] splitStr = str.split("\\s+");
-                        percentView.setText(spref.getString("name", "student student"));
                         nameView.setText(spref.getString("name", "student student"));
-                        sapIdView.setText("Computer Engineering");
-                        initialsView.setText("" + splitStr[0].substring(0, 1) + splitStr[splitStr.length-1].substring(0, 1));
-
+                        initialsView.setText("" + splitStr[0].substring(0, 1) + splitStr[splitStr.length - 1].substring(0, 1));
                         subjectAttendanceAdapter = new SubjectAttendanceAdapter(StudentHome.this, subjectModelList);
-
                         subListView.setAdapter(subjectAttendanceAdapter);
                     } else {
                         emptyScreen.setVisibility(View.GONE);
-
                     }
                 } else {
                     emptyScreen.setVisibility(View.GONE);
-
                 }
             }
 
@@ -139,7 +137,7 @@ public class StudentHome extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_user_details,menu);
+        inflater.inflate(R.menu.menu_user_details, menu);
         return true;
     }
 
@@ -147,6 +145,7 @@ public class StudentHome extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_item_account) {
             startActivity(new Intent(this, UserActivity.class));
+            finish();
             return true;
         }
         return false;
