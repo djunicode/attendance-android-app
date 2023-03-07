@@ -15,7 +15,6 @@ import java.util.Date;
 
 import io.github.djunicode.attendanceapp.R;
 import io.github.djunicode.attendanceapp.StudentSide.Models.DaywiseDetailsModel;
-import io.github.djunicode.attendanceapp.StudentSide.Models.SubjectAttendanceModel;
 
 public class DaywiseDetailsAdapter extends BaseAdapter {
     private Context context;

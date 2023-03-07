@@ -92,7 +92,7 @@ public class MyLectureListAdapt extends BaseAdapter{
                         lectureList.get(i).getYear()+"_"+lectureList.get(i).getDivision(),
                         lectureList.get(i).getClassRooomName(),
                         lectureList.get(i).getTiming().substring(0,8),lectureList.get(i).getTiming().substring(11),date);
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("https://unicodeattendance.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
                 RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
                 Call<deleteResponse> checkDelete=retrofitInterface.deleteLecture("Token " + spref.getString("token", null),webSendAttendance);
                 checkDelete.enqueue(new Callback<deleteResponse>() {

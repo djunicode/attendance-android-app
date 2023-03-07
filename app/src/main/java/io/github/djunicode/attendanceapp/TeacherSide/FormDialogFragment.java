@@ -7,11 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +46,7 @@ public class FormDialogFragment extends DialogFragment implements
         View.OnClickListener {
 
     private AppCompatAutoCompleteTextView yearSelect, subjectSelect, divisionSelect;
-    private TextInputEditText startTime, endTime, roomNumber;
+    private TextInputEditText startTime, endTime, roomNumber, date;
     private ImageButton saveDetails;
     ProgressBar progressBarTick;
     private ArrayList<String> year = new ArrayList<>();
@@ -78,7 +78,7 @@ public class FormDialogFragment extends DialogFragment implements
 
         spref = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         Retrofit retrofit = new Retrofit.Builder().baseUrl(
-                "https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(
+                "https://unicodeattendance.pythonanywhere.com/Attendance/").addConverterFactory(
                 GsonConverterFactory.create()).build();
         RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
         progressBarTick = view.findViewById(R.id.donePbar);
@@ -153,6 +153,8 @@ public class FormDialogFragment extends DialogFragment implements
 
         roomNumber = view.findViewById(R.id.room_input);
 
+//        date = view.findViewById(R.id.date_input);
+
         roomNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionID, KeyEvent keyEvent) {
@@ -194,7 +196,7 @@ public class FormDialogFragment extends DialogFragment implements
                     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                     String date = sdf.format(Calendar.getInstance().getTime());
                     Retrofit retrofit = new Retrofit.Builder().baseUrl(
-                            "https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(
+                            "https://unicodeattendance.pythonanywhere.com/Attendance/").addConverterFactory(
                             GsonConverterFactory.create()).build();
                     RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
                     WebSendAttendance webSendAttendance = new WebSendAttendance(null,

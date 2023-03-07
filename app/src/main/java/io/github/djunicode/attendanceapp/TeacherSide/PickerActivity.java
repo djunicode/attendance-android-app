@@ -3,10 +3,11 @@ package io.github.djunicode.attendanceapp.TeacherSide;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,7 +42,7 @@ public class PickerActivity extends AppCompatActivity implements
     private SearchView searchView;
     private RecyclerView list;
     private ProgressBar presentPercent, mProgressBar;
-    private Switch toggleSwitch;
+    private SwitchCompat toggleSwitch;
     private ArrayList<WebStudentsList> studentList = new ArrayList<>();
 
     private PickerAdapter pickerAdapter;
@@ -77,7 +78,7 @@ public class PickerActivity extends AppCompatActivity implements
         }
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(
-                "https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(
+                "https://unicodeattendance.pythonanywhere.com/Attendance/").addConverterFactory(
                 GsonConverterFactory.create()).build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
         Call<WebStudents> webStudentsCall = retrofitInterface.studentList(
@@ -167,7 +168,7 @@ public class PickerActivity extends AppCompatActivity implements
             WebSendAttendance webSendAttendance = new WebSendAttendance(studentList, subject, batch,
                     room, startTime, endTime, date);
             Retrofit retrofit = new Retrofit.Builder().baseUrl(
-                    "https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(
+                    "https://unicodeattendance.pythonanywhere.com/Attendance/").addConverterFactory(
                     GsonConverterFactory.create()).build();
             RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
             Call<WebSendAttendance> webStudentsListCall = retrofitInterface.sendAttendance(

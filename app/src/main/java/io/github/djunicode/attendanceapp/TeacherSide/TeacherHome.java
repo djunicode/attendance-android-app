@@ -3,9 +3,9 @@ package io.github.djunicode.attendanceapp.TeacherSide;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -66,7 +66,7 @@ public class TeacherHome extends AppCompatActivity implements OnDetailsSaved {
         edit=spref.edit();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String date = sdf.format(Calendar.getInstance().getTime());
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://unicodeattendance.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
         Call<WebLectureOfDay> lectureOfDay = retrofitInterface.teacherTimeTable("Token " + spref.getString("token", null), date);
         lectureOfDay.enqueue(new Callback<WebLectureOfDay>() {
