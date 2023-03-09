@@ -3,7 +3,6 @@ package io.github.djunicode.attendanceapp.StudentSide.Adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,14 +75,11 @@ public class SubjectAttendanceAdapter extends BaseAdapter {
         attendedView.setText("Attended: " + sam.getAttended());
         outOfView.setText("Out Of: " + sam.getConducted());
         type.setText(""+sam.getLectureType());
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent toAttendanceDetails=new Intent(cardView.getContext(), DaywiseDetails.class);
-                toAttendanceDetails.putExtra("subject",sam.getName());
-                toAttendanceDetails.putExtra("type",sam.getLectureType());
-                v.getContext().startActivity(toAttendanceDetails);
-            }
+        cardView.setOnClickListener(v -> {
+            Intent toAttendanceDetails=new Intent(cardView.getContext(), DaywiseDetails.class);
+            toAttendanceDetails.putExtra("subject",sam.getName());
+            toAttendanceDetails.putExtra("type",sam.getLectureType());
+            v.getContext().startActivity(toAttendanceDetails);
         });
 
         return cardView;

@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -74,7 +74,7 @@ public class StudentHome extends AppCompatActivity {
     }
 
     private void loadData() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://wizdem.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://unicodeattendance.pythonanywhere.com/Attendance/").addConverterFactory(GsonConverterFactory.create()).build();
         RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
         spref = getApplicationContext().getSharedPreferences("user", MODE_PRIVATE);
         edit=spref.edit();
@@ -114,7 +114,7 @@ public class StudentHome extends AppCompatActivity {
 
                         nameView.setText(spref.getString("name", "student student"));
 
-                        initialsView.setText("" + splitStr[0].substring(0, 1) + splitStr[splitStr.length-1].substring(0, 1));
+                        initialsView.setText("" + splitStr[0].charAt(0) + splitStr[splitStr.length-1].charAt(0));
 
                         subjectAttendanceAdapter = new SubjectAttendanceAdapter(StudentHome.this, subjectModelList);
 
